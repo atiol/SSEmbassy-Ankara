@@ -7,9 +7,6 @@
 *.userosscache
 *.sln.docstates
 
-# User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -231,12 +228,5 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
-# LightSwitch generated files
-GeneratedArtifacts/
-ModelManifest.xml
-
 # Paket dependency manager
 .paket/paket.exe
-
-# FAKE - F# Make
-.fake/
