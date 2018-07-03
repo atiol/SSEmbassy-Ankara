@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace ssembassy_ankara.Controllers
 {
-    public class HomeController : Controller
+    [RequireHttps]
+    public class CPanelController : Controller
     {
+        // GET: CPanel
         public ActionResult Index()
         {
             return View();

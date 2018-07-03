@@ -1,0 +1,166 @@
+﻿body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+nav, .embassy-text {
+    background-color: #003875;
+    font-family: 'Oswald', sans-serif;
+}
+nav a.sidenav-trigger i {
+    color: yellow;
+}
+nav .dropdown-content li a {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.page-footer {
+    background-color: #003875;
+}
+.footer-copyright {
+    background-color: #022852 !important;
+}
+nav .brand-logo {
+    position: relative;
+}
+
+/*
+nav.nav-extended .nav-content {
+    min-height: 40px;
+}
+*/
+nav .nav-extended select {
+    background-color: transparent;
+    border: rgba(38, 166, 154, 0.26);
+    color: antiquewhite;
+    margin-top: 5px;
+    height: 35px;
+}
+nav .nav-extended select > option {
+    color: rgba(17, 17, 17, 0.8)
+}
+footer ul li a {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+}
+footer h6 a {
+    color: yellow;
+}
+.card .card-title {
+    font-size: 16px;
+}
+.card .card-content {
+    padding: 5px;
+}
+.carousel {
+    border: 1px solid #eee;
+    /*margin: 25px 0;*/
+}
+.sidenav form .input-field input{
+    border: 2px solid #eee;
+    padding: 10px;
+    height: 20px;
+    width: 90%;
+    font-size: 18px;
+}
+
+/* media queries */
+/* small screens*/
+@media only screen and (max-width: 767px) {
+    a.brand-logo img {
+        width: 65px;
+        position: relative;
+        top: 8px;
+    }
+    .sidenav a.brand-logo img {
+        width: 130px;
+    }
+    nav a.sidenav-trigger i {
+        position: absolute;
+    }
+    nav.nav-extended {
+        padding: 0 15px;
+    }
+    nav span.embassy-text {
+        font-size: 16px;
+        position: relative;
+        left: 0px;
+        top: -16px;
+        margin-left: 10px;
+    }
+    
+    nav.nav-extended .nav-content {
+        min-height: 50px;
+    }
+    
+    #nav-logo {
+        display: block;
+    }
+    .footer-logo {
+        padding-top: 20px;
+    }
+    
+}
+
+/* medium size screens */
+@media only screen and (min-width: 768px) {
+    #nav-logo {
+        display: contents;
+        position: relative;
+        border: 1px solid white;
+    }
+    .embassy-text {
+        position: absolute;
+        top: 25px;
+        padding-left: 10px;
+    }
+    /*
+    nav.nav-extended .nav-content {
+        min-height: 0;
+    }
+    */
+}
+
+/* Larger screens */
+@media only screen and (min-width: 992px)
+{
+    nav a.brand-logo img {
+        width: 110px;
+        height: 110px;
+        position: absolute;
+        margin-top: 16px;
+        top: -6px;
+        left: 5px;
+    }
+    nav .nav-wrapper i {
+        height: 24px;
+        line-height: 24px;
+    }
+    nav i {
+        font-size: 24px;
+    }
+    nav ul li {
+        padding: 0;
+    }
+    nav ul a {
+        padding: 9px 10px;
+        font-size: 0.9rem;
+    }
+    nav.nav-extended {
+        padding: 0 66px;
+    }
+    nav.nav-extended .nav-content {
+        margin-top: 55px;
+        min-height: 40px;
+    }
+    .embassy-text {
+        font-size: 26px;
+        position: relative;
+        left: 125px;
+        top: 30px;
+    }
+    main.container {
+        width: 85% !important;
+    }
+    .dropdown-content li a {
+        color: #333;
+        border-bottom: 1px solid #eee;
+    }
+}

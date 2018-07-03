@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ssembassy_ankara.Models.personel>
+
+@{
+    ViewBag.Title = "Staff";
+    ViewBag.Description = "All staff working at the embassy";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@section custom_css {
+    <link href="@Url.Content("~/Content/datatables/dataTables.bootstrap.css")" rel="stylesheet"/>
+}
+<div class="col-xs-12">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.Title</h3>
+            <div class="box-tools pull-right">
+                <p class="right">@Html.ActionLink(" Add Personel", "Create", null, new { @class = "btn btn-flat btn-primary" })</p>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="personel_datatable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.personel_id)</th>
+                        <th>@Html.DisplayNameFor(model => model.name) @Html.DisplayNameFor(model => model.surname)</th>
+                        <th>@Html.DisplayNameFor(model => model.positions.position)</th>
+                        <th class="text-center">Contract Period</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.personel_id)</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name) @Html.DisplayFor(modelItem => item.surname)
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.positions.position)</td>                                <td>
+                                    @Html.DisplayFor(modelItem => item.contract_start.Date) - @Html.DisplayFor(modelItem => item.contract_end.Date)
+                                </td>
+                                <td>
+                                    @*@if (User.IsInRole("Admin") || User.Identity.Name == ViewBag.Email)
+                                    {
+                                        @Html.ActionLink("Edit |", "Edit", new { id = item.personel_id })
+                                    }*@
+                                    @Html.ActionLink("Edit |", "Edit", new { id = item.personel_id })
+                                    @Html.ActionLink("Details", "Details", new { id = item.personel_id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.personel_id })
+                                </td>
+                            </tr>
+                         }
+                            
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</div>
+@section custom_javscript {
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#personel_datatable").DataTable();
+        });
+    </script>
+}

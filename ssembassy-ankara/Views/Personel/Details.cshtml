@@ -1,0 +1,91 @@
+﻿@model ssembassy_ankara.Models.personel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>personel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.position_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.position_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contract_start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contract_start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contract_end)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contract_end)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.positions.position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.positions.position)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.personel_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

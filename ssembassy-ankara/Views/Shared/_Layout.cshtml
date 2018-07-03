@@ -1,44 +1,329 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Ajax.Utilities
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    @Styles.Render("~/default/css")
+    <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    <nav class="nav-extended z-depth-4">
+        <div class="nav-wrapper">
+            <a href="@Url.Action("Index", "Home")" class="brand-logo" id="nav-logo"><img src="@Url.Content("~/Content/img/emblem.png")" alt="S.S logo"><span class="embassy-text">Embassy Of South Sudan In Turkey</span></a>
+            <a href="#" data-target="mobile-content" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right">
+                <li>
+                    <select class="browser-default">
+                        <option value="en" selected>English</option>
+                        <option value="tr">Turkish</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="nav-content">
+                <ul class="hide-on-med-and-down">
+                    <li>
+                        <a href="#" class="dropdown-trigger" data-target="cameroun-dd">WELCOME<i class="material-icons right">arrow_drop_down</i></a>
+                        <ul class="dropdown-content" id="cameroun-dd">
+                            <li><a href="#">Our Mission</a></li>
+                            <li><a href="#">Relationship with Turkey</a></li>
+                            <li><a href="staff.html">Embassy Staff</a></li>
+                            <li><a href="#">Media</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="dropdown-trigger" data-target="afrique-dd" data-beloworigin="true" data-hover="true">ABOUT SOUTH SUDAN<i class="material-icons right">arrow_drop_down</i></a>
+                        <ul class="dropdown-content" id="afrique-dd">
+                            <li><a href="#">History of South Sudan</a></li>
+                            <li><a href="#">Education and Culture</a></li>
+                            <li><a href="#">National Anthem</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-trigger" data-target="monde-dd" data-beloworigin="true" data-hover="true">CONSULAR SERVICES<i class="material-icons right">arrow_drop_down</i></a>
+                        <ul class="dropdown-content" id="monde-dd">
+                            <li><a href="#">Visas</a></li>
+                            <li><a href="#">Register With Embassy</a></li>
+                            <li><a href="#">Other Services</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">BUSINESS AND INVESTMENTS</a>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-trigger" data-target="competitions-dd" data-beloworigin="true" data-hover="true">ARCHIVES<i class="material-icons right">arrow_drop_down</i></a>
+                        <ul class="dropdown-content" id="competitions-dd">
+                            <li><a href="#">Former Staff</a></li>
+                            <li><a href="#">Past Events</a></li>
+                        </ul>
+                    </li>
+                    <li class="right">
+                        <!-- search bar -->
+                        <a href="#">
+                            <input type="text" /><i class="material-icons">search</i>
+                        </a>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </nav> <!-- end of navbar -->
+    <!-- mobile sidenav -->
+    <ul class="sidenav" id="mobile-content">
+        <li class="nav-wrapper center">
+            <a href="@Url.Action("Index", "Home")" class="brand-logo brand-logo-mobile">
+                <img src="@Url.Content("~/Content/img/emblem.png")" />
+            </a><br><br>
+            <span>South Sudan Embassy In Turkey</span>
+        </li>
+        <li>
+            <div class="row searchbar-mobile">
+                <div class="col s12">
+                    <!-- Search -->
+                    <form method="get" action="#">
+                        <div class="input-field">
+                            <input name="q" type="search" placeholder="search..." required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> WELCOME</a>
+                    <div class="collapsible-body">
+                        <ul class="collapsible-content">
+                            <li><a href="#">Embassy Staff</a></li>
+                            <li><a href="#">Embassy Mission</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> CONSULAR SERVICES</a>
+                    <div class="collapsible-body">
+                        <ul class="collapsible-content">
+                            <li><a href="#">Visas</a></li>
+                            <li><a href="#">Register With Embassy</a></li>
+                            <li><a href="#">Other Services</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a href="#" class="collapsible-header">BUSINESS AND INVESTMENT</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> ABOUT SOUTH SUDAN</a>
+                    <div class="collapsible-body">
+                        <ul class="collapsible-content">
+                            <li><a href="#">History of South Sudan</a></li>
+                            <li><a href="#">Education and Culture</a></li>
+                            <li><a href="#">National Anthem</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> EMBASSY ARCHIVE</a>
+                    <div class="collapsible-body">
+                        <ul class="collapsible-content">
+                            <li><a href="#">Former Staff</a></li>
+                            <li><a href="#">Past Events</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul> <!-- end of sidenav -->
+    <main class="container" style="padding-top: 30px;">
+        <div class="row">
+            <!-- Content area -->
+            <div class="col s12 l8">
+                @RenderBody()
+            </div>
+            <!-- Side Nav -->
+            <div class="col s12 l4">
+                <!-- Ambassador-->
+                <div class="card horizontal">
+                    <div class="card-image valign-wrapper">
+                        <img src="@Url.Content("~/Content/img/guandong.jpg")" class="responsive-img circle">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-title">Amb. Majok Guandong</div>
+                        <div class="card-content">
+                            <ul>
+                                <li><a href="#">Ambassador's Message</a></li>
+                                <li><a href="#">Ambassador's Biography</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- welcoming message -->
+                <div class="card">
+                    <div class="card-title">Welcome Message</div>
+                    <div class="card-content">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, beatae ratione!
+                            Aut dicta fugiat quas illo qui repellat rem aliquid, tenetur atque quae molestiae.
+                            Iure earum ipsam totam adipisci repellendus?
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, beatae ratione!
+                            Aut dicta fugiat quas illo qui repellat rem aliquid, tenetur atque quae molestiae.
+                            Iure earum ipsam totam adipisci repellendus?
+                        </p>
+                    </div>
+                </div>
+
+                <!-- collapsible -->
+                <ul class="collapsible expandable">
+                    <li class="active">
+                        <div class="collapsible-header"><i class="material-icons blue-text">access_time</i> WORKING HOURS</div>
+                        <div class="collapsible-body">
+                            <address>
+                                Address: Kız Kulesi Sokak <br/>
+                                No. 1, Gazi Osman Pasa Ankara<br>
+                                <abbr title="Telephone">T: </abbr>
+                                +90 312 4360285<br>
+                                <abbr title="Fax">F: </abbr>
+                                +90 312 4360284
+
+                            </address>
+                            <address>
+                                <strong>Office Hours : </strong> Monday - Friday, 09:00am - 5:00pm
+                            </address>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- upcoming events -->
+                <ul class="collapsible expandable">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons red-text">event</i> UPCOMING EVENTS</div>
+                        <div class="collapsible-body">
+                            <ul list-style="circle">
+                                <li>
+                                    <a class="modal-trigger" href="#up-events-modal">Independece Day, 9th July</a>
+                                    <div class="modal">
+                                        <div id="up-events-modal" class="modal-content">
+                                            <p>
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio,
+                                                magnam tempore, rerum quidem sit magni, fugit neque voluptate velit dicta
+                                                nemo et consequatur at optio. Alias maiores nemo dolore quod.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">Heroes Day</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- map -->
+                <ul class="collapsible">
+                    <li class="active">
+                        <div class="collapsible-header">
+                            <i class="material-icons green-text">location_on</i> Location
+                        </div>
+                        <div class="collapsible-body" style="padding: 0;">
+                            <div class="card" style="margin: 0;">
+                                <div class="card-image">
+                                    <img src="@Url.Content("~/Content/img/map.PNG")" class="responsive-img"/>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col m4 s12">
+                    <h6><a href="#">SOUTH SUDAN EMBASSY IN TURKEY</a></h6>
+                    <div class="divider"></div>
+                    <ul>
+                        <li><a href="#">Visas</a></li>
+                        <li><a href="#">Business &amp; Investments</a></li>
+                        <li><a href="#">Other Services</a></li>
+                    </ul>
+                </div>
+                <div class="col m4 s12">
+                    <h6><a href="#">ADDRESS</a></h6>
+                    <div class="divider"></div>
+                    <address>
+                        Address: Kız Kulesi Sokak <br />
+                        No. 1, Gazi Osman Pasa Ankara<br>
+                        <abbr title="Telephone">T: </abbr>
+                        +90 312 4360285<br>
+                        <abbr title="Fax">F: </abbr>
+                        +90 312 4360284
+
+                    </address>
+                    <address>
+                        <strong>Office Hours : </strong> Monday - Friday, 09:00am - 5:00pm
+                    </address>
+                </div>
+                <div class="col m4 s12 center">
+                    <a href="@Url.Action("Index", "Home")" class="brand-logo"><img src="@Url.Content("~/Content/img/emblem.png")" class="footer-logo" alt="SS Emblem"></a>
+                    <br>For Justice, Liberty and Prosperity
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="left">
+                    © @DateTime.Now.Year All Rights Reserved. This is the official website of the embassy of South Sudan in Turkey.
+                </div>
+                <strong><a class="grey-text text-lighten-4 right waves-effect modal-trigger" href="#madeByMeModal"><small>Developed by Atiol</small></a></strong>
+                <div id="madeByMeModal" class="modal">
+                    <div class="modal-content black-text">
+                        <h5>About Atiol</h5>
+                        <p class="black-text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis,
+                            beatae ullam officia laudantium animi deserunt illo similique repellat,
+                            quia in eligendi quo quam cum nemo dolores expedita vel dolore libero!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="http://www.portakalyazilim.com.tr/tr/" target="_blank">portakal yazılım</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer><!-- end of footer-->
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    @Scripts.Render("~/bundles/defaultjs")
     @RenderSection("scripts", required: false)
 </body>
 </html>

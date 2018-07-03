@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da29198aee114d66b01bd73551b39b7e" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="embassy_dbModel.article" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.article_category" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.event" Width="1.5" PointX="5.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.event_category" Width="1.5" PointX="4" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.former_personel" Width="1.5" PointX="1.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.messages" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.positions" Width="1.5" PointX="4" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.embassy_address" Width="1.5" PointX="7.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="embassy_dbModel.FK_event_category" ManuallyRouted="false" />
+        <AssociationConnector Association="embassy_dbModel.FK_article_category_id" />
+        <EntityTypeShape EntityType="embassy_dbModel.personel" Width="1.5" PointX="1.375" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="embassy_dbModel.FK_personel_positionId" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4" PointY="0.78125" />
+          <ConnectorPoint PointX="3.7846284153863752" PointY="0.78125" />
+          <ConnectorPoint PointX="3.7846284153863752" PointY="3.625" />
+          <ConnectorPoint PointX="2.875" PointY="3.625" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -9,7 +9,7 @@ namespace ssembassy_ankara
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-2.2.4.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -19,13 +19,33 @@ namespace ssembassy_ankara
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dashboardjs").Include(
+                "~/Scripts/jquery.slimscroll.min.js",
+                "~/Scripts/fastclick.js",
+                "~/Scripts/app.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/defaultjs").Include(
+                "~/Scripts/main.js"
+                ));
+            
+            /*
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            */
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/css/dashboard").Include(
+                      "~/Content/dashboard/bootstrap.min.css",
+                      "~/Content/dashboard/font-awesome.css",
+                      "~/Content/dashboard/skin-blue.css",
+                      "~/Content/dashboard/AdminLTE.min.css"));
+
+            bundles.Add(new StyleBundle("~/default/css").Include(
+                "~/Content/default/main.css"));
         }
     }
 }
