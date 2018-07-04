@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ssembassy_ankara.Models
@@ -65,6 +66,29 @@ namespace ssembassy_ankara.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be atleast {2} characters long", MinimumLength = 4)]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
+        [Required]
+        public string UserRoles { get; set; }
+
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Contract Start")]
+        public DateTime ContractStart { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Contract Start")]
+        public DateTime ContractEnd { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string ImgUrl { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +103,12 @@ namespace ssembassy_ankara.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Position { get; set; }
+
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Phone Number should be in (555) 555 55 55 format")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

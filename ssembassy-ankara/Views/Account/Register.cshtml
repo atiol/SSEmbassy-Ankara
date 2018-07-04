@@ -1,6 +1,7 @@
 ﻿@model ssembassy_ankara.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,6 +12,12 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -30,12 +37,60 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="input-group">
+        @Html.LabelFor(m => m.Position, new { @class = "control-label" })
+        <div class="input-group-addon">
+            <span class="fa fa-user"></span>
+        </div>
+        <div class="input-group-btn">
+            @if (ViewBag.Roles != null)
+            {
+                @Html.DropDownListFor(m => m.Position, (IEnumerable<SelectListItem>) ViewBag.Position, "Select ...")
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("User Role", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("UserRoles", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ContractStart, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ContractStart, new { @class = "form-control datepicker" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ContractEnd, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ContractEnd, new { @class = "form-control datepicker" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImgUrl, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+            <input type="submit" class="btn btn-default btn-flat" value="Register" />
         </div>
     </div>
 }
 
-@section Scripts {
+@section custom_javascript {
     @Scripts.Render("~/bundles/jqueryval")
+    
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('.datepicker').datepicker(); //Initialise any date pickers
+        });
+    </script>
 }
