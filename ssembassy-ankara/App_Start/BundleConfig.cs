@@ -31,7 +31,11 @@ namespace ssembassy_ankara
             bundles.Add(new ScriptBundle("~/bundles/defaultjs").Include(
                 "~/Scripts/main.js"
                 ));
-            
+
+            bundles.Add(new ScriptBundle("~/bundles/icheck").Include(
+                "~/Scripts/icheck.min.js"
+            ));
+
             /*
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -46,6 +50,10 @@ namespace ssembassy_ankara
 
             bundles.Add(new StyleBundle("~/default/css").Include(
                 "~/Content/default/main.css"));
+
+            bundles.Add(new StyleBundle("~/css/icheck").Include(
+                    "~/Content/dashboard/blue.css"
+                ));
         }
     }
 }

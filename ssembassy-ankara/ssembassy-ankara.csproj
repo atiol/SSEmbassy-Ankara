@@ -182,7 +182,6 @@
     <Compile Include="Controllers\CPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PersonelController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dashboard\AdminLTE.min.css" />
+    <Content Include="Content\dashboard\blue.css" />
     <Content Include="Content\dashboard\bootstrap.min.css" />
     <Content Include="Content\dashboard\font-awesome.css" />
     <Content Include="Content\dashboard\skin-blue.css" />
@@ -284,6 +284,7 @@
     <Content Include="Scripts\fastclick.js" />
     <Content Include="Content\img\ss1.webp" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -333,11 +334,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
-    <Content Include="Views\Personel\Create.cshtml" />
-    <Content Include="Views\Personel\Delete.cshtml" />
-    <Content Include="Views\Personel\Details.cshtml" />
-    <Content Include="Views\Personel\Edit.cshtml" />
-    <Content Include="Views\Personel\Index.cshtml" />
     <Content Include="Views\CPanel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

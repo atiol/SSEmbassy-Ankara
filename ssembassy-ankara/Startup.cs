@@ -38,7 +38,7 @@ namespace ssembassy_ankara
                     Email = "atl.rafa@gmail.com"
                 };
 
-                string uPassword = "H@pili1992";
+                string uPassword = "M@ma400";
 
                 var chkUser = userManager.Create(user, uPassword);
 
@@ -52,6 +52,12 @@ namespace ssembassy_ankara
             if (!roleManager.RoleExists("Staff"))
             {
                 var role = new IdentityRole { Name = "Staff" };
+                roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists("Content Manager"))
+            {
+                var role = new IdentityRole { Name = "Content Manager" };
                 roleManager.Create(role);
             }
         }
