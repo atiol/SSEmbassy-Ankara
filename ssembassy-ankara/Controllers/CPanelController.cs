@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace ssembassy_ankara.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Content Manager")]
+    [RequireHttps]
     public class CPanelController : Controller
     {
         // GET: CPanel

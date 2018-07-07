@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ssembassy_ankara.Models;
+using System.Collections.Generic;
+using System.Net.Mime;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -17,11 +19,13 @@ namespace ssembassy_ankara.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _context;
 
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
-
+        
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -139,6 +143,11 @@ namespace ssembassy_ankara.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var roles = _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            ViewBag.Roles = roles;
+            var positions = _context.positions.OrderBy(p => p.position).ToList().Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position }).ToList();
+            ViewBag.Positions = positions;
+
             return View();
         }
 
@@ -152,6 +161,13 @@ namespace ssembassy_ankara.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+
+                user.Position = model.Position;
+                user.ContractEnd = model.ContractEnd;
+                user.ContractStart = model.ContractStart;
+                user.FullName = model.FullName;
+                user.ImgUrl = model.ImgUrl;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -165,6 +181,12 @@ namespace ssembassy_ankara.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     return RedirectToAction("Index", "CPanel");
                 }
+
+                var roles = _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+                ViewBag.Roles = roles;
+                var positions = _context.positions.OrderBy(p => p.position).ToList().Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position }).ToList();
+                ViewBag.Positions = positions;
+
                 AddErrors(result);
             }
 

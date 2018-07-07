@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace ssembassy_ankara.Models
 {
     using System;
@@ -15,6 +17,7 @@ namespace ssembassy_ankara.Models
     public partial class embassy_address
     {
         public string address { get; set; }
+        [Key]
         public string telephone { get; set; }
         public string email { get; set; }
         public string fax { get; set; }

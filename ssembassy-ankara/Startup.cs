@@ -35,7 +35,9 @@ namespace ssembassy_ankara
                 var user = new ApplicationUser
                 {
                     UserName = "Atiol",
-                    Email = "atl.rafa@gmail.com"
+                    Email = "atl.rafa@gmail.com",
+                    FullName = "Atiol Raphael",
+                    Position = "Systems Engineer"
                 };
 
                 string uPassword = "M@ma400";

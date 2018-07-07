@@ -186,49 +186,40 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\article.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\article_category.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EDM.Context.cs">
+    <Compile Include="Models\DbEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EDM.Context.tt</DependentUpon>
+      <DependentUpon>DbEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EDM.cs">
+    <Compile Include="Models\DbEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EDM.Designer.cs">
+    <Compile Include="Models\DbEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EDM.edmx</DependentUpon>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\embassy_address.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\event.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\event_category.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\former_personel.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\messages.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\personel.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\positions.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
+      <DependentUpon>DbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -240,6 +231,7 @@
     <Content Include="Content\dashboard\font-awesome.css" />
     <Content Include="Content\dashboard\skin-blue.css" />
     <Content Include="Content\datatables\dataTables.bootstrap.css" />
+    <Content Include="Content\datepicker\datepicker.css" />
     <Content Include="Content\default\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\achai.jpg" />
@@ -256,26 +248,20 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\EDM.Context.tt">
+    <Content Include="Models\DbEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EDM.edmx</DependentUpon>
-      <LastGenOutput>EDM.Context.cs</LastGenOutput>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+      <LastGenOutput>DbEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EDM.tt">
+    <Content Include="Models\DbEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EDM.edmx</DependentUpon>
-      <LastGenOutput>EDM.cs</LastGenOutput>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+      <LastGenOutput>DbEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\app.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\EDM.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EDM.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\EDM.edmx.diagram">
-      <DependentUpon>EDM.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -283,6 +269,13 @@
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\fastclick.js" />
     <Content Include="Content\img\ss1.webp" />
+    <EntityDeploy Include="Models\DbEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DbEntities.edmx.diagram">
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
@@ -291,6 +284,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.inputmask.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

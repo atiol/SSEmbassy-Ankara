@@ -1,10 +1,23 @@
 ﻿@model ssembassy_ankara.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    Layout = null;
 }
-
-<h2>@ViewBag.Title.</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SS Embassy | Registration Page</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6, font-awesome, Theme style -->
+    @Styles.Render("~/css/dashboard")
+    @Styles.Render("~/css/datepicker")
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+</head>
+@*<h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -55,9 +68,9 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.Label("User Role", new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.UserRoles, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownList("UserRoles", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+            @Html.DropDownListFor(m => m.UserRoles, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
         </div>
     </div>
     <div class="form-group">
@@ -75,7 +88,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.ImgUrl, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control", placeholder = "Url of the image" })
         </div>
     </div>
     <div class="form-group">
@@ -83,14 +96,114 @@
             <input type="submit" class="btn btn-default btn-flat" value="Register" />
         </div>
     </div>
-}
+}*@
 
-@section custom_javascript {
-    @Scripts.Render("~/bundles/jqueryval")
-    
-    <script type="text/javascript">
-        $(function () { // will trigger when the document is ready
-            $('.datepicker').datepicker(); //Initialise any date pickers
+<body class="hold-transition register-page">
+<div class="register-box">
+    <div class="register-logo">
+        <a href="@Url.Action("Index", "Home")">
+            <img src="@Url.Content("~/Content/img/emblem.png")"/><br/>
+            <small>EMBASSY OF SOUTH SUDAN IN TURKEY</small>
+        </a>
+    </div>
+    <div class="register-box-body">
+        <p class="login-box-msg">Register a new staff</p>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="divider"></div>
+
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User name for login" })
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Telephone" })
+                <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    @if (ViewBag.Roles != null)
+                    {
+                        @Html.DropDownListFor(m => m.UserRoles, (IEnumerable<SelectListItem>) ViewBag.Roles, "Select ...", new { @class = "form-control" } )
+                    }
+                    else
+                    {
+                        <small class="text-red">Roles unavailable</small>
+                    }
+                </div>
+                <div class="col-xs-4">
+                    @Html.LabelFor(m => m.UserRoles, new { @class = "control-label" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    @if (ViewBag.Positions != null)
+                    {
+                        @Html.DropDownListFor(m => m.Position, (IEnumerable<SelectListItem>)ViewBag.Positions, "Select ...", new { @class = "form-control" })
+                    }
+                    else
+                    {
+                        <small class="text-red">Positions unavailable</small>
+                    }
+                </div>
+                <div class="col-xs-4">
+                    @Html.LabelFor(m => m.Position, new { @class = "control-label" })
+                </div>
+            </div>
+            <div class="form-group date">
+                @Html.TextBoxFor(m => m.ContractStart, new {id = "cs_date", @class = "form-control", placeholder = "Contract start date..." })
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+            </div>
+            <div class="form-group date">
+                @Html.TextBoxFor(m => m.ContractEnd, new { @class = "form-control", placeholder = "Contract End date..." })
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control", placeholder = "http://..." })
+                <span class="glyphicon glyphicon-picture form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="submit" class="btn btn-default btn-flat pull-right" value="Register" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrapjs")
+@Scripts.Render("~/bundles/datepicker")
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#datepicker').datepicker({
+            autoclose: true
         });
-    </script>
-}
+
+        $('#phone').attr(
+            {
+                'data-inputmask': '"mask": "(999) 999-9999"',
+                'data-mask': 'data-mask'
+            });
+    });
+</script>
+</body>
+</html>

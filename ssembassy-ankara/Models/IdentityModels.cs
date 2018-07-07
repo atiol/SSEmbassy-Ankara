@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +18,13 @@ namespace ssembassy_ankara.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string ImgUrl { get; set; }
+        [Required]
+        public string FullName { get; set; }
+
+        public string Position { get; set; }
+        public DateTime ContractStart { get; set; }
+        public DateTime ContractEnd { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -24,6 +33,13 @@ namespace ssembassy_ankara.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<@event> @event { get; set; }
+        public DbSet<event_category> event_category { get; set; }
+        public DbSet<former_personel> former_personel { get; set; }
+        public DbSet<messages> messages { get; set; }
+        public DbSet<positions> positions { get; set; }
+        public DbSet<embassy_address> embassy_address { get; set; }
 
         public static ApplicationDbContext Create()
         {

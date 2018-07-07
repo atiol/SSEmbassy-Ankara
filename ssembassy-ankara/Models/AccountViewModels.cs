@@ -103,7 +103,6 @@ namespace ssembassy_ankara.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
         public string Position { get; set; }
 
         [DataType(DataType.PhoneNumber, ErrorMessage = "Phone Number should be in (555) 555 55 55 format")]

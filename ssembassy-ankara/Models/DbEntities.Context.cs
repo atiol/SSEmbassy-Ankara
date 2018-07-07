@@ -13,10 +13,10 @@ namespace ssembassy_ankara.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class embassy_dbEntities : DbContext
+    public partial class DbEntities : DbContext
     {
-        public embassy_dbEntities()
-            : base("name=embassy_dbEntities")
+        public DbEntities()
+            : base("DefaultConnection")
         {
         }
     
@@ -25,14 +25,11 @@ namespace ssembassy_ankara.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<article> article { get; set; }
-        public virtual DbSet<article_category> article_category { get; set; }
         public virtual DbSet<@event> @event { get; set; }
         public virtual DbSet<event_category> event_category { get; set; }
         public virtual DbSet<former_personel> former_personel { get; set; }
         public virtual DbSet<messages> messages { get; set; }
         public virtual DbSet<positions> positions { get; set; }
         public virtual DbSet<embassy_address> embassy_address { get; set; }
-        public virtual DbSet<personel> personel { get; set; }
     }
 }
