@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="27c7bc3585074d57bb91b5d44340adb0" Name="Diagram1">
-        <EntityTypeShape EntityType="embassy_dbModel.article" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="embassy_dbModel.article_category" Width="1.5" PointX="2.125" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.article" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="embassy_dbModel.article_category" Width="1.5" PointX="0.5" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="embassy_dbModel.event" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="embassy_dbModel.event_category" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="embassy_dbModel.former_personel" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="true" />

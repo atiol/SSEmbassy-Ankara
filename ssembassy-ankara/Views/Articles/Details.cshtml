@@ -1,0 +1,43 @@
+﻿@model ssembassy_ankara.Models.article
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_dashboard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.category_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contents)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

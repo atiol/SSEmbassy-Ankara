@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
+
 namespace ssembassy_ankara.Models
 {
     using System;
@@ -16,7 +19,9 @@ namespace ssembassy_ankara.Models
     {
         public int id { get; set; }
         public string author { get; set; }
+        [ForeignKey("article_category")]
         public int category_id { get; set; }
+        [AllowHtml]
         public string contents { get; set; }
     
         public virtual article_category article_category { get; set; }
