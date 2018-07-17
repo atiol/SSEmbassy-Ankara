@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -21,7 +23,6 @@ namespace ssembassy_ankara.Models
         public string ImgUrl { get; set; }
         [Required]
         public string FullName { get; set; }
-
         public string Position { get; set; }
         public DateTime ContractStart { get; set; }
         public DateTime ContractEnd { get; set; }
@@ -34,16 +35,24 @@ namespace ssembassy_ankara.Models
         {
         }
 
-        public DbSet<@event> @event { get; set; }
-        public DbSet<event_category> event_category { get; set; }
-        public DbSet<former_personel> former_personel { get; set; }
-        public DbSet<messages> messages { get; set; }
-        public DbSet<positions> positions { get; set; }
-        public DbSet<embassy_address> embassy_address { get; set; }
+        //public DbSet<@event> Event { get; set; }
+        //public DbSet<event_category> EventCategory { get; set; }
+        //public DbSet<former_personel> FormerPersonel { get; set; }
+        //public DbSet<messages> Messages { get; set; }
+        //public DbSet<positions> Positions { get; set; }
+        //public DbSet<embassy_address> EmbassyAddress { get; set; }
+        //public DbSet<WelcomeMessage> WelcomeMessage { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

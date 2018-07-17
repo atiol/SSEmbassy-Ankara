@@ -29,8 +29,7 @@ namespace ssembassy_ankara
                 // create admin role first
                 var role = new IdentityRole { Name = "Admin" };
                 roleManager.Create(role);
-
-
+                
                 // create admin user
                 var user = new ApplicationUser
                 {
