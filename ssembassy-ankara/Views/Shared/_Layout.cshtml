@@ -164,28 +164,10 @@
                 <h3>Ambassador info here</h3>
 
                 <!-- welcoming message -->
-                <h3>Welcome message here</h3>
+                @Html.Action("_WelcomeMessagePartialViewResult", "MainLayoutPartials")
 
                 <!-- working hours and address -->
-                <ul class="collapsible expandable">
-                    <li class="active">
-                        <div class="collapsible-header"><i class="material-icons blue-text">access_time</i> WORKING HOURS</div>
-                        <div class="collapsible-body">
-                            <address>
-                                Address: Kız Kulesi Sokak <br/>
-                                No. 1, Gazi Osman Pasa Ankara<br>
-                                <abbr title="Telephone">T: </abbr>
-                                +90 312 4360285<br>
-                                <abbr title="Fax">F: </abbr>
-                                +90 312 4360284
-
-                            </address>
-                            <address>
-                                <strong>Office Hours : </strong> Monday - Friday, 09:00am - 5:00pm
-                            </address>
-                        </div>
-                    </li>
-                </ul>
+                @Html.Action("_EmbassyAddressPartialViewResult", "MainLayoutPartials")
 
                 <!-- upcoming events -->
                 <ul class="collapsible expandable">

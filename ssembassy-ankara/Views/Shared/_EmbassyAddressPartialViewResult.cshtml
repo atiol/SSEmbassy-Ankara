@@ -1,0 +1,21 @@
+﻿@model ssembassy_ankara.Models.embassy_address
+
+<!-- collapsible -->
+<ul class="collapsible expandable">
+    <li class="active">
+        <div class="collapsible-header"><i class="material-icons blue-text">access_time</i> WORKING HOURS</div>
+        <div class="collapsible-body">
+            <address>
+                Address: @Model.address
+                <abbr title="Telephone">T: </abbr>
+                @Model.telephone<br>
+                <abbr title="Fax">F: </abbr>
+                @Model.fax
+    
+            </address>
+            <address>
+                <strong>Office Hours : </strong> Monday - Friday, 09:00am - 5:00pm
+            </address>
+        </div>
+    </li>
+</ul>

@@ -163,14 +163,25 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Staff</span>
+                        <i class="fa fa-users"></i> <span>Staff</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
                         <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> All Staff</a></li>
+                        <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Former Staff</a></li>
                     </ul>
+                </li>
+                <li class="treeview">
+                    <a href="@Url.Action("Index", "CPanel")">
+                        <i class="fa fa-user"></i> <span>Ambassador</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="@Url.Action("Index", "CPanel")">
+                        <i class="fa fa-newspaper-o"></i> <span>News</span>
+                    </a>
                 </li>
             </ul>
         </section>

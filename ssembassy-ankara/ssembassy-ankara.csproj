@@ -182,13 +182,57 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainLayoutPartialsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AmbassadorViewModel.cs" />
+    <Compile Include="Models\article.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\article_category.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\embassy_address.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\event.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\event_category.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\former_personel.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\messages.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\positions.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WelcomeMessage.cs">
+      <DependentUpon>DbEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -216,6 +260,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\DbEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+      <LastGenOutput>DbEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DbEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+      <LastGenOutput>DbEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -227,6 +281,13 @@
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\fastclick.js" />
     <Content Include="Content\img\ss1.webp" />
+    <EntityDeploy Include="Models\DbEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DbEntities.edmx.diagram">
+      <DependentUpon>DbEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
@@ -431,9 +492,12 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Shared\_WelcomeMessagePartialViewResult.cshtml" />
+    <Content Include="Views\Shared\_EmbassyAddressPartialViewResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\MainLayoutPartials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
