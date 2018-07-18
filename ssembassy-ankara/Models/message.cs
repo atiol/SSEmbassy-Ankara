@@ -12,11 +12,11 @@ namespace ssembassy_ankara.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class messages
+    public partial class message
     {
         public int id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
-        public string message { get; set; }
+        public string message1 { get; set; }
     }
 }

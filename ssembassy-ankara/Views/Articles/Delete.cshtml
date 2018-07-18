@@ -21,11 +21,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.category_id)
+            @Html.DisplayNameFor(model => model.article_category)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.category_id)
+            @Html.DisplayFor(model => model.article_category.category)
         </dd>
 
         <dt>
@@ -33,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.contents)
+            @Html.Raw(@Model.contents)
         </dd>
 
     </dl>

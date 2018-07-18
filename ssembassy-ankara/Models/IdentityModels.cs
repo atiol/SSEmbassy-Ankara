@@ -38,8 +38,8 @@ namespace ssembassy_ankara.Models
         public DbSet<@event> Event { get; set; }
         public DbSet<event_category> EventCategory { get; set; }
         public DbSet<former_personel> FormerPersonel { get; set; }
-        public DbSet<messages> Messages { get; set; }
-        public DbSet<positions> Positions { get; set; }
+        public DbSet<message> Messages { get; set; }
+        public DbSet<position> Positions { get; set; }
         public DbSet<embassy_address> EmbassyAddress { get; set; }
         public DbSet<WelcomeMessage> WelcomeMessage { get; set; }
         public DbSet<article> Articles { get; set; }

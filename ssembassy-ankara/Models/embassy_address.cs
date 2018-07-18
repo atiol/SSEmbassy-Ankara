@@ -14,10 +14,10 @@ namespace ssembassy_ankara.Models
     
     public partial class embassy_address
     {
+        public int id { get; set; }
         public string address { get; set; }
         public string telephone { get; set; }
         public string email { get; set; }
         public string fax { get; set; }
-        public int id { get; set; }
     }
 }

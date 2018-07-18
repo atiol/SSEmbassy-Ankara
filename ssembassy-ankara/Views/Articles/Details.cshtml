@@ -18,13 +18,25 @@
         <dd>
             @Html.DisplayFor(model => model.author)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.category_id)
+            @Html.DisplayNameFor(model => model.published)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.category_id)
+            @Html.DisplayFor(model => model.published)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.article_category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.article_category.category)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.title)
         </dd>
 
         <dt>
@@ -32,7 +44,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.contents)
+            @Html.Raw(Model.contents)
         </dd>
 
     </dl>

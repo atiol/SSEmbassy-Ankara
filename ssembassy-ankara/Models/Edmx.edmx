@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="embassy_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MyDbModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="article">
           <Key>
             <PropertyRef Name="id" />
@@ -13,6 +13,8 @@
           <Property Name="author" Type="nvarchar" MaxLength="50" />
           <Property Name="category_id" Type="int" Nullable="false" />
           <Property Name="contents" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="published" Type="date" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="article_category">
           <Key>
@@ -109,7 +111,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="embassy_dbModelStoreContainer">
+        <EntityContainer Name="MyDbModelsStoreContainer">
           <EntitySet Name="article" EntityType="Self.article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="article_category" EntityType="Self.article_category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="embassy_address" EntityType="Self.embassy_address" Schema="dbo" store:Type="Tables" />
@@ -128,10 +130,11 @@
             <End Role="event" EntitySet="event" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="embassy_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MyDbModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="article">
           <Key>
             <PropertyRef Name="id" />
@@ -140,6 +143,8 @@
           <Property Name="author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="category_id" Type="Int32" Nullable="false" />
           <Property Name="contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="published" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="article_category" Relationship="Self.FK_article_category_id" FromRole="article" ToRole="article_category" />
         </EntityType>
         <EntityType Name="article_category">
@@ -148,7 +153,17 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="article" Relationship="Self.FK_article_category_id" FromRole="article_category" ToRole="article" />
+          <NavigationProperty Name="articles" Relationship="Self.FK_article_category_id" FromRole="article_category" ToRole="article" />
+        </EntityType>
+        <EntityType Name="embassy_address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="event">
           <Key>
@@ -168,7 +183,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="event" Relationship="Self.FK_event_category" FromRole="event_category" ToRole="event" />
+          <NavigationProperty Name="events" Relationship="Self.FK_event_category" FromRole="event_category" ToRole="event" />
         </EntityType>
         <EntityType Name="former_personel">
           <Key>
@@ -182,21 +197,21 @@
           <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="messages">
+        <EntityType Name="message">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="positions">
+        <EntityType Name="position">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="position1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="duties" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WelcomeMessage">
@@ -205,16 +220,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="embassy_address">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="true" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_article_category_id">
           <End Role="article_category" Type="Self.article_category" Multiplicity="1" />
@@ -241,22 +246,22 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="article" EntityType="Self.article" />
+          <EntitySet Name="articles" EntityType="Self.article" />
           <EntitySet Name="article_category" EntityType="Self.article_category" />
-          <EntitySet Name="event" EntityType="Self.event" />
+          <EntitySet Name="embassy_address" EntityType="Self.embassy_address" />
+          <EntitySet Name="events" EntityType="Self.event" />
           <EntitySet Name="event_category" EntityType="Self.event_category" />
           <EntitySet Name="former_personel" EntityType="Self.former_personel" />
-          <EntitySet Name="messages" EntityType="Self.messages" />
-          <EntitySet Name="positions" EntityType="Self.positions" />
-          <EntitySet Name="WelcomeMessage" EntityType="Self.WelcomeMessage" />
-          <EntitySet Name="embassy_address" EntityType="Self.embassy_address" />
+          <EntitySet Name="messages" EntityType="Self.message" />
+          <EntitySet Name="positions" EntityType="Self.position" />
+          <EntitySet Name="WelcomeMessages" EntityType="Self.WelcomeMessage" />
           <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
             <End Role="article_category" EntitySet="article_category" />
-            <End Role="article" EntitySet="article" />
+            <End Role="article" EntitySet="articles" />
           </AssociationSet>
           <AssociationSet Name="FK_event_category" Association="Self.FK_event_category">
             <End Role="event_category" EntitySet="event_category" />
-            <End Role="event" EntitySet="event" />
+            <End Role="event" EntitySet="events" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -264,27 +269,40 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="embassy_dbModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="article">
-            <EntityTypeMapping TypeName="embassy_dbModel.article">
+        <EntityContainerMapping StorageEntityContainer="MyDbModelsStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="articles">
+            <EntityTypeMapping TypeName="MyDbModels.article">
               <MappingFragment StoreEntitySet="article">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="contents" ColumnName="contents" />
+                <ScalarProperty Name="published" ColumnName="published" />
+                <ScalarProperty Name="title" ColumnName="title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="article_category">
-            <EntityTypeMapping TypeName="embassy_dbModel.article_category">
+            <EntityTypeMapping TypeName="MyDbModels.article_category">
               <MappingFragment StoreEntitySet="article_category">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="category" ColumnName="category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="event">
-            <EntityTypeMapping TypeName="embassy_dbModel.event">
+          <EntitySetMapping Name="embassy_address">
+            <EntityTypeMapping TypeName="MyDbModels.embassy_address">
+              <MappingFragment StoreEntitySet="embassy_address">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="MyDbModels.event">
               <MappingFragment StoreEntitySet="event">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -296,7 +314,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="event_category">
-            <EntityTypeMapping TypeName="embassy_dbModel.event_category">
+            <EntityTypeMapping TypeName="MyDbModels.event_category">
               <MappingFragment StoreEntitySet="event_category">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="category" ColumnName="category" />
@@ -304,7 +322,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="former_personel">
-            <EntityTypeMapping TypeName="embassy_dbModel.former_personel">
+            <EntityTypeMapping TypeName="MyDbModels.former_personel">
               <MappingFragment StoreEntitySet="former_personel">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -317,40 +335,29 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="embassy_dbModel.messages">
+            <EntityTypeMapping TypeName="MyDbModels.message">
               <MappingFragment StoreEntitySet="messages">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="message1" ColumnName="message" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="positions">
-            <EntityTypeMapping TypeName="embassy_dbModel.positions">
+            <EntityTypeMapping TypeName="MyDbModels.position">
               <MappingFragment StoreEntitySet="positions">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="position1" ColumnName="position" />
                 <ScalarProperty Name="duties" ColumnName="duties" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WelcomeMessage">
-            <EntityTypeMapping TypeName="embassy_dbModel.WelcomeMessage">
+          <EntitySetMapping Name="WelcomeMessages">
+            <EntityTypeMapping TypeName="MyDbModels.WelcomeMessage">
               <MappingFragment StoreEntitySet="WelcomeMessage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="embassy_address">
-            <EntityTypeMapping TypeName="embassy_dbModel.embassy_address">
-              <MappingFragment StoreEntitySet="embassy_address">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="telephone" ColumnName="telephone" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -368,7 +375,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

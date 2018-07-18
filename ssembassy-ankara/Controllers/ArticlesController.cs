@@ -17,7 +17,7 @@ namespace ssembassy_ankara.Controllers
         // GET: Articles
         public ActionResult Index()
         {
-            return View(_db.Articles.ToList());
+            return View(_db.Articles.Include(a => a.article_category).ToList());
         }
 
         // GET: Articles/Details/5
@@ -27,7 +27,7 @@ namespace ssembassy_ankara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            article article = _db.Articles.Find(id);
+            var article = _db.Articles.Find(id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -46,15 +46,15 @@ namespace ssembassy_ankara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,author,category_id,contents")] article article)
+        public ActionResult Create([Bind(Include = "id,author,category_id,contents, title")] article article)
         {
             if (ModelState.IsValid)
             {
+                article.published = DateTime.Now;
                 _db.Articles.Add(article);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(article);
         }
 
@@ -65,7 +65,7 @@ namespace ssembassy_ankara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            article article = _db.Articles.Find(id);
+            var article = _db.Articles.Find(id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace ssembassy_ankara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,author,category_id,contents")] article article)
+        public ActionResult Edit([Bind(Include = "id,author,category_id,contents, title")] article article)
         {
             if (ModelState.IsValid)
             {

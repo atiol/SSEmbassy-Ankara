@@ -23,6 +23,8 @@ namespace ssembassy_ankara.Models
         public int category_id { get; set; }
         [AllowHtml]
         public string contents { get; set; }
+        public DateTime published { get; set; }
+        public string title { get; set; }
     
         public virtual article_category article_category { get; set; }
     }

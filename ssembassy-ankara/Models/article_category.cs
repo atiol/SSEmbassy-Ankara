@@ -17,13 +17,13 @@ namespace ssembassy_ankara.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public article_category()
         {
-            this.article = new HashSet<article>();
+            this.articles = new HashSet<article>();
         }
     
         public int id { get; set; }
         public string category { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<article> article { get; set; }
+        public virtual ICollection<article> articles { get; set; }
     }
 }

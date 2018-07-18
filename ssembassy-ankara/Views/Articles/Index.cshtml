@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.category_id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.contents)
+            @Html.DisplayNameFor(model => model.title)
         </th>
         <th>
             Actions
@@ -34,10 +34,10 @@
                      @Html.DisplayFor(modelItem => item.author)
                  </td>
                  <td>
-                     @Html.DisplayFor(modelItem => item.category_id)
+                     @Html.DisplayFor(modelItem => item.article_category.category)
                  </td>
                  <td>
-                     @Html.Raw(item.contents.Substring(0, 50))
+                     @Html.Raw(item.title)
                  </td>
                  <td>
                      @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

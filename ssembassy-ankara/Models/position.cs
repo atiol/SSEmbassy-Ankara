@@ -12,10 +12,10 @@ namespace ssembassy_ankara.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class positions
+    public partial class position
     {
         public int id { get; set; }
-        public string position { get; set; }
+        public string position1 { get; set; }
         public string duties { get; set; }
     }
 }
