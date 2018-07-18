@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace ssembassy_ankara.Models
 {
@@ -100,13 +101,20 @@ namespace ssembassy_ankara.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Position { get; set; }
 
         [DataType(DataType.PhoneNumber, ErrorMessage = "Phone Number should be in (555) 555 55 55 format")]
         public string PhoneNumber { get; set; }
+
+        [AllowHtml]
+        [Display(Name = "Biography")]
+        public string Biography { get; set; }
+        [AllowHtml]
+        [Display(Name = "Message")]
+        public string Message { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -124,7 +132,7 @@ namespace ssembassy_ankara.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

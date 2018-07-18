@@ -13,7 +13,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6, font-awesome, Theme style -->
     @Styles.Render("~/css/dashboard")
-    @Styles.Render("~/css/datepicker")
+    @*@Styles.Render("~/css/datepicker")*@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 </head>
@@ -180,6 +180,12 @@
                 @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control", placeholder = "http://..." })
                 <span class="glyphicon glyphicon-picture form-control-feedback"></span>
             </div>
+            <div class="form-group has-feedback">
+                @Html.TextAreaFor(m => m.Biography)
+            </div>
+            <div class="form-group has-feedback">
+                @Html.TextAreaFor(m => m.Message)
+            </div>
             <div class="row">
                 <div class="col-xs-12">
                     <input type="submit" class="btn btn-default btn-flat pull-right" value="Register" />
@@ -191,18 +197,35 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/bootstrapjs")
-@Scripts.Render("~/bundles/datepicker")
+@*@Scripts.Render("~/bundles/datepicker")*@
+<script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#datepicker').datepicker({
-            autoclose: true
+        tinymce.init({
+            selector: 'textarea',
+            height: 200,
+            theme: 'modern',
+            plugins: 'print preview fullpage searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools mediaembed  linkchecker contextmenu colorpicker textpattern help',
+            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+            image_advtab: true,
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+            ]
         });
 
-        $('#phone').attr(
-            {
-                'data-inputmask': '"mask": "(999) 999-9999"',
-                'data-mask': 'data-mask'
-            });
+        //$('#datepicker').datepicker({
+        //    autoclose: true
+        //});
+
+        //$('#phone').attr(
+        //    {
+        //        'data-inputmask': '"mask": "(999) 999-9999"',
+        //        'data-mask': 'data-mask'
+        //    });
     });
 </script>
 </body>

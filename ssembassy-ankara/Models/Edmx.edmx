@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyDbModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyDbModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="article">
           <Key>
             <PropertyRef Name="id" />
@@ -130,8 +130,7 @@
             <End Role="event" EntitySet="event" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyDbModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -206,12 +205,12 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="position">
+        <EntityType Name="positions">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="position1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="duties" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WelcomeMessage">
@@ -253,7 +252,7 @@
           <EntitySet Name="event_category" EntityType="Self.event_category" />
           <EntitySet Name="former_personel" EntityType="Self.former_personel" />
           <EntitySet Name="messages" EntityType="Self.message" />
-          <EntitySet Name="positions" EntityType="Self.position" />
+          <EntitySet Name="positions" EntityType="MyDbModels.positions" />
           <EntitySet Name="WelcomeMessages" EntityType="Self.WelcomeMessage" />
           <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
             <End Role="article_category" EntitySet="article_category" />
@@ -345,10 +344,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="positions">
-            <EntityTypeMapping TypeName="MyDbModels.position">
+            <EntityTypeMapping TypeName="MyDbModels.positions">
               <MappingFragment StoreEntitySet="positions">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="position1" ColumnName="position" />
+                <ScalarProperty Name="position" ColumnName="position" />
                 <ScalarProperty Name="duties" ColumnName="duties" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -375,7 +374,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

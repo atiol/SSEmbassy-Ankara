@@ -227,7 +227,7 @@
     <Compile Include="Models\message.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\position.cs">
+    <Compile Include="Models\positions.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WelcomeMessage.cs">

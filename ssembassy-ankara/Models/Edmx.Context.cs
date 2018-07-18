@@ -32,7 +32,7 @@ namespace ssembassy_ankara.Models
         public virtual DbSet<event_category> event_category { get; set; }
         public virtual DbSet<former_personel> former_personel { get; set; }
         public virtual DbSet<message> messages { get; set; }
-        public virtual DbSet<position> positions { get; set; }
+        public virtual DbSet<positions> positions { get; set; }
         public virtual DbSet<WelcomeMessage> WelcomeMessages { get; set; }
     }
 }

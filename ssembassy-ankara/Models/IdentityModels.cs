@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -26,6 +27,10 @@ namespace ssembassy_ankara.Models
         public string Position { get; set; }
         public DateTime ContractStart { get; set; }
         public DateTime ContractEnd { get; set; }
+        [AllowHtml]
+        public string Biography { get; set; }
+        [AllowHtml]
+        public string Message { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -39,7 +44,7 @@ namespace ssembassy_ankara.Models
         public DbSet<event_category> EventCategory { get; set; }
         public DbSet<former_personel> FormerPersonel { get; set; }
         public DbSet<message> Messages { get; set; }
-        public DbSet<position> Positions { get; set; }
+        public DbSet<positions> Positions { get; set; }
         public DbSet<embassy_address> EmbassyAddress { get; set; }
         public DbSet<WelcomeMessage> WelcomeMessage { get; set; }
         public DbSet<article> Articles { get; set; }

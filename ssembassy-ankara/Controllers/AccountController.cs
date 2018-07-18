@@ -145,8 +145,10 @@ namespace ssembassy_ankara.Controllers
         {
             var roles = _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = roles;
-            var positions = _context.Positions.OrderBy(p => p.position1).ToList().Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position1 }).ToList();
-            //ViewBag.Positions = positions;
+            var positions = _context.Positions.OrderBy(p => p.position).ToList()
+                .Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position })
+                .ToList();
+            ViewBag.Positions = positions;
 
             return View();
         }
@@ -167,6 +169,8 @@ namespace ssembassy_ankara.Controllers
                 user.ContractStart = model.ContractStart;
                 user.FullName = model.FullName;
                 user.ImgUrl = model.ImgUrl;
+                user.Biography = model.Biography;
+                user.Message = model.Message;
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -184,7 +188,7 @@ namespace ssembassy_ankara.Controllers
 
                 var roles = _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
                 ViewBag.Roles = roles;
-                var positions = _context.Positions.OrderBy(p => p.position1).ToList().Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position1 }).ToList();
+                var positions = _context.Positions.OrderBy(p => p.position).ToList().Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position }).ToList();
                 ViewBag.Positions = positions;
 
                 AddErrors(result);
