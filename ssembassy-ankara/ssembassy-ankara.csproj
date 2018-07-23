@@ -223,6 +223,7 @@
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LayoutViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\message.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
