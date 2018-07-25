@@ -5,13 +5,14 @@
     Layout = "~/Views/Shared/_dashboard.cshtml";
 }
 
-<h2>Articles List</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.published)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.author)
         </th>
@@ -29,22 +30,25 @@
     @if (Model.Any())
     {
         foreach (var item in Model) {
-             <tr>
-                 <td>
-                     @Html.DisplayFor(modelItem => item.author)
-                 </td>
-                 <td>
-                     @Html.DisplayFor(modelItem => item.article_category.category)
-                 </td>
-                 <td>
-                     @Html.Raw(item.title)
-                 </td>
-                 <td>
-                     @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                     @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                     @Html.ActionLink("Delete", "Delete", new { id=item.id })
-                 </td>
-             </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.published.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.article_category.category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.id}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.id})
+                </td>
+            </tr>
         }
     }
     else

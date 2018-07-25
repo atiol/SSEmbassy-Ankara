@@ -192,6 +192,7 @@
     <Compile Include="Models\article.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Articles.cs" />
     <Compile Include="Models\article_category.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
@@ -289,6 +290,10 @@
     <Content Include="Models\Edmx.edmx.diagram">
       <DependentUpon>Edmx.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />

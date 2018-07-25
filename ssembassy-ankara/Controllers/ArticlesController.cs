@@ -14,6 +14,23 @@ namespace ssembassy_ankara.Controllers
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
+
+        public List<SelectListItem> PopulateArticleCategory()
+        {
+            var articleCategories = _db.ArticleCategory.ToList();
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            foreach (var item in articleCategories)
+            {
+                categoryList.Add(
+                    new SelectListItem
+                    {
+                        Text = item.category,
+                        Value = item.id.ToString()
+                    });
+            }
+
+            return categoryList;
+        }
         // GET: Articles
         public ActionResult Index()
         {
@@ -38,6 +55,7 @@ namespace ssembassy_ankara.Controllers
         // GET: Articles/Create
         public ActionResult Create()
         {
+            ViewBag.ArticleCategoryList = PopulateArticleCategory();
             return View();
         }
 
@@ -50,11 +68,12 @@ namespace ssembassy_ankara.Controllers
         {
             if (ModelState.IsValid)
             {
-                article.published = DateTime.Now;
+                article.published = DateTime.Parse(DateTime.Now.ToString("d"));
                 _db.Articles.Add(article);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ArticleCategoryList = PopulateArticleCategory();
             return View(article);
         }
 
@@ -70,6 +89,8 @@ namespace ssembassy_ankara.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ArticleCategoryList = PopulateArticleCategory();
             return View(article);
         }
 
@@ -78,7 +99,7 @@ namespace ssembassy_ankara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,author,category_id,contents, title")] article article)
+        public ActionResult Edit([Bind(Include = "id,published,author,title,category_id,contents")] article article)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +107,8 @@ namespace ssembassy_ankara.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.ArticleCategoryList = PopulateArticleCategory();
             return View(article);
         }
 

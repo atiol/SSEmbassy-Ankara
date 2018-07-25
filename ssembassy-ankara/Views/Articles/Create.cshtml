@@ -1,63 +1,65 @@
 ﻿@model ssembassy_ankara.Models.article
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Article";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h4 class="box-title">New article</h4>
+                    <div class="box-tools pull-right"></div>
+                </div>
+                @using (Html.BeginForm()) 
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.author)
+                            <div class="col-xs-12">
+                                @Html.EditorFor(model => model.author, new { htmlAttributes = new { @class = "form-control", placeholder = "Author" } })
+                                @Html.ValidationMessageFor(model => model.author, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-<h2>Create</h2>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.title, new {@class = "control-label"})
+                            <div class="col-xs-12">
+                                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", placeholder = "Title" } })
+                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>article</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.author, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.author, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.author, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.category_id)
+                            <div class="col-xs-12">
+                                @Html.DropDownListFor(model => model.category_id, (IEnumerable<SelectListItem>)ViewBag.ArticleCategoryList, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.contents, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.contents)
-                @Html.ValidationMessageFor(model => model.contents, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.contents)
+                            <div class="col-xs-12">
+                                @Html.TextAreaFor(model => model.contents)
+                                @Html.ValidationMessageFor(model => model.contents, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                        <div class="form-group pull-right">
+                            <input type="submit" value="Create" class="btn btn-danger btn-flat" />
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section custom_javascript {
     @Scripts.Render("~/bundles/jqueryval")
@@ -68,7 +70,7 @@
                 selector: 'textarea',
                 height: 350,
                 theme: 'modern',
-                plugins: 'print preview fullpage searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools mediaembed  linkchecker contextmenu colorpicker textpattern help',
+                plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools  linkchecker contextmenu colorpicker textpattern help',
                 toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
                 image_advtab: true,
                 templates: [

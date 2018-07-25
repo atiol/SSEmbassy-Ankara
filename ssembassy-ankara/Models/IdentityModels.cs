@@ -48,6 +48,7 @@ namespace ssembassy_ankara.Models
         public DbSet<embassy_address> EmbassyAddress { get; set; }
         public DbSet<WelcomeMessage> WelcomeMessage { get; set; }
         public DbSet<article> Articles { get; set; }
+        public DbSet<article_category> ArticleCategory { get; set; }
 
         public static ApplicationDbContext Create()
         {

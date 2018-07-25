@@ -4,6 +4,57 @@
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
-<div class="col-xs-12">
-    <h5>Content here...</h5>
+<div class="row">
+    @if (ViewBag.Users != null)
+    {
+        foreach (var user in ViewBag.Users)
+        {
+            <div class="col-sm-4 col-md-3">
+                <div class="info-box bg-blue">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    <span class="info-box-icon">
+                        @if (string.IsNullOrEmpty(user.ImgUrl))
+                        {
+                            <img src="@Url.Content("~/Content/img/muser.png")" class="img-responsive"/>
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(""+ user.ImgUrl + "")" class="img-responsive" />
+                        }
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">@user.FullName</span>
+                        <span class="info-box-number">@user.Position</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div>
+        }
+    }
+    else
+    {
+        <p>Content Unavailable</p>
+    }
+</div>
+
+<div class="row">
+    <p>Get user by position</p>
+    <div class="col-sm-4">
+        <div class="info-box bg-green">
+            <!-- Apply any bg-* class to to the icon to color it -->
+            <span class="info-box-icon">
+                @if (string.IsNullOrEmpty(ViewBag.sysEngineer.ImgUrl))
+                {
+                    <img src="@Url.Content("~/Content/img/muser.png")" class="img-responsive"/>
+                }
+                else
+                {
+                    <img src="@Url.Content(""+ ViewBag.sysEngineer.ImgUrl + "")" class="img-responsive" />
+                }
+            </span>
+            <div class="info-box-content">
+                <span class="info-box-text">@ViewBag.sysEngineer.FullName</span>
+                <span class="info-box-number">@ViewBag.sysEngineer.Position</span>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+    </div>
 </div>
