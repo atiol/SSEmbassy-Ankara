@@ -37,15 +37,8 @@ namespace ssembassy_ankara
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
-                "~/Scripts/bootstrap.-datepicker.js",
-                "~/Scripts/jquery.inputmask.js"
+                "~/Scripts/bootstrap-datepicker.js"
             ));
-
-            /*
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-            */
 
             bundles.Add(new StyleBundle("~/css/dashboard").Include(
                       "~/Content/dashboard/bootstrap.min.css",
@@ -61,7 +54,7 @@ namespace ssembassy_ankara
                 ));
 
             bundles.Add(new StyleBundle("~/css/datepicker").Include(
-                "~/Content/dashboard/datepicker/datepicker.css"
+                "~/Content/datepicker/datepicker3.css"
             ));
         }
     }

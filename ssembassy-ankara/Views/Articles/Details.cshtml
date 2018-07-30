@@ -36,7 +36,13 @@
         <dd>
             @Html.DisplayFor(model => model.title)
         </dd>
-
+        <dt></dt>
+        <dd>
+            @if (Model.imageUrl != null)
+            {
+                <img src="@Url.Content(""+ Model.imageUrl +"")" class="img-responsive" />
+            }
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.contents)
         </dt>

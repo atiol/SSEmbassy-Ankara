@@ -13,9 +13,10 @@
         <EntityTypeShape EntityType="MyDbModels.former_personel" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModels.message" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModels.positions" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.WelcomeMessage" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDbModels.WelcomeMessage" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <AssociationConnector Association="MyDbModels.FK_article_category_id" ManuallyRouted="false" />
         <AssociationConnector Association="MyDbModels.FK_event_category" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MyDbModels.VisaInfo" Width="1.5" PointX="0.75" PointY="3.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,7 +14,8 @@
           <Property Name="category_id" Type="int" Nullable="false" />
           <Property Name="contents" Type="nvarchar(max)" Nullable="false" />
           <Property Name="published" Type="date" Nullable="false" />
-          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="imageUrl" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="article_category">
           <Key>
@@ -80,6 +81,19 @@
           <Property Name="position" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="duties" Type="nvarchar" MaxLength="2000" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VisaInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            <PropertyRef Name="DateCreated" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InfoEn" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="InfoTr" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="WelcomeMessage">
           <Key>
             <PropertyRef Name="Id" />
@@ -121,6 +135,14 @@
           <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="positions" EntityType="Self.positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WelcomeMessage" EntityType="Self.WelcomeMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisaInfo" EntityType="Self.VisaInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VisaInfo].[Id] AS [Id], 
+    [VisaInfo].[InfoEn] AS [InfoEn], 
+    [VisaInfo].[InfoTr] AS [InfoTr], 
+    [VisaInfo].[DateCreated] AS [DateCreated]
+    FROM [dbo].[VisaInfo] AS [VisaInfo]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
             <End Role="article_category" EntitySet="article_category" />
             <End Role="article" EntitySet="article" />
@@ -143,8 +165,9 @@
           <Property Name="category_id" Type="Int32" Nullable="false" />
           <Property Name="contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="published" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="article_category" Relationship="Self.FK_article_category_id" FromRole="article" ToRole="article_category" />
+          <Property Name="imageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="article_category">
           <Key>
@@ -262,7 +285,18 @@
             <End Role="event_category" EntitySet="event_category" />
             <End Role="event" EntitySet="events" />
           </AssociationSet>
+          <EntitySet Name="VisaInfo" EntityType="MyDbModels.VisaInfo" />
         </EntityContainer>
+        <EntityType Name="VisaInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DateCreated" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="InfoEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InfoTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -272,6 +306,7 @@
           <EntitySetMapping Name="articles">
             <EntityTypeMapping TypeName="MyDbModels.article">
               <MappingFragment StoreEntitySet="article">
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
@@ -357,6 +392,16 @@
               <MappingFragment StoreEntitySet="WelcomeMessage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisaInfo">
+            <EntityTypeMapping TypeName="MyDbModels.VisaInfo">
+              <MappingFragment StoreEntitySet="VisaInfo">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="InfoTr" ColumnName="InfoTr" />
+                <ScalarProperty Name="InfoEn" ColumnName="InfoEn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

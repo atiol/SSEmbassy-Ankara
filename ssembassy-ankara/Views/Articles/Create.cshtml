@@ -11,7 +11,7 @@
                     <h4 class="box-title">New article</h4>
                     <div class="box-tools pull-right"></div>
                 </div>
-                @using (Html.BeginForm()) 
+                @using (Html.BeginForm("Create", "Articles", FormMethod.Post, new { enctype = "multipart/form-data" })) 
                 {
                     @Html.AntiForgeryToken()
                     <div class="box-body">
@@ -37,6 +37,18 @@
                             <div class="col-xs-12">
                                 @Html.DropDownListFor(model => model.category_id, (IEnumerable<SelectListItem>)ViewBag.ArticleCategoryList, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.imageUrl)
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="file" name="ImageFile" accept=".png, .jpg, .jpeg" onchange="loadFile(event)"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <img alt="Preview Image" id="preview-image" src="@Url.Content("~/Content/img/articles/blank.jpg")" class="img-responsive" />
                             </div>
                         </div>
 
@@ -68,9 +80,9 @@
         $(document).ready(function() {
             tinymce.init({
                 selector: 'textarea',
-                height: 350,
+                height: 250,
                 theme: 'modern',
-                plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools  linkchecker contextmenu colorpicker textpattern help',
+                plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount spellchecker imagetools  link contextmenu colorpicker textpattern help',
                 toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
                 image_advtab: true,
                 templates: [
@@ -82,5 +94,12 @@
                 ]
             });
         });
+    </script>
+    <script>
+        // preview image
+        var loadFile = function (event) {
+            var imageFile = document.getElementById('preview-image');
+            imageFile.src = URL.createObjectURL(event.target.files[0]);
+        };
     </script>
 }

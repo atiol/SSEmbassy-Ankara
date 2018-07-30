@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,14 +22,28 @@ namespace ssembassy_ankara.Models
             // Add custom user claims here
             return userIdentity;
         }
+
         public string ImgUrl { get; set; }
+
         [Required]
         public string FullName { get; set; }
+
+        [Required]
         public string Position { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ContractStart { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ContractEnd { get; set; }
+
         [AllowHtml]
         public string Biography { get; set; }
+
         [AllowHtml]
         public string Message { get; set; }
     }
@@ -49,6 +64,7 @@ namespace ssembassy_ankara.Models
         public DbSet<WelcomeMessage> WelcomeMessage { get; set; }
         public DbSet<article> Articles { get; set; }
         public DbSet<article_category> ArticleCategory { get; set; }
+        public DbSet<VisaInfo> VisaInfo { get; set; }
 
         public static ApplicationDbContext Create()
         {

@@ -185,6 +185,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainLayoutPartialsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VisaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,6 +233,9 @@
     <Compile Include="Models\positions.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VisaInfo.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\WelcomeMessage.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
@@ -245,10 +249,11 @@
     <Content Include="Content\dashboard\font-awesome.css" />
     <Content Include="Content\dashboard\skin-blue.css" />
     <Content Include="Content\datatables\dataTables.bootstrap.css" />
-    <Content Include="Content\datepicker\datepicker.css" />
+    <Content Include="Content\datepicker\datepicker3.css" />
     <Content Include="Content\default\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\achai.jpg" />
+    <Content Include="Content\img\articles\blank.jpg" />
     <Content Include="Content\img\atiol.jpg" />
     <Content Include="Content\img\emblem.png" />
     <Content Include="Content\img\emblem2.svg" />
@@ -302,7 +307,6 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
-    <Content Include="Scripts\jquery.inputmask.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -505,6 +509,14 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Shared\_AmbassadorInfoPartial.cshtml" />
+    <Content Include="Views\Shared\_LoggedInUserPartial.cshtml" />
+    <Content Include="Views\Shared\_UserPanelPartial.cshtml" />
+    <Content Include="Views\Visa\Create.cshtml" />
+    <Content Include="Views\Visa\Delete.cshtml" />
+    <Content Include="Views\Visa\Details.cshtml" />
+    <Content Include="Views\Visa\Edit.cshtml" />
+    <Content Include="Views\Visa\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

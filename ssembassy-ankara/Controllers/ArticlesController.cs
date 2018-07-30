@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -64,16 +65,24 @@ namespace ssembassy_ankara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,author,category_id,contents, title")] article article)
+        public ActionResult Create([Bind(Include = "author,title,category_id,ImageFile,contents")] article article)
         {
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(article.ImageFile.FileName);
+                string extension = Path.GetExtension(article.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                article.imageUrl = "~/Content/img/articles/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Content/img/articles/"), fileName);
+                article.ImageFile.SaveAs(fileName);
+
                 article.published = DateTime.Parse(DateTime.Now.ToString("d"));
                 _db.Articles.Add(article);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.ArticleCategoryList = PopulateArticleCategory();
+            
             return View(article);
         }
 

@@ -60,7 +60,12 @@ footer h6 a {
     width: 90%;
     font-size: 18px;
 }
-
+.collapsible-body, .collapsible-header {
+    padding: 0.5rem;
+}
+address {
+    font-style: normal;
+}
 /* media queries */
 /* small screens*/
 @media only screen and (max-width: 767px) {

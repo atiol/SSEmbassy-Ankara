@@ -1,9 +1,8 @@
 ﻿@model ssembassy_ankara.Models.WelcomeMessage
 
 <!-- welcoming message -->
-<div class="card">
-    <div class="card-title">Welcome Message</div>
-    <div class="card-content">
-        @Html.Raw(Model.Message)
-    </div>
+<div class="card-panel z-depth-1 grey lighten-5" style="padding: 10px;">
+    <h5 style="margin: 0.093333rem 0 0.656rem 0; font-size: 15px; text-transform: uppercase;">Welcome Message</h5>
+    <div class="divider"></div>
+    @Html.Raw(Model.Message)
 </div>

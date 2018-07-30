@@ -1,0 +1,13 @@
+﻿@model ssembassy_ankara.Models.VisaInfo
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-panel grey lighten-5 z-depth-0">
+    <h4>VISA</h4>
+    <div class="divider"></div>
+    <small class="text-gray">@Model.DateCreated.ToString("d")</small>
+    @Html.Raw(Model.InfoEn)
+</div>

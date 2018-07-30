@@ -1,0 +1,29 @@
+﻿@model ssembassy_ankara.Models.AmbassadorViewModel
+
+<div class="card-panel grey lighten-5 z-depth-0" style="padding: 0;">
+    <div class="row valign-wrapper">
+        @if (Model != null)
+        {
+            <div class="col s2 m2 l4">
+                @if (Model.ImgUrl != null)
+                {
+                    <img src="@Url.Content(""+ Model.ImgUrl +"")" alt="" class="circle responsive-img">
+                }
+                else
+                {
+                    <img src="@Url.Content("~/Content/img/muser.png")" alt="" class="circle responsive-img">
+                }
+            </div>
+            <div class="col s10 m9 l8">
+                <span class="black-text">
+                    @Model.FullName.ToUpper()
+                </span><br/>
+                <span class="text-gray">
+                    @Model.Position
+                </span>
+                <div class="divider"></div>
+                @Html.ActionLink("Ambassador's Message", "Index", "Home")
+            </div>
+        }
+    </div>
+</div>

@@ -33,7 +33,7 @@
                         <ul class="dropdown-content" id="cameroun-dd">
                             <li><a href="#">Our Mission</a></li>
                             <li><a href="#">Relationship with Turkey</a></li>
-                            <li><a href="staff.html">Embassy Staff</a></li>
+                            <li><a href="#">Embassy Staff</a></li>
                             <li><a href="#">Media</a></li>
                             <li><a href="#">About Us</a></li>
                         </ul>
@@ -50,9 +50,8 @@
                     <li>
                         <a href="#" class="dropdown-trigger" data-target="monde-dd" data-beloworigin="true" data-hover="true">CONSULAR SERVICES<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown-content" id="monde-dd">
-                            <li><a href="#">Visas</a></li>
+                            <li><a href="@Url.Action("Index", "Visa")">Visas</a></li>
                             <li><a href="#">Register With Embassy</a></li>
-                            <li><a href="#">Other Services</a></li>
                         </ul>
                     </li>
                     <li>
@@ -161,7 +160,7 @@
             <!-- Side Nav -->
             <div class="col s12 l4">
                 <!-- Ambassador-->
-                <h3>Ambassador info here</h3>
+                @Html.Action("AmbassadorInfoPartial", "MainLayoutPartials")
 
                 <!-- welcoming message -->
                 @Html.Action("_WelcomeMessagePartialViewResult", "MainLayoutPartials")

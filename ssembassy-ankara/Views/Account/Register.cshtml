@@ -13,91 +13,42 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6, font-awesome, Theme style -->
     @Styles.Render("~/css/dashboard")
-    @*@Styles.Render("~/css/datepicker")*@
+    @Styles.Render("~/css/datepicker")
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <style>
+        .profile-img-wrapper {
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+        .profile-img-wrapper > img {
+            max-width: 75px;
+            height: auto;
+        }
+        .register-box-body .row{
+            margin-bottom: 15px;
+        }
+        .login-box, .register-box {
+            width: 550px;
+            margin: 7% auto;
+            background-color: #040738;
+        }
+        .login-box, .register-page {
+            background-color: #00bcd4 !important;
+        }
+        .login-logo, .register-logo {
+            margin-bottom: 0;
+        }
+        .register-logo {
+            padding-top: 30px;
+        }
+        .register-box > h5 {
+            font-weight: 600;
+            font-size: 15px;
+            color: white;
+        }
+    </style>
 </head>
-@*<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="input-group">
-        @Html.LabelFor(m => m.Position, new { @class = "control-label" })
-        <div class="input-group-addon">
-            <span class="fa fa-user"></span>
-        </div>
-        <div class="input-group-btn">
-            @if (ViewBag.Roles != null)
-            {
-                @Html.DropDownListFor(m => m.Position, (IEnumerable<SelectListItem>) ViewBag.Position, "Select ...")
-            }
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserRoles, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.UserRoles, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ContractStart, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ContractStart, new { @class = "form-control datepicker" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ContractEnd, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ContractEnd, new { @class = "form-control datepicker" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ImgUrl, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control", placeholder = "Url of the image" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default btn-flat" value="Register" />
-        </div>
-    </div>
-}*@
-
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
@@ -105,92 +56,92 @@
             <img src="@Url.Content("~/Content/img/emblem.png")" alt="South Sudan Embassy Logo"/><br/>
         </a>
     </div>
-    <h5>EMBASSY OF SOUTH SUDAN IN TURKEY</h5>
+    <h5 class="text-center">EMBASSY OF SOUTH SUDAN IN TURKEY <br/>STAFF REGISTRATION PANEL</h5>
+    <p class="text-red text-center"><small>All fields are mandatory except those labelled (optional)</small></p>
     <div class="register-box-body">
-        <p class="login-box-msg">Register a new staff</p>
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" , role = "form" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="divider"></div>
-
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Upload Picture (<span class="text-gray">optional</span>) <br /></p>
+                    <input type="file" name="ImageFile" accept=".png, .jpg, .jpeg" onchange="loadFile(event)"/>
+                </div>
+                <div class="col-sm-6">
+                    <div class="profile-img-wrapper pull-right">
+                        <img class="img-responsive" id="img-preview" src="@Url.Content("~/Content/img/muser.png")" />
+                    </div>
+                </div>
+            </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
+                @Html.TextBoxFor(m => m.FullName, new {@class = "form-control", placeholder = "Full Name"})
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User name for login" })
+                @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", placeholder = "User name for login"})
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Email"})
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.PasswordFor(m => m.Password, new {@class = "form-control", placeholder = "Password"})
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control", placeholder = "Confirm Password"})
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Telephone" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new {id = "phone", @class = "form-control", placeholder = "Telephone"})
                 <span class="glyphicon glyphicon-phone form-control-feedback"></span>
             </div>
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-12">
                     @if (ViewBag.Roles != null)
                     {
-                        @Html.DropDownListFor(m => m.UserRoles, (IEnumerable<SelectListItem>) ViewBag.Roles, "Select ...", new { @class = "form-control" } )
+                        @Html.DropDownListFor(m => m.UserRoles, (IEnumerable<SelectListItem>) ViewBag.Roles, "Select roles...", new {@class = "form-control"})
                     }
                     else
                     {
                         <small class="text-red">Roles unavailable</small>
                     }
                 </div>
-                <div class="col-xs-4">
-                    @Html.LabelFor(m => m.UserRoles, new { @class = "control-label" })
-                </div>
             </div>
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-12">
                     @if (ViewBag.Positions != null)
                     {
-                        @Html.DropDownListFor(m => m.Position, (IEnumerable<SelectListItem>)ViewBag.Positions, "Select ...", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Position, (IEnumerable<SelectListItem>) ViewBag.Positions, "Select position...", new {@class = "form-control"})
                     }
                     else
                     {
                         <small class="text-red">Positions unavailable</small>
                     }
                 </div>
-                <div class="col-xs-4">
-                    @Html.LabelFor(m => m.Position, new { @class = "control-label" })
-                </div>
             </div>
-            <div class="form-group date">
-                @Html.TextBoxFor(m => m.ContractStart, new {id = "cs_date", @class = "form-control", placeholder = "Contract start date..." })
-                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-            </div>
-            <div class="form-group date">
-                @Html.TextBoxFor(m => m.ContractEnd, new { @class = "form-control", placeholder = "Contract End date..." })
+            <div class="form-group has-feedback">
+                @Html.TextBoxFor(m => m.ContractStart, new {@class = "form-control datepicker", placeholder = "Contract start date..."})
                 <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.ImgUrl, new { @class = "form-control", placeholder = "http://..." })
-                <span class="glyphicon glyphicon-picture form-control-feedback"></span>
+                @Html.TextBoxFor(m => m.ContractEnd, new {@class = "form-control datepicker", placeholder = "Contract End date..."})
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.LabelFor(m => m.Biography)
+                @Html.LabelFor(m => m.Biography) <span class="text-gray">(optional)</span>
                 @Html.TextAreaFor(m => m.Biography)
             </div>
             <div class="form-group has-feedback">
-                @Html.LabelFor(m => m.Message)
+                @Html.LabelFor(m => m.Message) <span class="text-gray">(optional)</span>
                 @Html.TextAreaFor(m => m.Message)
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="submit" class="btn btn-default btn-flat pull-right" value="Register" />
+                    <input type="submit" class="btn btn-danger btn-flat pull-right" value="Register" />
                 </div>
             </div>
         }
@@ -199,7 +150,7 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/bootstrapjs")
-@*@Scripts.Render("~/bundles/datepicker")*@
+@Scripts.Render("~/bundles/datepicker")
 <script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -217,16 +168,16 @@
                 '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i']
         });
 
-        //$('#datepicker').datepicker({
-        //    autoclose: true
-        //});
-
-        //$('#phone').attr(
-        //    {
-        //        'data-inputmask': '"mask": "(999) 999-9999"',
-        //        'data-mask': 'data-mask'
-        //    });
+        $('.datepicker').datepicker({
+            autoclose: true
+        });
     });
+</script>
+<script>
+    var loadFile = function(event) {
+        var imgPreview = document.getElementById('img-preview');
+        imgPreview.src = URL.createObjectURL(event.target.files[0]);
+    }
 </script>
 </body>
 </html>

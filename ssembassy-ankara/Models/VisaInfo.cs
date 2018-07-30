@@ -12,16 +12,11 @@ namespace ssembassy_ankara.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class article
+    public partial class VisaInfo
     {
-        public int id { get; set; }
-        public string author { get; set; }
-        public int category_id { get; set; }
-        public string contents { get; set; }
-        public System.DateTime published { get; set; }
-        public string title { get; set; }
-        public string imageUrl { get; set; }
-    
-        public virtual article_category article_category { get; set; }
+        public int Id { get; set; }
+        public string InfoEn { get; set; }
+        public string InfoTr { get; set; }
+        public System.DateTime DateCreated { get; set; }
     }
 }

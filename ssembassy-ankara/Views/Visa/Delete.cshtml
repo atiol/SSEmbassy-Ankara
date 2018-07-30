@@ -1,0 +1,24 @@
+﻿@model ssembassy_ankara.Models.VisaInfo
+
+@{
+    ViewBag.Title = "Delete Visa Information";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <div class="card-panel grey lighten-5 z-depth-0">
+        <h4>VISA</h4>
+        <div class="divider"></div>
+        <small class="text-gray">@Model.DateCreated.ToString("d")</small>
+        @Html.Raw(Model.InfoEn)
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

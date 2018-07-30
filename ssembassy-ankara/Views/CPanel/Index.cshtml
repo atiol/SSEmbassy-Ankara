@@ -15,11 +15,11 @@
                     <span class="info-box-icon">
                         @if (string.IsNullOrEmpty(user.ImgUrl))
                         {
-                            <img src="@Url.Content("~/Content/img/muser.png")" class="img-responsive"/>
+                            <img src="@Url.Content("~/Content/img/muser.png")" />
                         }
                         else
                         {
-                            <img src="@Url.Content(""+ user.ImgUrl + "")" class="img-responsive" />
+                            <img src="@Url.Content(""+ user.ImgUrl + "")" />
                         }
                     </span>
                     <div class="info-box-content">
@@ -44,11 +44,11 @@
             <span class="info-box-icon">
                 @if (string.IsNullOrEmpty(ViewBag.sysEngineer.ImgUrl))
                 {
-                    <img src="@Url.Content("~/Content/img/muser.png")" class="img-responsive"/>
+                    <img src="@Url.Content("~/Content/img/muser.png")" />
                 }
                 else
                 {
-                    <img src="@Url.Content(""+ ViewBag.sysEngineer.ImgUrl + "")" class="img-responsive" />
+                    <img src="@Url.Content(""+ ViewBag.sysEngineer.ImgUrl + "")" />
                 }
             </span>
             <div class="info-box-content">

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ssembassy_ankara.Models
@@ -79,14 +81,18 @@ namespace ssembassy_ankara.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Contract Start")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ContractStart { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Contract Start")]
+        [Display(Name = "Contract End")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ContractEnd { get; set; }
 
-        [DataType(DataType.ImageUrl)]
         public string ImgUrl { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         [Required]
         [EmailAddress]
@@ -112,6 +118,7 @@ namespace ssembassy_ankara.Models
         [AllowHtml]
         [Display(Name = "Biography")]
         public string Biography { get; set; }
+
         [AllowHtml]
         [Display(Name = "Message")]
         public string Message { get; set; }

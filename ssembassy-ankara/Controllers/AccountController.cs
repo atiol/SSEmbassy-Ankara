@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using ssembassy_ankara.Models;
 using System.Collections.Generic;
 using System.Net.Mime;
+using System.Web.Security;
+using System.IO;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -138,16 +140,30 @@ namespace ssembassy_ankara.Controllers
             }
         }
 
+        // GET: Populate Roles from database
+        public List<SelectListItem> GetRoles()
+        {
+            return _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+        }
+
+        // GET: Populate Positions from database
+        public List<SelectListItem> GetPositions()
+        {
+            return _context.Positions.OrderBy(p => p.position).ToList()
+                .Select(pp => new SelectListItem { Value = pp.position.ToString(), Text = pp.position })
+                .ToList();
+        }
+
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
-            var roles = _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            var roles = GetRoles();
             ViewBag.Roles = roles;
-            var positions = _context.Positions.OrderBy(p => p.position).ToList()
-                .Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position })
-                .ToList();
+
+            var positions = GetPositions();
             ViewBag.Positions = positions;
 
             return View();
@@ -165,12 +181,20 @@ namespace ssembassy_ankara.Controllers
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
                 user.Position = model.Position;
-                user.ContractEnd = model.ContractEnd;
-                user.ContractStart = model.ContractStart;
+                user.ContractEnd = model.ContractEnd.Date;
+                user.ContractStart = model.ContractStart.Date;
                 user.FullName = model.FullName;
-                user.ImgUrl = model.ImgUrl;
                 user.Biography = model.Biography;
                 user.Message = model.Message;
+
+                string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                string extension = Path.GetExtension(model.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                model.ImgUrl = "~/Content/img/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
+                model.ImageFile.SaveAs(fileName);
+
+                user.ImgUrl = model.ImgUrl;
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -186,15 +210,20 @@ namespace ssembassy_ankara.Controllers
                     return RedirectToAction("Index", "CPanel");
                 }
 
-                var roles = _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+                var roles = GetRoles();
                 ViewBag.Roles = roles;
-                var positions = _context.Positions.OrderBy(p => p.position).ToList().Select(pp => new SelectListItem { Value = pp.ToString(), Text = pp.position }).ToList();
+
+                var positions = GetPositions();
                 ViewBag.Positions = positions;
 
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
+            // Populate roles and positions from the database
+            ViewBag.Roles = GetRoles();
+            ViewBag.Positions = GetPositions();
+
             return View(model);
         }
 
