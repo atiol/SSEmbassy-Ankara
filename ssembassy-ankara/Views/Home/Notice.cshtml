@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ssembassy_ankara.Models.ImportantNotice>
+
+@{
+    ViewBag.Title = "Notice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Any())
+{
+    foreach (var notice in Model)
+     {
+         <div class="card-panel grey lighten-5 z-depth-0">
+             <h4>@notice.Title</h4>
+             <div class="divider"></div>
+             <small class="text-gray">@notice.CreatedOn.ToString("d")</small>
+             @Html.Raw(notice.MessageEn)
+         </div>
+     }
+}

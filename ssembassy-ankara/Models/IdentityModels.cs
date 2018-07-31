@@ -65,6 +65,7 @@ namespace ssembassy_ankara.Models
         public DbSet<article> Articles { get; set; }
         public DbSet<article_category> ArticleCategory { get; set; }
         public DbSet<VisaInfo> VisaInfo { get; set; }
+        public DbSet<ImportantNotice> ImportantNotice { get; set; }
 
         public static ApplicationDbContext Create()
         {

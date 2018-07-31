@@ -64,6 +64,23 @@
           <Property Name="fax" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'embassy_db.dbo.ImportantNotice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ImportantNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="MessageEn" />
+            <PropertyRef Name="CreatedOn" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MessageEn" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MessageTr" Type="nvarchar(max)" />
+          <Property Name="CreatedOn" Type="date" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="messages">
           <Key>
             <PropertyRef Name="id" />
@@ -135,6 +152,16 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="positions" EntityType="Self.positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WelcomeMessage" EntityType="Self.WelcomeMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportantNotice" EntityType="Self.ImportantNotice" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ImportantNotice].[Id] AS [Id], 
+    [ImportantNotice].[Title] AS [Title], 
+    [ImportantNotice].[MessageEn] AS [MessageEn], 
+    [ImportantNotice].[MessageTr] AS [MessageTr], 
+    [ImportantNotice].[CreatedOn] AS [CreatedOn], 
+    [ImportantNotice].[Status] AS [Status]
+    FROM [dbo].[ImportantNotice] AS [ImportantNotice]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VisaInfo" EntityType="Self.VisaInfo" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VisaInfo].[Id] AS [Id], 
@@ -286,6 +313,7 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
             <End Role="event" EntitySet="events" />
           </AssociationSet>
           <EntitySet Name="VisaInfo" EntityType="MyDbModels.VisaInfo" />
+          <EntitySet Name="ImportantNotice" EntityType="MyDbModels.ImportantNotice" />
         </EntityContainer>
         <EntityType Name="VisaInfo">
           <Key>
@@ -296,6 +324,21 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <Property Name="InfoEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="InfoTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="ImportantNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CreatedOn" />
+            <PropertyRef Name="MessageEn" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MessageEn" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MessageTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -401,6 +444,18 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="InfoTr" ColumnName="InfoTr" />
                 <ScalarProperty Name="InfoEn" ColumnName="InfoEn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportantNotice">
+            <EntityTypeMapping TypeName="MyDbModels.ImportantNotice">
+              <MappingFragment StoreEntitySet="ImportantNotice">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MessageTr" ColumnName="MessageTr" />
+                <ScalarProperty Name="MessageEn" ColumnName="MessageEn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

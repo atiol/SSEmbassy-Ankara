@@ -1,19 +1,26 @@
 ﻿@model ssembassy_ankara.Models.LoggedInUser
 
 <!-- Sidebar user panel -->
-<div class="user-panel">
-    <div class="pull-left image">
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-        {
-            <img src="@Url.Content(""+ Model.ImageUrl +"")" class="img-circle" alt="User Image">
-        }
-        else
-        {
-            <img src="@Url.Content("~/Content/img/muser.png")" class="img-circle" alt="User Image">
-        }
+@if (Model != null)
+{
+    <div class="user-panel">
+        <div class="pull-left image">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Url.Content(""+ Model.ImageUrl +"")" class="img-circle" alt="User Image">
+            }
+            else
+            {
+                <img src="@Url.Content("~/Content/img/muser.png")" class="img-circle" alt="User Image">
+            }
+        </div>
+        <div class="pull-left info">
+            <p>@Model.FullName</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
     </div>
-    <div class="pull-left info">
-        <p>@Model.FullName</p>
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-    </div>
-</div>
+}
+else
+{
+    <p>User not logged in</p>
+}

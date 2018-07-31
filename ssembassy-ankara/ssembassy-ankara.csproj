@@ -193,7 +193,7 @@
     <Compile Include="Models\article.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Articles.cs" />
+    <Compile Include="Models\BuddyClasses.cs" />
     <Compile Include="Models\article_category.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
@@ -225,6 +225,9 @@
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImportantNotice.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LayoutViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\message.cs">
@@ -517,6 +520,9 @@
     <Content Include="Views\Visa\Details.cshtml" />
     <Content Include="Views\Visa\Edit.cshtml" />
     <Content Include="Views\Visa\Index.cshtml" />
+    <Content Include="Views\Home\Notice.cshtml" />
+    <Content Include="Views\CPanel\CreateNotice.cshtml" />
+    <Content Include="Views\CPanel\Notices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

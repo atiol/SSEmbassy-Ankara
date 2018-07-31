@@ -1,0 +1,53 @@
+﻿@using System.Reflection
+@model IEnumerable<ssembassy_ankara.Models.ImportantNotice>
+
+@{
+    ViewBag.Title = "Notices";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>Notices</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateNotice")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            Show
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.CreatedOn.ToString("d")
+        </td>
+        
+            @if (item.Status)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }    
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -35,26 +35,3 @@
         <p>Content Unavailable</p>
     }
 </div>
-
-<div class="row">
-    <p>Get user by position</p>
-    <div class="col-sm-4">
-        <div class="info-box bg-green">
-            <!-- Apply any bg-* class to to the icon to color it -->
-            <span class="info-box-icon">
-                @if (string.IsNullOrEmpty(ViewBag.sysEngineer.ImgUrl))
-                {
-                    <img src="@Url.Content("~/Content/img/muser.png")" />
-                }
-                else
-                {
-                    <img src="@Url.Content(""+ ViewBag.sysEngineer.ImgUrl + "")" />
-                }
-            </span>
-            <div class="info-box-content">
-                <span class="info-box-text">@ViewBag.sysEngineer.FullName</span>
-                <span class="info-box-number">@ViewBag.sysEngineer.Position</span>
-            </div><!-- /.info-box-content -->
-        </div><!-- /.info-box -->
-    </div>
-</div>

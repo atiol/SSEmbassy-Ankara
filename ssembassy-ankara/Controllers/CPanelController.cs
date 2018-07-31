@@ -21,16 +21,70 @@ namespace ssembassy_ankara.Controllers
         public ActionResult Index()
         {
             var users = _db.Users.ToList();
-            var systemsEngineer = GetApplicationUser();
 
             ViewBag.Users = users;
-            ViewBag.SysEngineer = systemsEngineer;
             return View();
         }
 
-        public ApplicationUser GetApplicationUser()
+        // GET: logged in user details
+        public PartialViewResult LoggedInUserPartial()
         {
-            return _db.Users.First(m => m.Position == "Systems Engineer");
+            var loggedInUserViewModel = GetLoggedInUser();
+            return PartialView("_LoggedInUserPartial", loggedInUserViewModel);
+        }
+
+        public PartialViewResult UserPanelPartial()
+        {
+            var userPanel = GetLoggedInUser();
+            if (userPanel == null)
+                return PartialView("_UserPanelPartial", null);
+
+            return PartialView("_UserPanelPartial", userPanel);
+        }
+
+        public LoggedInUser GetLoggedInUser()
+        {
+            var userId = User.Identity.GetUserId();
+            if (string.IsNullOrEmpty(userId))
+                return null;
+
+            var loggedInUser = _db.Users.First(x => x.Id == userId);
+
+            var userViewModal = new LoggedInUser
+            {
+                FullName = loggedInUser.FullName,
+                Position = loggedInUser.Position,
+                ImageUrl = loggedInUser.ImgUrl
+            };
+
+            return userViewModal;
+        }
+
+        // Get: All Notices
+        public ActionResult Notices()
+        {
+            return View(_db.ImportantNotice.ToList());
+        }
+
+        // Create: Notice
+        public ActionResult CreateNotice()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNotice([Bind(Include = "Title,Status,MessageEn, MessageTr")]ImportantNotice notice)
+        {
+            notice.CreatedOn = DateTime.Now.Date;
+            if (ModelState.IsValid)
+            {
+                _db.ImportantNotice.Add(notice);
+                _db.SaveChanges();
+                return RedirectToAction("Notices", "CPanel");
+            }
+
+            return View(notice);
         }
     }
 }

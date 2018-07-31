@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,5 +23,13 @@ namespace ssembassy_ankara.Controllers
         {
             return View();
         }
+
+        // GET: Notice (for main site)
+        public ActionResult Notice()
+        {
+            var notices = _db.ImportantNotice.Where(x => x.Status).ToList();
+            return View(notices);
+        }
+
     }
 }

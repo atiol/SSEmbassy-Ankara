@@ -35,5 +35,6 @@ namespace ssembassy_ankara.Models
         public virtual DbSet<positions> positions { get; set; }
         public virtual DbSet<WelcomeMessage> WelcomeMessages { get; set; }
         public virtual DbSet<VisaInfo> VisaInfo { get; set; }
+        public virtual DbSet<ImportantNotice> ImportantNotice { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿body {
     font-family: 'Roboto Condensed', sans-serif;
 }
-nav, .embassy-text {
+nav {
     background-color: #003875;
     font-family: 'Oswald', sans-serif;
+}
+.embassy-text {
+    background-color: transparent;
 }
 nav a.sidenav-trigger i {
     color: yellow;

@@ -57,4 +57,31 @@ namespace ssembassy_ankara.Models
         [Display(Name = "Turkish Translation")]
         public string InfoTr { get; set; }
     }
+
+    // Important Information
+    [MetadataType(typeof(ImportantNoticeAttribs))]
+    public partial class ImportantNotice
+    {
+
+    }
+
+    public class ImportantNoticeAttribs
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [AllowHtml]
+        public string MessageEn { get; set; }
+
+        [AllowHtml]
+        public string MessageTr { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "Should Show ?")]
+        public bool Status { get; set; }
+    }
 }

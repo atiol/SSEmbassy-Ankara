@@ -55,33 +55,5 @@ namespace ssembassy_ankara.Controllers
                 fax = model.fax
             });
         }
-
-        // GET: logged in user details
-        public PartialViewResult LoggedInUserPartial()
-        {
-            var loggedInUserViewModel = GetLoggedInUser();
-            return PartialView("_LoggedInUserPartial", loggedInUserViewModel);
-        }
-
-        public PartialViewResult UserPanelPartial()
-        {
-            var userPanel = GetLoggedInUser();
-            return PartialView("_UserPanelPartial", userPanel);
-        }
-
-        public LoggedInUser GetLoggedInUser()
-        {
-            var userId = User.Identity.GetUserId();
-            var loggedInUser = _context.Users.First(x => x.Id == userId);
-
-            var userViewModal = new LoggedInUser
-            {
-                FullName = loggedInUser.FullName,
-                Position = loggedInUser.Position,
-                ImageUrl = loggedInUser.ImgUrl
-            };
-
-            return userViewModal;
-        }
     }
 }
