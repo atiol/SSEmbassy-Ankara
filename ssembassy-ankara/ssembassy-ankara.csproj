@@ -250,6 +250,7 @@
     <Content Include="Content\dashboard\blue.css" />
     <Content Include="Content\dashboard\bootstrap.min.css" />
     <Content Include="Content\dashboard\font-awesome.css" />
+    <Content Include="Content\dashboard\main.css" />
     <Content Include="Content\dashboard\skin-blue.css" />
     <Content Include="Content\datatables\dataTables.bootstrap.css" />
     <Content Include="Content\datepicker\datepicker3.css" />
@@ -523,6 +524,8 @@
     <Content Include="Views\Home\Notice.cshtml" />
     <Content Include="Views\CPanel\CreateNotice.cshtml" />
     <Content Include="Views\CPanel\Notices.cshtml" />
+    <Content Include="Views\CPanel\EditNotice.cshtml" />
+    <Content Include="Views\CPanel\NoticeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

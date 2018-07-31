@@ -44,7 +44,9 @@ namespace ssembassy_ankara
                       "~/Content/dashboard/bootstrap.min.css",
                       "~/Content/dashboard/font-awesome.css",
                       "~/Content/dashboard/skin-blue.css",
-                      "~/Content/dashboard/AdminLTE.min.css"));
+                      "~/Content/dashboard/AdminLTE.min.css",
+                      "~/Content/dashboard/main.css"
+                      ));
 
             bundles.Add(new StyleBundle("~/default/css").Include(
                 "~/Content/default/main.css"));

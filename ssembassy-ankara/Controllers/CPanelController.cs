@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -85,6 +87,73 @@ namespace ssembassy_ankara.Controllers
             }
 
             return View(notice);
+        }
+
+        // GET: Notice with given id
+        public ActionResult EditNotice(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var notice = _db.ImportantNotice.Find(id);
+            if (notice == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(notice);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditNotice([Bind(Include = "Id,Title,MessageEn,MessageTr,CreatedOn,Status")]ImportantNotice notice)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(notice).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Notices", "CPanel");
+            }
+
+            return View(notice);
+        }
+
+        // GET: Notice Details
+        public ActionResult NoticeDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var notice = _db.ImportantNotice.Find(id);
+            if (notice == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(notice);
+        }
+
+        public ActionResult DeleteNotice(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var notice = _db.ImportantNotice.Find(id);
+            if (notice == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.ImportantNotice.Remove(notice);
+            _db.SaveChanges();
+
+            return RedirectToAction("Notices");
         }
     }
 }
