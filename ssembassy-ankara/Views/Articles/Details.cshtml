@@ -4,7 +4,7 @@
     ViewBag.Title = "Article";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Description = "#" + Model.id;
-    ViewBag.Published = Model.published.ToString("dd/MM/yyyy");
+    ViewBag.Published = Model.published.ToString("d");
 }
 <style>
     .page-header {
@@ -14,31 +14,33 @@
      .article-image {
          margin: 10px 0;
      }
+    .subtitle {
+        color: #ccc;
+    }
 </style>
 <div class="invoice">
-    <section class="article-box">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="page-header">
-                    @Html.DisplayFor(model => model.title)
-                </h2>
-                <small class="text-gray">Published: @ViewBag.Published</small>
+    <section class="">
+        <div class="card-panel grey lighten-5 z-depth-0">
+            <h5 class="">
+                @Html.DisplayFor(model => model.title)
+            </h5>
+            <div class="divider"></div>
+            <small class="subtitle">Published: @ViewBag.Published</small>
+            <div class="article-image">
+                <img src="@Url.Content(""+ Model.imageUrl +"")" class="responsive-img"/>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="article-body">
-                    <div class="article-image">
-                        @if (!string.IsNullOrEmpty(Model.imageUrl))
-                        {
-                            <img src="@Url.Content(""+ Html.DisplayFor(model => model.imageUrl) +"")" class="img-responsive"/>
-                        }
-                    </div>
-                    <div class="article-content">
-                        @Html.Raw(Model.contents)
-                    </div>
-                </div>
+            <div class="article-content">
+                @Html.Raw(Model.contents)
             </div>
         </div>
     </section>
 </div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('.article-content > p img').addClass('responsive-img');
+        });
+    </script>
+}

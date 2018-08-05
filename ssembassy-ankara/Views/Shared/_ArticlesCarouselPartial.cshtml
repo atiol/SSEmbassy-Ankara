@@ -2,15 +2,15 @@
 
 <div class="articlesCarousel">
     <!-- Articles Here -->
-    @foreach (var article in Model)
+    @if (Model.Any())
     {
-        <div>
-            <a href="@Url.Action("Details", "Articles", new {id = article.Id})">
-                @if (!string.IsNullOrEmpty(article.ImgUrl))
-                {
-                    <img src="@Url.Content(""+ article.ImgUrl +"")" title="@article.Title">
-                }
-            </a>
-        </div>
+        foreach (var article in Model)
+         {
+             <div>
+                 <a href="@Url.Action("Details", "Articles", new {id = article.Id})">
+                     <img src="@Url.Content(""+ article.ImgUrl +"")" title="@article.Title">
+                 </a>
+             </div>
+         }
     }
 </div>

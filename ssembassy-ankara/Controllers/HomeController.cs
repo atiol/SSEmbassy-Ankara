@@ -13,9 +13,13 @@ namespace ssembassy_ankara.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly string _defaultArticleImageUrl;
+        private readonly string _defaultStaffImageUrl;
 
         public HomeController()
         {
+            _defaultArticleImageUrl = "~/Content/img/peace.jpg";
+            _defaultStaffImageUrl = "~/Content/img/muser.png";
             _db = new ApplicationDbContext();
         }
 
@@ -29,15 +33,17 @@ namespace ssembassy_ankara.Controllers
         {
             var articleList = _db.Articles.OrderByDescending(x => x.published).Take(5).ToList();
             var articles = new List<NewsViewModel>();
+            var articleView = new NewsViewModel();
+
             foreach (var item in articleList)
             {
-                articles.Add(new NewsViewModel
-                {
-                    Id = item.id,
-                    ImgUrl = item.imageUrl,
-                    Title = item.title
-                });
+                articleView.Id = item.id;
+                articleView.Title = item.title;
+                articleView.ImgUrl = string.IsNullOrEmpty(item.imageUrl) ? _defaultArticleImageUrl : item.imageUrl;
+
+                articles.Add(articleView);
             }
+
             return PartialView("_ArticlesCarouselPartial", articles);
         }
 

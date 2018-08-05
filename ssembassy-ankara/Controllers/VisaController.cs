@@ -15,6 +15,7 @@ namespace ssembassy_ankara.Controllers
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: Visa
+
         public ActionResult Index()
         {
             var visaInfo = _db.VisaInfo.OrderByDescending(x => x.DateCreated).First();
@@ -29,6 +30,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Visa/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -44,6 +46,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Visa/Create
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Create()
         {
             return View();
@@ -68,6 +71,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Visa/Edit/5
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -99,6 +103,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Visa/Delete/5
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -122,6 +127,12 @@ namespace ssembassy_ankara.Controllers
             _db.VisaInfo.Remove(visaInfo);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Admin, Content Manager")]
+        public ActionResult OnlineVisaApplication()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

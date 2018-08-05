@@ -13,8 +13,14 @@ namespace ssembassy_ankara.Controllers
 {
     public class ArticlesController : Controller
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db;
+        private readonly string _defaultArticleImageUrl;
 
+        public ArticlesController()
+        {
+            _db = new ApplicationDbContext();
+            _defaultArticleImageUrl = "~/Content/img/ss2.jpg";
+        }
 
         public List<SelectListItem> PopulateArticleCategory()
         {
@@ -51,6 +57,8 @@ namespace ssembassy_ankara.Controllers
             {
                 return HttpNotFound();
             }
+
+            article.imageUrl = string.IsNullOrEmpty(article.imageUrl) ? _defaultArticleImageUrl : article.imageUrl;
             return View(article);
         }
 
@@ -71,14 +79,21 @@ namespace ssembassy_ankara.Controllers
         {
             if (ModelState.IsValid)
             {
-                string fileName = Path.GetFileNameWithoutExtension(article.ImageFile.FileName);
-                string extension = Path.GetExtension(article.ImageFile.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                article.imageUrl = "~/Content/img/articles/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/Content/img/articles/"), fileName);
-                article.ImageFile.SaveAs(fileName);
+                if (article.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(article.ImageFile.FileName);
+                    string extension = Path.GetExtension(article.ImageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    article.imageUrl = "~/Content/img/articles/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Content/img/articles/"), fileName);
+                    article.ImageFile.SaveAs(fileName);
+                }
+                else
+                {
+                    article.imageUrl = _defaultArticleImageUrl;
+                }
 
-                article.published = DateTime.Parse(DateTime.Now.ToString("d"));
+                article.published = DateTime.Now;
                 _db.Articles.Add(article);
                 _db.SaveChanges();
                 return RedirectToAction("Index");

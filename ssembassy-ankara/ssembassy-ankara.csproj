@@ -236,6 +236,8 @@
     <Compile Include="Models\positions.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentRegistrationModels.cs" />
+    <Compile Include="Models\VisaApplicationModels.cs" />
     <Compile Include="Models\VisaInfo.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
