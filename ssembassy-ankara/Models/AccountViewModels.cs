@@ -124,6 +124,32 @@ namespace ssembassy_ankara.Models
         public string Message { get; set; }
     }
 
+    public class EditStaffViewModel
+    {
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Display(Name = "Telephone")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
+        [Display(Name = "Image")]
+        public string ImgUrl { get; set; }
+
+        [AllowHtml]
+        public string Message { get; set; }
+
+        [AllowHtml]
+        public string Biography { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]

@@ -1,37 +1,130 @@
 ﻿
 @{
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = "Welcome";
+    ViewBag.Description = "A summary of website content";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
+<!-- stats -->
 <div class="row">
-    @if (ViewBag.Users != null)
-    {
-        foreach (var user in ViewBag.Users)
-        {
-            <div class="col-sm-4 col-md-3">
-                <div class="info-box bg-blue">
-                    <!-- Apply any bg-* class to to the icon to color it -->
-                    <span class="info-box-icon">
-                        @if (string.IsNullOrEmpty(user.ImgUrl))
-                        {
-                            <img src="@Url.Content("~/Content/img/muser.png")" />
-                        }
-                        else
-                        {
-                            <img src="@Url.Content(""+ user.ImgUrl + "")" />
-                        }
-                    </span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">@user.FullName</span>
-                        <span class="info-box-number">@user.Position</span>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@ViewBag.StaffCount</h3>
+
+                <p>Total Staff Count</p>
             </div>
-        }
-    }
-    else
-    {
-        <p>Content Unavailable</p>
-    }
+            <div class="icon">
+                <i class="ion ion-ios-people-outline"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>0</h3>
+                <p>Signed MoUs</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>@ViewBag.ArticleCount</h3>
+
+                <p>Total # Articles</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+            </div>
+            <a href="@Url.Action("Index", "Articles")" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>@ViewBag.TotalUserInquiries</h3>
+
+                <p>User Inquiries</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-question"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+
+<div class="row">
+    <!-- staff -->
+    <div class="col-sm-8">
+        <!-- STAFF LIST -->
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">All Staff</h3>
+
+                <div class="box-tools pull-right">
+                    <span class="label label-danger">@ViewBag.StaffCount staff</span>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <ul class="users-list clearfix">
+                    @if (ViewBag.Staff.Count > 0)
+                    {
+                        foreach (var staff in ViewBag.Staff)
+                         {
+                             <li>
+                                 @if (staff.ImgUrl != null)
+                                 {
+                                    <img src="@Url.Content(""+ staff.ImgUrl +"")" alt="User Image">
+                                 }
+                                 else
+                                 {
+                                    <img src="@Url.Content("~/Content/img/muser.png")" alt="User Image">
+                                 }
+                                 <a class="users-list-name" href="@Url.Action("StaffProfile", "Account", new {id = staff.Id})">@staff.FullName</a>
+                                 <span class="users-list-date">@staff.Position</span>
+                             </li>
+                         }
+                    }
+                </ul>
+                <!-- /.users-list -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+                <a href="javascript:void(0)" class="uppercase">View All Users</a>
+            </div>
+            <!-- /.box-footer -->
+        </div>
+        <!--/.box -->
+    </div>
+    <!-- Calendar -->
+    <div class="col-sm-4"></div>
+</div>
+<div class="row">
+    <!-- announcements, articles-->
+    <div class="col-sm-8">
+    </div>
+    <!-- user inquiries -->
+    <div class="col-sm-4"></div>
 </div>

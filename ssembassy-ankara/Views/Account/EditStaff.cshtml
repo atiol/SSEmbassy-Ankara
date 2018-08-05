@@ -1,0 +1,109 @@
+﻿@model ssembassy_ankara.Models.EditStaffViewModel
+
+@{
+    ViewBag.Title = "Edit Staff";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Edit your information here";
+}
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <h4 class="text-center">Edit Staff Information</h4>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("EditStaff", "Account", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="box-body">
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Upload Picture (<span class="text-gray">optional</span>) <br /></p>
+                            @*<input type="file" name="ImageFile" accept=".png, .jpg, .jpeg" onchange="loadFile(event)" />*@
+                            @Html.TextBoxFor(m => m.ImageFile, new {type = "file", onchange = "loadFile(event)", accept = ".png, .jpg, jpeg", name = "ImageFile" })
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="profile-img-wrapper pull-right">
+                                @if (string.IsNullOrEmpty(Model.ImgUrl))
+                                {
+                                    <img class="img-responsive" id="editimage-preview" src="@Url.Content("~/Content/img/muser.png")" />
+                                }
+                                else
+                                {
+                                    <img class="img-responsive" id="editimage-preview" src="@Url.Content(""+ Model.ImgUrl +"")" />
+                                }
+                            </div>
+                        </div>
+                        <small>@ViewBag.Message</small>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User name for login" })
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { id = "phone", @class = "form-control", placeholder = "Telephone" })
+                        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.LabelFor(m => m.Biography) <span class="text-gray">(optional)</span>
+                        @Html.TextAreaFor(m => m.Biography)
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.LabelFor(m => m.Message) <span class="text-gray">(optional)</span>
+                        @Html.TextAreaFor(m => m.Message)
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            @Html.ActionLink("Cancel", "StaffProfile", "Account", null, new { @class = "pull-left btn btn-flat btn-danger" })
+                            <input type="submit" class="btn btn-success btn-flat pull-right" value="Save" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrapjs")
+<script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        tinymce.init({
+            selector: 'textarea',
+            height: 50,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor textcolor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code help wordcount'
+            ],
+            toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i']
+        });
+    });
+</script>
+<script>
+    var loadFile = function(event) {
+        var imgPreview = document.getElementById('editimage-preview');
+        imgPreview.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+

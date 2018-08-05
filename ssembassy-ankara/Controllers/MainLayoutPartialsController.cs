@@ -32,8 +32,9 @@ namespace ssembassy_ankara.Controllers
             var model = _context.Users.FirstOrDefault(u => u.Position == "Ambassador");
             if (model != null)
             {
-                return PartialView("_AmbassadorInfoPartial", new AmbassadorViewModel
+                return PartialView("_AmbassadorInfoPartial", new StaffBasicInfoViewModel
                 {
+                    Id = model.Id,
                     FullName = model.FullName,
                     Position = model.Position,
                     ImgUrl = model.ImgUrl
@@ -46,7 +47,7 @@ namespace ssembassy_ankara.Controllers
         // GET: Address Info
         public PartialViewResult _EmbassyAddressPartialViewResult()
         {
-            var model = _context.EmbassyAddress.FirstOrDefault();
+            var model = _context.EmbassyAddress.First();
             return PartialView(new embassy_address
             {
                 address = model.address,

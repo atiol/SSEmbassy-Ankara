@@ -31,10 +31,10 @@ namespace ssembassy_ankara.Models
         public virtual DbSet<@event> events { get; set; }
         public virtual DbSet<event_category> event_category { get; set; }
         public virtual DbSet<former_personel> former_personel { get; set; }
-        public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<positions> positions { get; set; }
         public virtual DbSet<WelcomeMessage> WelcomeMessages { get; set; }
         public virtual DbSet<VisaInfo> VisaInfo { get; set; }
         public virtual DbSet<ImportantNotice> ImportantNotice { get; set; }
+        public virtual DbSet<messages> messages { get; set; }
     }
 }

@@ -40,6 +40,10 @@ namespace ssembassy_ankara
                 "~/Scripts/bootstrap-datepicker.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/bxslider").Include(
+                "~/Content/default/bxslider/jquery.bxslider.min.js"
+            ));
+
             bundles.Add(new StyleBundle("~/css/dashboard").Include(
                       "~/Content/dashboard/bootstrap.min.css",
                       "~/Content/dashboard/font-awesome.css",
@@ -57,6 +61,10 @@ namespace ssembassy_ankara
 
             bundles.Add(new StyleBundle("~/css/datepicker").Include(
                 "~/Content/datepicker/datepicker3.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/css/bxslider").Include(
+                "~/Content/bxslider/jquery.bxlider.min.css"
             ));
         }
     }

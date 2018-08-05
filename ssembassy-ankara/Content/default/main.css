@@ -112,7 +112,6 @@ address {
     #nav-logo {
         display: contents;
         position: relative;
-        border: 1px solid white;
     }
     .embassy-text {
         position: absolute;

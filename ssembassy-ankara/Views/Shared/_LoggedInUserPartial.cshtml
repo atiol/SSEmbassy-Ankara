@@ -31,7 +31,7 @@
         <!-- Menu Footer-->
         <li class="user-footer">
             <div class="pull-left">
-                @Html.ActionLink("Profile", "", null, new { @class = "btn btn-default btn-flat" })
+                @Html.ActionLink("Profile", "StaffProfile", "Account", new {id = Model.Id}, new { @class = "btn btn-default btn-flat" })
             </div>
             @Html.Partial("_LoginPartial")
         </li>

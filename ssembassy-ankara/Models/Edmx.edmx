@@ -89,14 +89,16 @@ warning 6002: The table/view 'embassy_db.dbo.ImportantNotice' does not have a pr
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="createdOn" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="positions">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="position" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="position" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="duties" Type="nvarchar" MaxLength="2000" />
+          <Property Name="weight" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -246,22 +248,14 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="message">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="positions">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="duties" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="weight" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="WelcomeMessage">
           <Key>
@@ -301,7 +295,6 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <EntitySet Name="events" EntityType="Self.event" />
           <EntitySet Name="event_category" EntityType="Self.event_category" />
           <EntitySet Name="former_personel" EntityType="Self.former_personel" />
-          <EntitySet Name="messages" EntityType="Self.message" />
           <EntitySet Name="positions" EntityType="MyDbModels.positions" />
           <EntitySet Name="WelcomeMessages" EntityType="Self.WelcomeMessage" />
           <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
@@ -314,6 +307,7 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </AssociationSet>
           <EntitySet Name="VisaInfo" EntityType="MyDbModels.VisaInfo" />
           <EntitySet Name="ImportantNotice" EntityType="MyDbModels.ImportantNotice" />
+          <EntitySet Name="messages" EntityType="MyDbModels.messages" />
         </EntityContainer>
         <EntityType Name="VisaInfo">
           <Key>
@@ -339,6 +333,16 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <Property Name="MessageTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="createdOn" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -411,19 +415,10 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="MyDbModels.message">
-              <MappingFragment StoreEntitySet="messages">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="message1" ColumnName="message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="positions">
             <EntityTypeMapping TypeName="MyDbModels.positions">
               <MappingFragment StoreEntitySet="positions">
+                <ScalarProperty Name="weight" ColumnName="weight" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="position" ColumnName="position" />
                 <ScalarProperty Name="duties" ColumnName="duties" />
@@ -457,6 +452,17 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
                 <ScalarProperty Name="MessageEn" ColumnName="MessageEn" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="MyDbModels.messages">
+              <MappingFragment StoreEntitySet="messages">
+                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -6,7 +6,8 @@ $(document).ready(function() {
   // dropdown trigger
   $('.dropdown-trigger').dropdown({
     coverTrigger: false,
-    hover: true
+    hover: true,
+    constrainWidth: false
   });
 
   // modal

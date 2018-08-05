@@ -39,6 +39,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Articles/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -54,6 +55,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Articles/Create
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Create()
         {
             ViewBag.ArticleCategoryList = PopulateArticleCategory();
@@ -87,6 +89,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Articles/Edit/5
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -122,6 +125,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Articles/Delete/5
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -7,8 +7,10 @@ using System.Web.Mvc;
 
 namespace ssembassy_ankara.Models
 {
-    public class AmbassadorViewModel
+    public class StaffBasicInfoViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = "Name")]
         public string FullName { get; set; }
 
@@ -21,6 +23,8 @@ namespace ssembassy_ankara.Models
 
     public class NewsViewModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Title")]
         public string Title { get; set; }
 
@@ -37,6 +41,7 @@ namespace ssembassy_ankara.Models
 
     public class LoggedInUser
     {
+        public string Id { get; set; }
         public string FullName { get; set; }
         public string Position { get; set; }
         public string ImageUrl { get; set; }

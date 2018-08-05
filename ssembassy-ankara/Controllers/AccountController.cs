@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using System.Web.Security;
 using System.IO;
+using System.Net;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -189,12 +191,23 @@ namespace ssembassy_ankara.Controllers
 
                 string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
                 string extension = Path.GetExtension(model.ImageFile.FileName);
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                fileName = fileName + extension;
                 model.ImgUrl = "~/Content/img/" + fileName;
-                fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
-                model.ImageFile.SaveAs(fileName);
-
-                user.ImgUrl = model.ImgUrl;
+                ViewBag.Message = "";
+                if (!System.IO.File.Exists(Server.MapPath("~/Content/img/")))
+                {
+                    fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
+                    model.ImageFile.SaveAs(fileName);
+                    user.ImgUrl = model.ImgUrl;
+                }
+                else
+                {
+                    System.IO.File.Delete(Server.MapPath(Path.Combine("~/Content/img/", fileName)));
+                    model.ImageFile.SaveAs(fileName);
+                    user.ImgUrl = model.ImgUrl;
+                    ViewBag.Message =
+                        "File already exists, it will be replaced with the newly uploaded one.";
+                }
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -225,6 +238,97 @@ namespace ssembassy_ankara.Controllers
             ViewBag.Positions = GetPositions();
 
             return View(model);
+        }
+
+        public ActionResult EditStaff(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var appUser = new ApplicationUser();
+            appUser = UserManager.FindById(id);
+            if (appUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            var staff = new EditStaffViewModel
+            {
+                Email = appUser.Email,
+                PhoneNumber = appUser.PhoneNumber,
+                UserName = appUser.UserName,
+                FullName = appUser.FullName,
+                ImgUrl = appUser.ImgUrl,
+                Message = appUser.Message,
+                Biography = appUser.Biography
+            };
+            return View(staff);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditStaff([Bind(Include = "Email,PhoneNumber,UserName,FullName,Message,Biography,ImageFile")]EditStaffViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentStaff = manager.FindByEmail(model.Email);
+            
+            // set updated properties
+            currentStaff.Email = model.Email;
+            currentStaff.PhoneNumber = model.PhoneNumber;
+            currentStaff.UserName = model.UserName;
+            currentStaff.FullName = model.FullName;
+            currentStaff.Message = model.Message;
+            currentStaff.Biography = model.Biography;
+
+            // work on user image
+            if (model.ImageFile != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                string extension = Path.GetExtension(model.ImageFile.FileName);
+                fileName = fileName + extension;
+                model.ImgUrl = "~/Content/img/" + fileName;
+                ViewBag.Message = "";
+                if (!System.IO.File.Exists(Server.MapPath(Path.Combine("~/Content/img/", fileName))))
+                {
+                    fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
+                    model.ImageFile.SaveAs(fileName);
+                    currentStaff.ImgUrl = model.ImgUrl;
+                }
+                else
+                {
+                    fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
+                    ViewBag.Message =
+                        "File already exists, it will be replaced with the newly uploaded one.";
+                    //System.IO.File.Delete(Server.MapPath(Path.Combine("~/Content/img/", fileName)));
+                    //model.ImageFile.SaveAs(fileName);
+                    currentStaff.ImgUrl = model.ImgUrl;
+                }
+            }
+
+            await manager.UpdateAsync(currentStaff);
+
+            return RedirectToAction("Index", "CPanel");
+        }
+
+        public ActionResult StaffProfile(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var staff = UserManager.FindById(id);
+            if (staff == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(staff);
         }
 
         //

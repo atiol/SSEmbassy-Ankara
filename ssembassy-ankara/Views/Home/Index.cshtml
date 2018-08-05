@@ -3,14 +3,28 @@
     ViewBag.Title = "Welcome";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section custom_css
+{
+    <style>
+        .bx-viewport {
+            width: 100%;
+            height: auto;
+        }
+        .bx-caption {
+            font-size: 16px;
+            border: 1px solid #eee;
+            padding: 0;
+            background-color: #eee;
+            color: rgba(0,0,0,0.9);
+            text-transform: capitalize;
+        }
+        .articlesCarousel img {
+            width: 100%;
+        }
+    </style>
+}
 
-<div class="carousel carousel-slider">
-    <!-- Articles Here -->
-    <a class="carousel-item" href="#one!"><img src="https://placeimg.com/960/480/tech"></a>
-    <a class="carousel-item" href="#two!"><img src="https://placeimg.com/960/480/any"></a>
-    <a class="carousel-item" href="#three!"><img src="https://placeimg.com/960/480/tech"></a>
-    <a class="carousel-item" href="#four!"><img src="https://placeimg.com/960/480/any"></a>
-</div>
+@Html.Action("GetLatest5Articles", "Home")
 
 <!-- card panels -->
 <div class="row">
@@ -29,7 +43,6 @@
         </a>
     </div>
 </div>
-
 <div class="row">
     <div class="col s12">
         <!-- News feed -->
@@ -94,3 +107,22 @@
         </ul>
     </div>
 </div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/bxslider")
+    <script>
+        $(document).ready(function() {
+            $('.articlesCarousel').bxSlider({
+                mode: 'horizontal',
+                captions: true,
+                slideWidth: 960,
+                infiniteLoop: true,
+                auto: true,
+                prevText: '<i class="material-icons black-text">chevron_left</i>',
+                nextText: '<i class="material-icons black-text">chevron_right</i>',
+                pager: false
+        });
+        });
+    </script>
+}

@@ -8,3 +8,33 @@
     background-color: white;
     margin: 5px;
 }
+.profile-img-wrapper {
+    border: 1px solid #ddd;
+    padding: 3px;
+}
+.profile-img-wrapper > img {
+    max-width: 75px;
+    height: auto;
+}
+.register-box-body .row{
+    margin-bottom: 15px;
+}
+.login-box, .register-box {
+    width: 550px;
+    margin: 7% auto;
+    background-color: #040738;
+}
+.login-box, .register-page {
+    background-color: #00bcd4 !important;
+}
+.login-logo, .register-logo {
+    margin-bottom: 0;
+}
+.register-logo {
+    padding-top: 30px;
+}
+.register-box > h5 {
+    font-weight: 600;
+    font-size: 15px;
+    color: white;
+}

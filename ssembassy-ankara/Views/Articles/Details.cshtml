@@ -1,59 +1,44 @@
 ﻿@model ssembassy_ankara.Models.article
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_dashboard.cshtml";
+    ViewBag.Title = "Article";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "#" + Model.id;
+    ViewBag.Published = Model.published.ToString("dd/MM/yyyy");
 }
-
-<div>
-    <h4>article</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.author)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.published)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.published)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.article_category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.article_category.category)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
-        <dt></dt>
-        <dd>
-            @if (Model.imageUrl != null)
-            {
-                <img src="@Url.Content(""+ Model.imageUrl +"")" class="img-responsive" />
-            }
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.contents)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.contents)
-        </dd>
-
-    </dl>
+<style>
+    .page-header {
+        margin: 10px 0 5px 0;
+        font-weight: bold;
+    }
+     .article-image {
+         margin: 10px 0;
+     }
+</style>
+<div class="invoice">
+    <section class="article-box">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    @Html.DisplayFor(model => model.title)
+                </h2>
+                <small class="text-gray">Published: @ViewBag.Published</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="article-body">
+                    <div class="article-image">
+                        @if (!string.IsNullOrEmpty(Model.imageUrl))
+                        {
+                            <img src="@Url.Content(""+ Html.DisplayFor(model => model.imageUrl) +"")" class="img-responsive"/>
+                        }
+                    </div>
+                    <div class="article-content">
+                        @Html.Raw(Model.contents)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -230,7 +230,7 @@
     </Compile>
     <Compile Include="Models\LayoutViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\message.cs">
+    <Compile Include="Models\messages.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\positions.cs">
@@ -254,6 +254,10 @@
     <Content Include="Content\dashboard\skin-blue.css" />
     <Content Include="Content\datatables\dataTables.bootstrap.css" />
     <Content Include="Content\datepicker\datepicker3.css" />
+    <Content Include="Content\default\bxslider\images\bx_loader.gif" />
+    <Content Include="Content\default\bxslider\images\controls.png" />
+    <Content Include="Content\default\bxslider\jquery.bxslider.min.css" />
+    <Content Include="Content\default\bxslider\jquery.bxslider.min.js" />
     <Content Include="Content\default\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\achai.jpg" />
@@ -526,6 +530,10 @@
     <Content Include="Views\CPanel\Notices.cshtml" />
     <Content Include="Views\CPanel\EditNotice.cshtml" />
     <Content Include="Views\CPanel\NoticeDetails.cshtml" />
+    <Content Include="Views\Account\EditStaff.cshtml" />
+    <Content Include="Views\Account\StaffProfile.cshtml" />
+    <Content Include="Views\Shared\_ArticlesCarouselPartial.cshtml" />
+    <Content Include="Views\Home\Staff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     @Styles.Render("~/default/css")
+    @RenderSection("custom_css", false)
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -33,7 +34,7 @@
                         <ul class="dropdown-content" id="cameroun-dd">
                             <li><a href="#">Our Mission</a></li>
                             <li><a href="#">Relationship with Turkey</a></li>
-                            <li><a href="#">Embassy Staff</a></li>
+                            <li><a href="@Url.Action("Staff", "Home")">Embassy Staff</a></li>
                             <li><a href="#">Media</a></li>
                             <li><a href="#">About Us</a></li>
                         </ul>

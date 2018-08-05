@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ssembassy_ankara.Models;
 
 namespace ssembassy_ankara.Controllers
 {
-    [Authorize(Roles = "Admin, Content Manager")]
+    [Authorize()]
     [RequireHttps]
     public class CPanelController : Controller
     {
@@ -19,13 +18,48 @@ namespace ssembassy_ankara.Controllers
         {
             _db = new ApplicationDbContext();
         }
-        // GET: CPanel
+        // GET: CPanel Home
         public ActionResult Index()
         {
-            var users = _db.Users.ToList();
+            var staffs = GetAllStaff();
+            ViewBag.Staff = staffs.OrderByDescending(x => x.Position).ToList();
+            ViewBag.StaffCount = staffs.Count;
 
-            ViewBag.Users = users;
+            var allArticles = GetArticles();
+            ViewBag.Articles = allArticles.Take(5).ToList();
+            ViewBag.ArticleCount = allArticles.Count;
+
+            ViewBag.Announcements = GetAnnouncementsDesc();
+
+            var userInquiries = GetUserInquiries();
+            ViewBag.Top5Inquiries = userInquiries.Take(5).ToList();
+            ViewBag.TotalUserInquiries = userInquiries.Count;
+
             return View();
+        }
+
+        // Get: All staff
+        public List<ApplicationUser> GetAllStaff()
+        {
+            return _db.Users.ToList();
+        }
+
+        // Get: Top 5 articles in descending order
+        public List<article> GetArticles()
+        {
+            return _db.Articles.OrderByDescending(x => x.published).ToList();
+        }
+
+        // Get: Announcements descending
+        public List<ImportantNotice> GetAnnouncementsDesc()
+        {
+            return _db.ImportantNotice.OrderByDescending(x => x.CreatedOn).ToList();
+        }
+
+        // Get: Top 5 user inquiries
+        public List<messages> GetUserInquiries()
+        {
+            return _db.Messages.OrderByDescending(x => x.id).ToList();
         }
 
         // GET: logged in user details
@@ -54,6 +88,7 @@ namespace ssembassy_ankara.Controllers
 
             var userViewModal = new LoggedInUser
             {
+                Id = loggedInUser.Id,
                 FullName = loggedInUser.FullName,
                 Position = loggedInUser.Position,
                 ImageUrl = loggedInUser.ImgUrl

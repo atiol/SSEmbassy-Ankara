@@ -17,5 +17,6 @@ namespace ssembassy_ankara.Models
         public int id { get; set; }
         public string position { get; set; }
         public string duties { get; set; }
+        public int weight { get; set; }
     }
 }
