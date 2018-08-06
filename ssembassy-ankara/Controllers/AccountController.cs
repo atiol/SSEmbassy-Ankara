@@ -156,7 +156,6 @@ namespace ssembassy_ankara.Controllers
                 .ToList();
         }
 
-
         //
         // GET: /Account/Register
         [AllowAnonymous]

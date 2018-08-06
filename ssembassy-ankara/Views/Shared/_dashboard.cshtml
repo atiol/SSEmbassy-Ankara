@@ -1,4 +1,5 @@
 ﻿@using System.Web.UI.HtmlControls
+@using Microsoft.AspNet.Identity
 
 <!DOCTYPE html>
 <html>
@@ -89,11 +90,14 @@
                         <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Former Staff</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="@Url.Action("Index", "CPanel")">
-                        <i class="fa fa-user"></i> <span>Ambassador</span>
-                    </a>
-                </li>
+                @if (User.IsInRole("Admin") && User.Identity.GetUserName().Equals("Majok"))
+                {
+                    <li class="treeview">
+                        <a href="@Url.Action("Index", "CPanel")">
+                            <i class="fa fa-user"></i> <span>Ambassador</span>
+                        </a>
+                    </li>
+                }
                 <li class="treeview">
                     <a href="@Url.Action("Index", "Articles")">
                         <i class="fa fa-newspaper-o"></i> <span>News</span>
@@ -102,6 +106,11 @@
                 <li class="treeview">
                     <a href="@Url.Action("Notices", "CPanel")">
                         <i class="fa fa-bullhorn"></i> <span>Announcements</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="@Url.Action("WelcomeMessages", "CPanel")">
+                        <i class="fa fa-print"></i> <span>Welcome Message</span>
                     </a>
                 </li>
             </ul>

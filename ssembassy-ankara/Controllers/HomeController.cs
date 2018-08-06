@@ -33,15 +33,17 @@ namespace ssembassy_ankara.Controllers
         {
             var articleList = _db.Articles.OrderByDescending(x => x.published).Take(5).ToList();
             var articles = new List<NewsViewModel>();
-            var articleView = new NewsViewModel();
+            
 
             foreach (var item in articleList)
             {
-                articleView.Id = item.id;
-                articleView.Title = item.title;
-                articleView.ImgUrl = string.IsNullOrEmpty(item.imageUrl) ? _defaultArticleImageUrl : item.imageUrl;
-
-                articles.Add(articleView);
+                var articleViewModel = new NewsViewModel
+                {
+                    Id = item.id,
+                    Title = item.title,
+                    ImgUrl = string.IsNullOrEmpty(item.imageUrl) ? _defaultArticleImageUrl : item.imageUrl
+                };
+                articles.Add(articleViewModel);
             }
 
             return PartialView("_ArticlesCarouselPartial", articles);
@@ -59,17 +61,18 @@ namespace ssembassy_ankara.Controllers
             var staffList = _db.Users.ToList();
 
             var staffViewList = new List<StaffBasicInfoViewModel>();
+            var staffView = new StaffBasicInfoViewModel();
+
             if (staffList.Count > 0)
             {
                 foreach (var staff in staffList)
                 {
-                    staffViewList.Add(new StaffBasicInfoViewModel
-                    {
-                        Id = staff.Id,
-                        FullName = staff.FullName,
-                        ImgUrl = staff.ImgUrl,
-                        Position = staff.Position
-                    });
+                    staffView.Id = staff.Id;
+                    staffView.FullName = staff.FullName;
+                    staffView.ImgUrl = string.IsNullOrEmpty(staff.ImgUrl) ? _defaultStaffImageUrl: staff.ImgUrl;
+                    staffView.Position = staff.Position;
+
+                    staffViewList.Add(staffView);
                 }
             }
 

@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\CitizenRegistrationController.cs" />
     <Compile Include="Controllers\CPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainLayoutPartialsController.cs" />
@@ -195,6 +196,9 @@
     </Compile>
     <Compile Include="Models\BuddyClasses.cs" />
     <Compile Include="Models\article_category.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CitizenRegistration.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Edmx.Context.cs">
@@ -230,15 +234,36 @@
     </Compile>
     <Compile Include="Models\LayoutViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MaritalStatus.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\messages.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeOfTransport.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnlineVisaApplication.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PassportType.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\positions.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PurposeOfVisit.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sex.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StudentRegistrationModels.cs" />
     <Compile Include="Models\VisaApplicationModels.cs" />
     <Compile Include="Models\VisaInfo.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VisaTypeRequested.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WelcomeMessage.cs">
@@ -318,6 +343,8 @@
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -536,9 +563,19 @@
     <Content Include="Views\Account\StaffProfile.cshtml" />
     <Content Include="Views\Shared\_ArticlesCarouselPartial.cshtml" />
     <Content Include="Views\Home\Staff.cshtml" />
+    <Content Include="Views\CitizenRegistration\Index.cshtml" />
+    <Content Include="Views\Shared\_AboutCitizen.cshtml" />
+    <Content Include="Views\Shared\_CitizenContactInfo.cshtml" />
+    <Content Include="Views\Shared\_Success.cshtml" />
+    <Content Include="Views\CitizenRegistration\Success.cshtml" />
+    <Content Include="Views\CPanel\DisplayWelcomeMessage.cshtml" />
+    <Content Include="Views\CPanel\EditWelcomeMessage.cshtml" />
+    <Content Include="Views\CPanel\CreateWelcomeMessage.cshtml" />
+    <Content Include="Views\CPanel\WelcomeMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\citizenImages\" />
     <Folder Include="Views\MainLayoutPartials\" />
   </ItemGroup>
   <ItemGroup>

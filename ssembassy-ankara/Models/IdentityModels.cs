@@ -66,6 +66,14 @@ namespace ssembassy_ankara.Models
         public DbSet<VisaInfo> VisaInfo { get; set; }
         public DbSet<ImportantNotice> ImportantNotice { get; set; }
         public DbSet<messages> Messages { get; set; }
+        public DbSet<CitizenRegistration> CitizenRegistration { get; set; }
+        public DbSet<MaritalStatus> MaritalStatus { get; set; }
+        public DbSet<ModeOfTransport> ModeOfTransport { get; set; }
+        public DbSet<OnlineVisaApplication> OnlineVisaApplication { get; set; }
+        public DbSet<PassportType> PassportType { get; set; }
+        public DbSet<PurposeOfVisit> PurposeOfVisit { get; set; }
+        public DbSet<Sex> Sex { get; set; }
+        public DbSet<VisaTypeRequested> VisaTypeRequested { get; set; }
 
         public static ApplicationDbContext Create()
         {

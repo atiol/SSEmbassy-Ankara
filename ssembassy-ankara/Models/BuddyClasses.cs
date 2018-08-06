@@ -84,4 +84,18 @@ namespace ssembassy_ankara.Models
         [Display(Name = "Should Show ?")]
         public bool Status { get; set; }
     }
+
+    // Welcome message
+    [MetadataType(typeof(WelcomeMessageAttribs))]
+    public partial class WelcomeMessage
+    {
+
+    }
+
+    public class WelcomeMessageAttribs
+    {
+        [Required]
+        [AllowHtml]
+        public string Message { get; set; }
+    }
 }

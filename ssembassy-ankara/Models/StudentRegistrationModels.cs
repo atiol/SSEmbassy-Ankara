@@ -6,9 +6,17 @@ using System.Web;
 
 namespace ssembassy_ankara.Models
 {
-    public class StudentRegistrationModels : PersonalDetails
+    public class AboutCitizen
     {
-        public DateTime ApplicationDate { get; set; }
+        [Required]
+        [Display(Name = "Full name as it appears on passport")]
+        public string FullName { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        [Required]
+        [Display(Name = "Date of Birth")]
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [Display(Name = "Passport Number")]
@@ -16,11 +24,28 @@ namespace ssembassy_ankara.Models
 
         [Required]
         [Display(Name = "Date of Expiry")]
-        public string ExpiryDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
 
-        [Required]
         [Display(Name = "Name of University or College (applicable for students)")]
         public string University { get; set; }
+
+        [Required]
+        public HttpPostedFileBase ImageFile { get; set; }
+    }
+
+    public class CitizenContactDetails
+    {
+        [Required]
+        [Display(Name = "Address in Turkey")]
+        public string TurkeyAddress { get; set; }
+
+        [Required]
+        [Display(Name = "Turkey phone number")]
+        public string TurkeyPhone { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [Display(Name = "Person to be contacted in Turkey incase of emmergency")]
@@ -29,5 +54,17 @@ namespace ssembassy_ankara.Models
         [Required]
         [Display(Name = "Their relationship with you")]
         public string RelationshipWithNextOfKin { get; set; }
+
+        [Required]
+        [Display(Name = "Purpose of Stay in Turkey")]
+        public int PurposeOfStayId { get; set; }
+
+        [Required]
+        [Display(Name = "Expected duration of Stay in Turkey")]
+        public int DurationOfStay { get; set; }
+
+        [Required]
+        [Display(Name = "I declare that the information provided in this form is true and accurate")]
+        public bool IdeclareTruthOfInfo { get; set; }
     }
 }

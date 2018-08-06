@@ -4,12 +4,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using ssembassy_ankara.Models;
 
 namespace ssembassy_ankara.Controllers
 {
-    [Authorize()]
+    [Authorize]
     [RequireHttps]
     public class CPanelController : Controller
     {
@@ -189,6 +190,97 @@ namespace ssembassy_ankara.Controllers
             _db.SaveChanges();
 
             return RedirectToAction("Notices");
+        }
+
+        // GET: Welcome messages
+        public ActionResult WelcomeMessages()
+        {
+            return View(_db.WelcomeMessage.ToList());
+        }
+
+        public ActionResult CreateWelcomeMessage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateWelcomeMessage([Bind(Include = "Message")]WelcomeMessage model)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.WelcomeMessage.Add(model);
+                _db.SaveChanges();
+                return RedirectToAction("WelcomeMessages", "CPanel");
+            }
+
+            return View(model);
+        }
+
+        // Edit: Welcome message
+        public ActionResult EditWelcomeMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var message = _db.WelcomeMessage.Find(id);
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(message);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditWelcomeMessage([Bind(Include = "Id,Message")]WelcomeMessage model)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(model).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("WelcomeMessages");
+            }
+
+            return View(model);
+        }
+
+        // Display: Welcome Message
+        public ActionResult DisplayWelcomeMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var message = _db.WelcomeMessage.Find(id);
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(message);
+        }
+
+        // Delete: Welcome message
+        public ActionResult DeleteWelcomeMessage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var message = _db.WelcomeMessage.Find(id);
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.WelcomeMessage.Remove(message);
+            _db.SaveChanges();
+            return RedirectToAction("WelcomeMessages");
         }
     }
 }

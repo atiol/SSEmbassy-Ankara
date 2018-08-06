@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ssembassy_ankara.Models.WelcomeMessage>
+
+@{
+    ViewBag.Title = "Welcome Messages";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <h4>Welcome Messages List</h4>
+                    <p class="pull-right">@Html.ActionLink("Create New", "CreateWelcomeMessage", null, new {@class="pull-right"})</p>
+                </div>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Message)
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td>
+                                @Html.Raw(item.Message.Split('.')[0])
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditWelcomeMessage", new {id = item.Id}) |
+                                @Html.ActionLink("Details", "DisplayWelcomeMessage", new {id = item.Id}) |
+                                @Html.ActionLink("Delete", "DeleteWelcomeMessage", new {id = item.Id}, new { onclick = "return confirm('Are you sure you want to delete this welcome message?');" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -152,17 +152,10 @@ namespace ssembassy_ankara.Controllers
             {
                 return HttpNotFound();
             }
-            return View(article);
-        }
 
-        // POST: Articles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            article article = _db.Articles.Find(id);
             _db.Articles.Remove(article);
             _db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

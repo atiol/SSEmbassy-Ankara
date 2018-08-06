@@ -1,0 +1,57 @@
+﻿@using System.Web.Mvc.Ajax
+@model ssembassy_ankara.Models.AboutCitizen
+
+@{
+//AjaxOptions options = new AjaxOptions
+//{
+//    HttpMethod = "POST",
+//    InsertionMode = InsertionMode.Replace,
+//    UpdateTargetId = "divContainer"
+//};
+}
+@Styles.Render("~/css/datepicker")
+
+@using (Html.BeginForm("AboutCitizen", "CitizenRegistration",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h6><strong>Step 1: Citizen Basic Details</strong></h6>
+    <div class="error-content">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(model => model.FullName)<br/>
+    @Html.TextBoxFor(model => model.FullName)
+    @Html.ValidationMessageFor(model => model.FullName, "")<br />
+
+    @Html.LabelFor(model => model.ImageFile) <br/>
+    <input type="file" name="ImageFile" accept=".png, .jpg, .jpeg" />
+    @Html.ValidationMessageFor(model => model.ImageFile, "") <br/>
+
+    @Html.LabelFor(model => model.BirthDate)<br/>
+    @Html.TextBoxFor(model => model.BirthDate, new {@class = "datepicker"})
+    @Html.ValidationMessageFor(model => model.BirthDate, "")<br/>
+
+    @Html.LabelFor(model => model.PassportNumber)<br />
+    @Html.TextBoxFor(model => model.PassportNumber)
+    @Html.ValidationMessageFor(model => model.PassportNumber, "")<br />
+
+    @Html.LabelFor(model => model.ExpiryDate)<br />
+    @Html.TextBoxFor(model => model.ExpiryDate, new { @class = "datepicker" })
+    @Html.ValidationMessageFor(model => model.ExpiryDate, "")<br/>
+
+    @Html.LabelFor(model => model.University)<br />
+    @Html.TextBoxFor(model => model.University)
+    @Html.ValidationMessageFor(model => model.University, "")<br />
+
+    <input type="submit" name="nextBtn" value="Next" class="btn btn-primary right"/>
+}
+
+@Scripts.Render("~/bundles/datepicker")
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function ($) {
+        $(function () {
+            $('.datepicker').datepicker();
+        });
+    });
+</script>

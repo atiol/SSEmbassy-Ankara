@@ -20,7 +20,7 @@ namespace ssembassy_ankara.Controllers
         {
             var model = _context.WelcomeMessage.FirstOrDefault();
             
-            return PartialView( new WelcomeMessage()
+            return PartialView( new WelcomeMessage
             {
                 Message = model.Message
             });

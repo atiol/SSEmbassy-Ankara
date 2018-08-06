@@ -129,11 +129,11 @@ namespace ssembassy_ankara.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Admin, Content Manager")]
-        public ActionResult OnlineVisaApplication()
-        {
-            return View();
-        }
+        //[AllowAnonymous]
+        //public ActionResult OnlineVisaApplication()
+        //{
+        //    return View();
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -52,7 +52,7 @@
                         <a href="#" class="dropdown-trigger" data-target="monde-dd" data-beloworigin="true" data-hover="true">CONSULAR SERVICES<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown-content" id="monde-dd">
                             <li><a href="@Url.Action("Index", "Visa")">Visas</a></li>
-                            <li><a href="#">Register With Embassy</a></li>
+                            <li><a href="@Url.Action("Index", "CitizenRegistration")">Register With Embassy</a></li>
                         </ul>
                     </li>
                     <li>
@@ -61,7 +61,7 @@
                     <li>
                         <a href="#" class="dropdown-trigger" data-target="competitions-dd" data-beloworigin="true" data-hover="true">ARCHIVES<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown-content" id="competitions-dd">
-                            <li><a href="#">Former Staff</a></li>
+                            <li><a href="#">Former Ambassadors</a></li>
                             <li><a href="#">Past Events</a></li>
                         </ul>
                     </li>
@@ -95,7 +95,7 @@
                     <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> WELCOME</a>
                     <div class="collapsible-body">
                         <ul class="collapsible-content">
-                            <li><a href="#">Embassy Staff</a></li>
+                            <li><a href="@Url.Action("Staff", "Home")">Embassy Staff</a></li>
                             <li><a href="#">Embassy Mission</a></li>
                             <li><a href="#">About Us</a></li>
                         </ul>
@@ -109,8 +109,8 @@
                     <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> CONSULAR SERVICES</a>
                     <div class="collapsible-body">
                         <ul class="collapsible-content">
-                            <li><a href="#">Visas</a></li>
-                            <li><a href="#">Register With Embassy</a></li>
+                            <li><a href="@Url.Action("Index", "Visa")">Visas</a></li>
+                            <li><a href="@Url.Action("Index", "CitizenRegistration")">Register With Embassy</a></li>
                             <li><a href="#">Other Services</a></li>
                         </ul>
                     </div>
@@ -271,6 +271,7 @@
     </footer><!-- end of footer-->
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     @Scripts.Render("~/bundles/defaultjs")
