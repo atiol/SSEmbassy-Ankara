@@ -19,7 +19,7 @@ namespace ssembassy_ankara.Controllers
         public ArticlesController()
         {
             _db = new ApplicationDbContext();
-            _defaultArticleImageUrl = "~/Content/img/ss2.jpg";
+            _defaultArticleImageUrl = "~/Content/img/articles/no-image.jpg";
         }
 
         public List<SelectListItem> PopulateArticleCategory()
@@ -41,25 +41,20 @@ namespace ssembassy_ankara.Controllers
         // GET: Articles
         public ActionResult Index()
         {
-            return View(_db.Articles.Include(a => a.article_category).ToList());
-        }
-
-        // GET: Articles/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            var articles = _db.Articles.Include(a => a.article_category).OrderByDescending(x => x.id).ToList();
+            var articleViewModelList = new List<ArticleViewModel>();
+            foreach (var article in articles)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                articleViewModelList.Add( new ArticleViewModel
+                {
+                    id = article.id,
+                    title = article.title,
+                    article_category = article.article_category,
+                    author = article.author,
+                    PublishedDate = article.published.ToString("d")
+                });
             }
-            var article = _db.Articles.Find(id);
-            if (article == null)
-            {
-                return HttpNotFound();
-            }
-
-            article.imageUrl = string.IsNullOrEmpty(article.imageUrl) ? _defaultArticleImageUrl : article.imageUrl;
-            return View(article);
+            return View(articleViewModelList);
         }
 
         // GET: Articles/Create
@@ -101,6 +96,16 @@ namespace ssembassy_ankara.Controllers
             ViewBag.ArticleCategoryList = PopulateArticleCategory();
             
             return View(article);
+        }
+
+        // Details
+        public ActionResult Details(int? id)
+        {
+            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.Articles.Find(id);
+            if (model == null) return HttpNotFound();
+
+            return View(model);
         }
 
         // GET: Articles/Edit/5

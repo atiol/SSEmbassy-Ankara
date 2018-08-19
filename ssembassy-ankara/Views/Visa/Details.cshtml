@@ -3,41 +3,25 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Preview Visa Information.";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>VisaInfo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.InfoEn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InfoEn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InfoTr)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InfoTr)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="card-panel">
+            @if (Model != null)
+            {
+                <div class="pull-right"><a href="@Url.Action("Edit", new {id = Model.Id})" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a></div>
+                @Html.Raw(Model.InfoEn)
+            }
+            else
+            {
+                <p class="text-gray">
+                    <em>No content added yet!</em><br /><br />
+                    <span>@Html.ActionLink("Create Page", "Create", null, new { @class = "btn btn-flat btn-success" })</span>
+                </p>
+            }
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

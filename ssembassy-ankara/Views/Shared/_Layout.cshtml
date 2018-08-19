@@ -1,6 +1,4 @@
-﻿@using Microsoft.Ajax.Utilities
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,19 +31,16 @@
                         <a href="#" class="dropdown-trigger" data-target="cameroun-dd">WELCOME<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown-content" id="cameroun-dd">
                             <li><a href="#">Our Mission</a></li>
-                            <li><a href="#">Relationship with Turkey</a></li>
+                            <li><a href="@Url.Action("TurkeyRelations", "Home")">Relationship with Turkey</a></li>
                             <li><a href="@Url.Action("Staff", "Home")">Embassy Staff</a></li>
-                            <li><a href="#">Media</a></li>
-                            <li><a href="#">About Us</a></li>
                         </ul>
                     </li>
 
                     <li>
                         <a href="#" class="dropdown-trigger" data-target="afrique-dd" data-beloworigin="true" data-hover="true">ABOUT SOUTH SUDAN<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown-content" id="afrique-dd">
-                            <li><a href="#">History of South Sudan</a></li>
-                            <li><a href="#">Education and Culture</a></li>
-                            <li><a href="#">National Anthem</a></li>
+                            <li><a href="@Url.Action("History", "Home")">History of South Sudan</a></li>
+                            <li><a href="@Url.Action("EducationAndCulture", "Home")">Education and Culture</a></li>
                         </ul>
                     </li>
                     <li>
@@ -56,13 +51,13 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">BUSINESS AND INVESTMENTS</a>
+                        <a href="@Url.Action("Index", "BusinessAndInvestments")">BUSINESS AND INVESTMENTS</a>
                     </li>
                     <li>
                         <a href="#" class="dropdown-trigger" data-target="competitions-dd" data-beloworigin="true" data-hover="true">ARCHIVES<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown-content" id="competitions-dd">
                             <li><a href="#">Former Ambassadors</a></li>
-                            <li><a href="#">Past Events</a></li>
+                            <li><a href="#">Media</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -120,7 +115,7 @@
         <li>
             <ul class="collapsible collapsible-accordion">
                 <li>
-                    <a href="#" class="collapsible-header">BUSINESS AND INVESTMENT</a>
+                    <a href="@Url.Action("Index", "BusinessAndInvestments")" class="collapsible-header">BUSINESS AND INVESTMENT</a>
                 </li>
             </ul>
         </li>
@@ -130,9 +125,8 @@
                     <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> ABOUT SOUTH SUDAN</a>
                     <div class="collapsible-body">
                         <ul class="collapsible-content">
-                            <li><a href="#">History of South Sudan</a></li>
-                            <li><a href="#">Education and Culture</a></li>
-                            <li><a href="#">National Anthem</a></li>
+                            <li><a href="@Url.Action("History", "Home")">History of South Sudan</a></li>
+                            <li><a href="@Url.Action("EducationAndCulture", "Home")">Education and Culture</a></li>
                         </ul>
                     </div>
                 </li>
@@ -144,7 +138,7 @@
                     <a href="#" class="collapsible-header"><i class="material-icons">chevron_right</i> EMBASSY ARCHIVE</a>
                     <div class="collapsible-body">
                         <ul class="collapsible-content">
-                            <li><a href="#">Former Staff</a></li>
+                            <li><a href="#">Former Ambassadors</a></li>
                             <li><a href="#">Past Events</a></li>
                         </ul>
                     </div>
@@ -163,11 +157,15 @@
                 <!-- Ambassador-->
                 @Html.Action("AmbassadorInfoPartial", "MainLayoutPartials")
 
-                <!-- welcoming message -->
-                @Html.Action("_WelcomeMessagePartialViewResult", "MainLayoutPartials")
-
                 <!-- working hours and address -->
-                @Html.Action("_EmbassyAddressPartialViewResult", "MainLayoutPartials")
+                <ul class="collapsible expandable z-depth-1 grey lighten-5">
+                    <li class="active">
+                        <div class="collapsible-header"><i class="material-icons blue-text">access_time</i> WORKING HOURS</div>
+                        <div class="collapsible-body">
+                            @Html.Action("_EmbassyAddressPartialViewResult", "MainLayoutPartials")
+                        </div>
+                    </li>
+                </ul>
 
                 <!-- upcoming events -->
                 <ul class="collapsible expandable">
@@ -227,19 +225,8 @@
                 </div>
                 <div class="col m4 s12">
                     <h6><a href="#">ADDRESS</a></h6>
-                    <div class="divider"></div>
-                    <address>
-                        Address: Kız Kulesi Sokak <br />
-                        No. 1, Gazi Osman Pasa Ankara<br>
-                        <abbr title="Telephone">T: </abbr>
-                        +90 312 4360285<br>
-                        <abbr title="Fax">F: </abbr>
-                        +90 312 4360284
-
-                    </address>
-                    <address>
-                        <strong>Office Hours : </strong> Monday - Friday, 09:00am - 5:00pm
-                    </address>
+                    <div class="divider"></div><br/>
+                    @Html.Action("_EmbassyAddressPartialViewResult", "MainLayoutPartials")
                 </div>
                 <div class="col m4 s12 center">
                     <a href="@Url.Action("Index", "Home")" class="brand-logo"><img src="@Url.Content("~/Content/img/emblem.png")" class="footer-logo" alt="SS Emblem"></a>

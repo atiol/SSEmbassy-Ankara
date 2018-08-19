@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using ssembassy_ankara.Models;
+using PagedList;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -15,10 +16,14 @@ namespace ssembassy_ankara.Controllers
     public class CPanelController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly string _defaultArticleImageUrl;
+
         public CPanelController()
         {
             _db = new ApplicationDbContext();
+            _defaultArticleImageUrl = "~/Content/img/articles/no-image.jpg";
         }
+
         // GET: CPanel Home
         public ActionResult Index()
         {
@@ -45,7 +50,7 @@ namespace ssembassy_ankara.Controllers
             return _db.Users.ToList();
         }
 
-        // Get: Top 5 articles in descending order
+        // Get: Articles in descending order
         public List<article> GetArticles()
         {
             return _db.Articles.OrderByDescending(x => x.published).ToList();
@@ -99,9 +104,16 @@ namespace ssembassy_ankara.Controllers
         }
 
         // Get: All Notices
-        public ActionResult Notices()
+        public ActionResult Notices(int? page)
         {
-            return View(_db.ImportantNotice.ToList());
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            var notices = _db.ImportantNotice.ToList();
+            var noticesList = notices.ToPagedList(pageIndex, pageSize);
+
+            return View(noticesList);
         }
 
         // Create: Notice
@@ -192,95 +204,221 @@ namespace ssembassy_ankara.Controllers
             return RedirectToAction("Notices");
         }
 
-        // GET: Welcome messages
-        public ActionResult WelcomeMessages()
-        {
-            return View(_db.WelcomeMessage.ToList());
-        }
-
-        public ActionResult CreateWelcomeMessage()
+        // Create: South Sudan History Page
+        public ActionResult CreateSSHistoryPage()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateWelcomeMessage([Bind(Include = "Message")]WelcomeMessage model)
+        public ActionResult CreateSSHistoryPage([Bind(Include = "ContentEn,ContentTr")]Page model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            var historyPage = new SSHistory
             {
-                _db.WelcomeMessage.Add(model);
-                _db.SaveChanges();
-                return RedirectToAction("WelcomeMessages", "CPanel");
-            }
-
-            return View(model);
+                Body = model.ContentEn
+            };
+            _db.SSHistory.Add(historyPage);
+            return RedirectToAction("Index");
         }
 
-        // Edit: Welcome message
-        public ActionResult EditWelcomeMessage(int? id)
+        // preview History page
+        public ActionResult PreviewHistoryPage()
+        {
+            return View(_db.SSHistory.FirstOrDefault());
+        }
+
+        // Edit History Page
+        public ActionResult EditHistoryPage(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var message = _db.WelcomeMessage.Find(id);
-            if (message == null)
+            var model = _db.SSHistory.Find(id);
+            if (model == null)
             {
                 return HttpNotFound();
             }
 
-            return View(message);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditWelcomeMessage([Bind(Include = "Id,Message")]WelcomeMessage model)
+        public ActionResult EditHistoryPage([Bind(Include = "Id,Body")]SSHistory model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            _db.Entry(model).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("PreviewHistoryPage");
+        }
+
+        public ActionResult DeleteHistory(int? id)
+        {
+            if (id == null)
             {
-                _db.Entry(model).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("WelcomeMessages");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = _db.SSHistory.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.SSHistory.Remove(model);
+            _db.SaveChanges();
+            return RedirectToAction("PreviewHistoryPage");
+        }
+
+        public ActionResult CreateEmbassyMission()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEmbassyMission([Bind(Include = "Body")]EmbassyMission model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            _db.EmbassyMission.Add(model);
+            _db.SaveChanges();
+
+            return RedirectToAction("PreviewEmbassyMission");
+        }
+
+        // Edit EmbassyMission Page
+        public ActionResult EditEmbassyMission(int? id)
+        {
+            if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.EmbassyMission.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
             }
 
             return View(model);
         }
 
-        // Display: Welcome Message
-        public ActionResult DisplayWelcomeMessage(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmbassyMission([Bind(Include = "Id,Body")]EmbassyMission model)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (!ModelState.IsValid) return View(model);
+            _db.Entry(model).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("PreviewEmbassyMission");
 
-            var message = _db.WelcomeMessage.Find(id);
-            if (message == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(message);
         }
 
-        // Delete: Welcome message
-        public ActionResult DeleteWelcomeMessage(int? id)
+        public ActionResult PreviewEmbassyMission()
+        {
+            var model = _db.EmbassyMission.FirstOrDefault();
+            return View(model);
+        }
+
+        // Delete EmbassyMission Page
+        public ActionResult DeleteEmbassyMission(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var message = _db.WelcomeMessage.Find(id);
-            if (message == null)
+
+            var model = _db.EmbassyMission.Find(id);
+            if (model == null)
             {
                 return HttpNotFound();
             }
 
-            _db.WelcomeMessage.Remove(message);
+            _db.EmbassyMission.Remove(model);
             _db.SaveChanges();
-            return RedirectToAction("WelcomeMessages");
+
+            return RedirectToAction("PreviewEmbassyMission");
+        }
+
+        // GET: Articles/Details/5
+        public ActionResult PreviewArticle(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var article = _db.Articles.Find(id);
+            if (article == null)
+            {
+                return HttpNotFound();
+            }
+
+            article.imageUrl = string.IsNullOrEmpty(article.imageUrl) ? _defaultArticleImageUrl : article.imageUrl;
+            return View(article);
+        }
+
+        // Preview Education and Culture
+        public ActionResult PreviewEducationAndCulture()
+        {
+            var model = _db.EducationAndCulture.FirstOrDefault();
+            return View(model);
+        }
+
+        public ActionResult EditEducationPageAndCulture(int? id)
+        {
+            if(id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.EducationAndCulture.Find(id);
+            if (model == null)
+                return HttpNotFound();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEducationPageAndCulture(EducationAndCulture model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            _db.Entry(model).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            return RedirectToAction("PreviewEducationAndCulture");
+        }
+
+        public ActionResult DeleteEducationAndCulture(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = _db.EmbassyMission.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.EmbassyMission.Remove(model);
+            _db.SaveChanges();
+
+            return RedirectToAction("PreviewEducationAndCulture");
+        }
+
+        public ActionResult CreateEducationAndCulture()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEducationAndCulture([Bind(Include = "Body")]EducationAndCulture model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            _db.EducationAndCulture.Add(model);
+            _db.SaveChanges();
+
+            return RedirectToAction("PreviewEducationAndCulture");
         }
     }
 }

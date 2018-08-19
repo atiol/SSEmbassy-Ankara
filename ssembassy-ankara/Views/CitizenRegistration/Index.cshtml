@@ -1,16 +1,24 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card-panel">
-    <h4 class="center-text">Registration Form For South Sudanese nationals in Turkey</h4>
-    <div class="divider"></div>
-    <small class="red-text">This registration form is for nationals only.</small>
-    <div class="reg-form">
-        <div id="divContainer">
-            @Html.Partial("_AboutCitizen")
+<div class="row">
+    <div class="col s12">
+        <h5>Register with the embassy here</h5>
+        <p>This form is only for SOUTH SUDANESE NATIONALS ONLY</p>
+    </div>
+    <div class="col s6">
+        <div class="card-panel center green white-text">
+            <p>To register with the embassy click "Register"</p>
+            @Html.ActionLink("Register", "PersonalDetails", "CitizenRegistration", null, new {@class = "btn btn-primary"})
+        </div>
+    </div>
+    <div class="col s6">
+        <div class="card-panel center amber white-text">
+            <p>Click "Continue" to update your information</p>
+            @Html.ActionLink("Continue", "", "CitizenRegistration", null, new { @class = "btn btn-warning" })
         </div>
     </div>
 </div>
-

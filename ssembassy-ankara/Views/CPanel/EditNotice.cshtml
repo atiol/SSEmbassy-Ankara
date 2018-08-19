@@ -1,7 +1,7 @@
 ﻿@model ssembassy_ankara.Models.ImportantNotice
 
 @{
-    ViewBag.Title = "EditNotice";
+    ViewBag.Title = "Edit Notice";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
@@ -12,9 +12,9 @@
             @using (Html.BeginForm("EditNotice", "CPanel", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                <div class="box-header">
+                <div class="box-header with-border">
                     <div class="box-title">
-                        <h4>Title: @Model.Title</h4>
+                        <h4>Edit: <strong>@Model.Title</strong></h4>
                     </div>
                 </div>
                 <div class="box-body">
@@ -28,12 +28,18 @@
                         @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
-                        <div class="radio">
-                            @Html.RadioButtonFor(model => model.Status, Model.Status)<br />
-                            @Html.RadioButtonFor(model => model.Status, !Model.Status)
-                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                        </div>
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })<br/>
+                        @if (Model.Status)
+                        {
+                            <span>Yes : @Html.RadioButtonFor(model => model.Status, Model.Status)</span><br/>
+                            <span>No  : @Html.RadioButtonFor(model => model.Status, !Model.Status)</span>
+                        }
+                        else
+                        {
+                            <span>Yes : @Html.RadioButtonFor(model => model.Status, !Model.Status)</span><br/>
+                            <span>No  : @Html.RadioButtonFor(model => model.Status, Model.Status)</span>
+                        }
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.MessageEn, htmlAttributes: new { @class = "control-label" })
@@ -48,8 +54,8 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    @Html.ActionLink("Cancel", "Notices", null, new { @class = "btn btn-danger pull-left" })
-                    <input type="submit" value="Save" class="btn btn-warning pull-right" />
+                    @Html.ActionLink("Cancel", "Notices", null, new { @class = "btn btn-danger pull-left btn-flat" })
+                    <input type="submit" value="Save" class="btn btn-warning pull-right btn-flat" />
                 </div>
             }
         </div>

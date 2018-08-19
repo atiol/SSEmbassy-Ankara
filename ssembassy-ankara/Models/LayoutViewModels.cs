@@ -19,6 +19,8 @@ namespace ssembassy_ankara.Models
 
         [Display(Name = "Position")]
         public string Position { get; set; }
+
+        public string Message { get; set; }
     }
 
     public class NewsViewModel
@@ -45,5 +47,14 @@ namespace ssembassy_ankara.Models
         public string FullName { get; set; }
         public string Position { get; set; }
         public string ImageUrl { get; set; }
+    }
+
+    public class Page
+    {
+        public int Id { get; set; }
+        [AllowHtml]
+        public string ContentEn { get; set; }
+        [AllowHtml]
+        public string ContentTr { get; set; }
     }
 }

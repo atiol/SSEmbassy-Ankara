@@ -30,6 +30,8 @@ namespace ssembassy_ankara.Models
         public int PurposeOfVisitId { get; set; }
         public int ExpectedDurationOfStay { get; set; }
         public bool IdeclareTruthOfInfo { get; set; }
+        public string PassportImage { get; set; }
+        public string NextOfKinContact { get; set; }
     
         public virtual PurposeOfVisit PurposeOfVisit { get; set; }
     }

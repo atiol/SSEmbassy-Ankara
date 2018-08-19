@@ -1,7 +1,4 @@
-﻿@using System.Web.UI.HtmlControls
-@using Microsoft.AspNet.Identity
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,7 +13,7 @@
     @RenderSection("custom_css", false)
     <title>Dashboard | @ViewBag.Title</title>
 </head>
-<body class="hold-transition skin-blue fixed">
+<body class="hold-transition skin-blue">
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
@@ -87,31 +84,75 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> All Staff</a></li>
-                        <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Former Staff</a></li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="treeview">
+                                <a href="@Url.Action("Index", "CPanel")">
+                                    <i class="fa fa-circle-o"></i> <span>Ambassador</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Former Ambassadors</a></li>
                     </ul>
                 </li>
-                @if (User.IsInRole("Admin") && User.Identity.GetUserName().Equals("Majok"))
-                {
-                    <li class="treeview">
-                        <a href="@Url.Action("Index", "CPanel")">
-                            <i class="fa fa-user"></i> <span>Ambassador</span>
-                        </a>
-                    </li>
-                }
                 <li class="treeview">
                     <a href="@Url.Action("Index", "Articles")">
-                        <i class="fa fa-newspaper-o"></i> <span>News</span>
+                        <i class="fa fa-newspaper-o"></i> <span>News Articles</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="@Url.Action("PreviewBusinessInvestments", "BusinessAndInvestments")">
+                        <i class="fa fa-money"></i> <span>Business Investments</span>
                     </a>
                 </li>
                 <li class="treeview">
                     <a href="@Url.Action("Notices", "CPanel")">
-                        <i class="fa fa-bullhorn"></i> <span>Announcements</span>
+                        <i class="fa fa-print"></i> <span>Announcements</span>
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="@Url.Action("WelcomeMessages", "CPanel")">
-                        <i class="fa fa-print"></i> <span>Welcome Message</span>
+                    <a href="@Url.Action("Index", "CPanel")">
+                        <i class="fa fa-calendar-o"></i> <span>Events</span>
                     </a>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-globe"></i> <span>About South Sudan</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href="@Url.Action("PreviewHistoryPage", "CPanel")"><i class="fa fa-circle-o"></i> History of S.Sudan</a></li>
+                        <li class="active"><a href="@Url.Action("PreviewEducationAndCulture", "CPanel")"><i class="fa fa-circle-o"></i> Education and Culture</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-building-o"></i> <span>Consular Services</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Visa Applicants</a></li>
+                        <li class="active"><a href="@Url.Action("Index", "Visa")"><i class="fa fa-circle-o"></i> Visa</a></li>
+                        @if (HttpContext.Current.User.IsInRole("Admin, Content Manager"))
+                        {
+                            <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> S.Sudanese in Turkey</a></li>
+                        }
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-archive"></i> <span>Archives</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Past Events</a></li>
+                    </ul>
                 </li>
             </ul>
         </section>

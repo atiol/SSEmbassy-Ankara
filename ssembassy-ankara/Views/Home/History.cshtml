@@ -1,0 +1,26 @@
+﻿@model ssembassy_ankara.Models.SSHistory
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-panel grey lighten-5 z-depth-0">
+     @if (Model != null)
+     {
+         @Html.Raw(Model.Body)
+     }
+     else
+     {
+         <h4>History of South Sudan</h4>
+        <p class="grey-text">Content Unavailable</p>
+     }
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('p img').addClass('responsive-img');
+        });
+    </script>
+}

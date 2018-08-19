@@ -89,6 +89,14 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -181,11 +189,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\BusinessAndInvestmentsController.cs" />
     <Compile Include="Controllers\CitizenRegistrationController.cs" />
     <Compile Include="Controllers\CPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainLayoutPartialsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RSSController.cs" />
     <Compile Include="Controllers\VisaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,13 +204,17 @@
     <Compile Include="Models\article.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BuddyClasses.cs" />
     <Compile Include="Models\article_category.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BuddyClasses.cs" />
+    <Compile Include="Models\BusinessInvestments.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CitizenRegistration.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CPanelViewModels.cs" />
     <Compile Include="Models\Edmx.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -216,6 +230,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Edmx.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EducationAndCulture.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmbassyMission.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\embassy_address.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
@@ -225,7 +245,7 @@
     <Compile Include="Models\event_category.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\former_personel.cs">
+    <Compile Include="Models\FormerAmbassadors.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -255,10 +275,17 @@
     <Compile Include="Models\PurposeOfVisit.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RSSFeed.cs" />
     <Compile Include="Models\Sex.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SSHistory.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StudentRegistrationModels.cs" />
+    <Compile Include="Models\TurkeyRelations.cs">
+      <DependentUpon>Edmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VisaApplicationModels.cs" />
     <Compile Include="Models\VisaInfo.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
@@ -266,10 +293,8 @@
     <Compile Include="Models\VisaTypeRequested.cs">
       <DependentUpon>Edmx.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WelcomeMessage.cs">
-      <DependentUpon>Edmx.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RSSHelper\RSSHelper.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +314,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\achai.jpg" />
     <Content Include="Content\img\articles\blank.jpg" />
+    <Content Include="Content\img\articles\no-image.jpg" />
     <Content Include="Content\img\atiol.jpg" />
     <Content Include="Content\img\emblem.png" />
     <Content Include="Content\img\emblem2.svg" />
@@ -299,6 +325,7 @@
     <Content Include="Content\img\ss2.jpg" />
     <Content Include="Content\img\fuser.png" />
     <Content Include="Content\img\muser.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -320,9 +347,14 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\clamp.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\fastclick.js" />
     <Content Include="Content\img\ss1.webp" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <EntityDeploy Include="Models\Edmx.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Edmx.Designer.cs</LastGenOutput>
@@ -330,10 +362,6 @@
     <Content Include="Models\Edmx.edmx.diagram">
       <DependentUpon>Edmx.edmx</DependentUpon>
     </Content>
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
@@ -531,11 +559,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
     <Content Include="Views\CPanel\Index.cshtml" />
-    <Content Include="Views\Shared\_WelcomeMessagePartialViewResult.cshtml" />
     <Content Include="Views\Shared\_EmbassyAddressPartialViewResult.cshtml" />
     <Content Include="Views\Articles\Create.cshtml" />
-    <Content Include="Views\Articles\Delete.cshtml" />
-    <Content Include="Views\Articles\Details.cshtml" />
+    <Content Include="Views\CPanel\PreviewArticle.cshtml" />
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
@@ -555,7 +581,6 @@
     <Content Include="Views\Visa\Edit.cshtml" />
     <Content Include="Views\Visa\Index.cshtml" />
     <Content Include="Views\Home\Notice.cshtml" />
-    <Content Include="Views\CPanel\CreateNotice.cshtml" />
     <Content Include="Views\CPanel\Notices.cshtml" />
     <Content Include="Views\CPanel\EditNotice.cshtml" />
     <Content Include="Views\CPanel\NoticeDetails.cshtml" />
@@ -563,15 +588,35 @@
     <Content Include="Views\Account\StaffProfile.cshtml" />
     <Content Include="Views\Shared\_ArticlesCarouselPartial.cshtml" />
     <Content Include="Views\Home\Staff.cshtml" />
-    <Content Include="Views\CitizenRegistration\Index.cshtml" />
-    <Content Include="Views\Shared\_AboutCitizen.cshtml" />
-    <Content Include="Views\Shared\_CitizenContactInfo.cshtml" />
+    <Content Include="Views\CitizenRegistration\PersonalDetails.cshtml" />
+    <Content Include="Views\CitizenRegistration\ContactInfo.cshtml" />
     <Content Include="Views\Shared\_Success.cshtml" />
     <Content Include="Views\CitizenRegistration\Success.cshtml" />
-    <Content Include="Views\CPanel\DisplayWelcomeMessage.cshtml" />
-    <Content Include="Views\CPanel\EditWelcomeMessage.cshtml" />
-    <Content Include="Views\CPanel\CreateWelcomeMessage.cshtml" />
-    <Content Include="Views\CPanel\WelcomeMessages.cshtml" />
+    <Content Include="Views\BusinessAndInvestments\Index.cshtml" />
+    <Content Include="Views\BusinessAndInvestments\PreviewBusinessInvestments.cshtml" />
+    <Content Include="Views\BusinessAndInvestments\Edit.cshtml" />
+    <Content Include="Views\BusinessAndInvestments\Create.cshtml" />
+    <Content Include="Views\Home\SouthSudanHistory.cshtml" />
+    <Content Include="Views\CPanel\CreateNotice.cshtml" />
+    <Content Include="Views\CPanel\CreateSSHistoryPage.cshtml" />
+    <Content Include="Views\Home\History.cshtml" />
+    <Content Include="Views\CPanel\EditHistoryPage.cshtml" />
+    <Content Include="Views\CPanel\PreviewHistoryPage.cshtml" />
+    <Content Include="Views\Shared\_StaffMiniProfile.cshtml" />
+    <Content Include="Views\Home\EmbassyMission.cshtml" />
+    <Content Include="Views\Home\TurkeyRelations.cshtml" />
+    <Content Include="Views\Home\EducationAndCulture.cshtml" />
+    <Content Include="Views\CPanel\EditEmbassyMission.cshtml" />
+    <Content Include="Views\CPanel\PreviewEmbassyMission.cshtml" />
+    <Content Include="Views\CPanel\CreateEmbassyMission.cshtml" />
+    <Content Include="Views\CPanel\PreviewEducationAndCulture.cshtml" />
+    <Content Include="Views\CPanel\EditEducationPageAndCulture.cshtml" />
+    <Content Include="Views\Articles\Details.cshtml" />
+    <Content Include="Views\CPanel\CreateEducationAndCulture.cshtml" />
+    <Content Include="Views\RSS\_RSSPartial.cshtml" />
+    <Content Include="Views\CitizenRegistration\Index.cshtml" />
+    <Content Include="Views\CitizenRegistration\Registered.cshtml" />
+    <Content Include="Views\CitizenRegistration\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

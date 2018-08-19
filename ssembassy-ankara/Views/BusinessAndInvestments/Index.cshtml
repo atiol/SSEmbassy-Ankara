@@ -1,0 +1,17 @@
+﻿@model ssembassy_ankara.Models.BusinessInvestments
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-panel ">
+    @if (Model != null)
+    {
+        @Html.Raw(Model.body)
+    }
+    else
+    {
+        <h5>Business Investments</h5>
+    }
+</div>

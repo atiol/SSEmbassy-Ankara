@@ -1,0 +1,85 @@
+﻿@model ssembassy_ankara.Models.CitizenContactDetails
+
+@{
+    ViewBag.Title = "Contact Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-panel">
+    <h5>Registration form for South Sudanese Nationals</h5>
+    <div class="divider"></div>
+    <small class="blue-text">This registration form is strictly for South Sudanese Nationals only.</small>
+    <div class="reg-form">
+        @using (Html.BeginForm("ContactInfo", "CitizenRegistration", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "red-text" })
+            <h6><strong>Step 2: Citizen Contact Details</strong></h6>
+            @Html.LabelFor(model => model.TurkeyAddress)<br/>
+            @Html.TextAreaFor(model => model.TurkeyAddress)
+            @Html.ValidationMessageFor(model => model.TurkeyAddress, "", new { @class = "red-text" })<br/>
+
+            @Html.LabelFor(model => model.TurkeyPhone)<br />
+            @Html.TextBoxFor(model => model.TurkeyPhone)
+            @Html.ValidationMessageFor(model => model.TurkeyPhone, "", new { @class = "red-text" })<br />
+
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.TextBoxFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "red-text" })<br />
+
+            @Html.LabelFor(model => model.NextOfKinInTurkey)<br />
+            @Html.TextBoxFor(model => model.NextOfKinInTurkey)
+            @Html.ValidationMessageFor(model => model.NextOfKinInTurkey, "", new { @class = "red-text" })<br />
+
+            @Html.LabelFor(model => model.RelationshipWithNextOfKin)<br />
+            @Html.TextBoxFor(model => model.RelationshipWithNextOfKin)
+            @Html.ValidationMessageFor(model => model.RelationshipWithNextOfKin, "", new { @class = "red-text" })<br />
+
+            @Html.LabelFor(model => model.NextOfKinContact)<br />
+            @Html.TextBoxFor(model => model.NextOfKinContact)
+            @Html.ValidationMessageFor(model => model.NextOfKinContact, "", new { @class = "red-text" })<br />
+
+            @Html.LabelFor(model => model.PurposeOfStayId)<br />
+            if (ViewBag.PurposeOfVisit != null)
+            {
+                @Html.DropDownListFor(model => model.PurposeOfStayId, (IEnumerable<SelectListItem>)ViewBag.PurposeOfVisit, "Select purpose of stay",new {@class = "browser-default form-control" })
+            }
+            else
+            {
+                <small class="red-text">Dropdownlist failed to load!</small>
+            }
+            @Html.ValidationMessageFor(model => model.PurposeOfStayId, "", new { @class = "red-text" } )<br />
+
+            @Html.LabelFor(model => model.DurationOfStay)<br />
+            @Html.TextBoxFor(model => model.DurationOfStay)
+            @Html.ValidationMessageFor(model => model.DurationOfStay, "", new { @class = "red-text" })<br />
+
+            @Html.LabelFor(model => model.IdeclareTruthOfInfo)
+            <div>
+                <span>@Html.RadioButtonFor(model => model.IdeclareTruthOfInfo, 1, new { @class = "with-gap" }) I agree</span>
+                <span class="right">@Html.RadioButtonFor(model => model.IdeclareTruthOfInfo, 0, new { @class = "with-gap" , selected = true }) I disagree</span>
+            </div>
+            @Html.ValidationMessageFor(model => model.IdeclareTruthOfInfo, "", new { @class = "red-text" })<br />
+    
+            <input type="submit" name="prevBtn" value="Previous" class="btn btn-default"/>
+            <input type="submit" name="nextBtn" value="Finish" class="btn btn-success right" id="nextBtn" />
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $(function() {
+                $('select').formSelect();
+                // validate declaration statement
+                var $declaration = $(".with-gap").values;
+                if ($declaration === 0) {
+                    var disabled = $("#nextBtn").disabled;
+                    disabled.disabled = true;
+                }
+            });
+        })(jQuery);
+    </script>
+}

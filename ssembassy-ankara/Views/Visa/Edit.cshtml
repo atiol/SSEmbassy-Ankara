@@ -2,14 +2,17 @@
 
 @{
     ViewBag.Title = "Edit Visa Information";
-    ViewBag.Description = "Here you can change the information about the Visa.";
+    ViewBag.Description = "Make changes to Visa Information page.";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
 <div class="box box-warning">
     <div class="box-header">
         <div class="box-title">
-            <h3>Edit Visa Information</h3>
+            <h4><strong>Edit Visa Information</strong></h4>
+        </div>
+        <div class="box-tools pull-right">
+            @Html.ActionLink("Back", "Index", null, new {@class = "btn btn-warning btn-xs"})
         </div>
     </div>
     @using (Html.BeginForm("Edit", "Visa", FormMethod.Post))
@@ -51,13 +54,13 @@
 
 @section custom_javascript
 {
-@Scripts.Render("~/bundles/jqueryval")
-<script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
-<script type="text/javascript">
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
         $(document).ready(function() {
             tinymce.init({
                 selector: 'textarea',
-                height: 250,
+                height: 300,
                 menubar: false,
                 plugins: [
                     'advlist autolink lists link image charmap print preview anchor textcolor',

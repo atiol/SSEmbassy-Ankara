@@ -1,0 +1,155 @@
+﻿@model ssembassy_ankara.Models.CitizenRegistration
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "View user's information";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CitizenRegistration</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PurposeOfVisit.Purpose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurposeOfVisit.Purpose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassportNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassportNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.University)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.University)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NextOfKinInTurkey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NextOfKinInTurkey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelationshipWithNextOfKin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelationshipWithNextOfKin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurkeyAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurkeyAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurkeyPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurkeyPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpectedDurationOfStay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpectedDurationOfStay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdeclareTruthOfInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdeclareTruthOfInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassportImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassportImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NextOfKinContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NextOfKinContact)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

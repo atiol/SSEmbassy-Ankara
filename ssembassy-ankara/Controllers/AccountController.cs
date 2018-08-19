@@ -145,7 +145,8 @@ namespace ssembassy_ankara.Controllers
         // GET: Populate Roles from database
         public List<SelectListItem> GetRoles()
         {
-            return _context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            return _context.Roles.OrderBy(r => r.Name).ToList()
+                .Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
         }
 
         // GET: Populate Positions from database

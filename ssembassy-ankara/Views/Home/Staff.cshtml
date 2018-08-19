@@ -18,79 +18,19 @@
     </div>
     @if (Model.Any())
     {
-        foreach (var staff in Model)
-        {
-            <div class="row">
-                @if (staff.Position == "Ambassador")
+        <div class="row">
+            @foreach (var staff in Model)
+            {
+                if (staff.Position == "Ambassador")
                 {
                     <h4>Head of Mission</h4>
-                    <div class="col s12 m4 l3">
-                        <div class="card amb-card">
-                            <div class="card-image">
-                                @if (!string.IsNullOrEmpty(staff.ImgUrl))
-                                {
-                                    <img class="activator" src="@Url.Content("" +staff.ImgUrl + "")">
-                                }
-                                else
-                                {
-                                    <img class="activator" src="@Url.Content("~/Content/img/muser.png")">
-                                }
-                            </div>
-                            <div class="card-content center">
-                                <span class="card-title activator grey-text text-darken-4">@staff.FullName</span>
-                                <p class="grey-text">@staff.Position</p>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-
-            <div class="row">
-
-                @if (staff.Position == "Deputy Head of Mission")
-                {
-                    <div class="col s12 m4 l3">
-                        <div class="card amb-card">
-                            <div class="card-image">
-                                @if (!string.IsNullOrEmpty(staff.ImgUrl))
-                                {
-                                    <img class="activator" src="@Url.Content("" +staff.ImgUrl + "")">
-                                }
-                                else
-                                {
-                                    <img class="activator" src="@Url.Content("~/Content/img/muser.png")">
-                                }
-                            </div>
-                            <div class="card-content center">
-                                <span class="card-title activator grey-text text-darken-4">@staff.FullName</span>
-                                <p class="grey-text">@staff.Position</p>
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("_StaffMiniProfile", staff)<br/>
                 }
                 else
                 {
-                    <div class="col s12 m4 l3">
-                        <div class="card amb-card">
-                            <div class="card-image">
-                                @if (!string.IsNullOrEmpty(staff.ImgUrl))
-                                {
-                                    <img class="activator" src="@Url.Content("" +staff.ImgUrl + "")">
-                                }
-                                else
-                                {
-                                    <img class="activator" src="@Url.Content("~/Content/img/muser.png")">
-                                }
-                            </div>
-                            <div class="card-content center">
-                                <span class="card-title activator grey-text text-darken-4">@staff.FullName</span>
-                                <p class="grey-text">@staff.Position</p>
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("_StaffMiniProfile", staff)
                 }
-
-            </div>
-        }
+            }
+        </div>
     }
 </div>

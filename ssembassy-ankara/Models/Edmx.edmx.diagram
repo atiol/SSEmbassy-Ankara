@@ -4,34 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ac92df5349dd4266b15e1ad5fffb2cbf" Name="Diagram1">
-        <EntityTypeShape EntityType="MyDbModels.article" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.article_category" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.embassy_address" Width="1.5" PointX="5.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.event" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.event_category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.former_personel" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.positions" Width="1.5" PointX="5.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModels.WelcomeMessage" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <AssociationConnector Association="MyDbModels.FK_article_category_id" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModels.FK_event_category" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MyDbModels.VisaInfo" Width="1.5" PointX="0.75" PointY="3.5" />
-        <EntityTypeShape EntityType="MyDbModels.ImportantNotice" Width="1.5" PointX="3" PointY="3.5" />
-        <EntityTypeShape EntityType="MyDbModels.messages" Width="1.5" PointX="7.75" PointY="1.5" />
-        <EntityTypeShape EntityType="MyDbModels.CitizenRegistration" Width="1.5" PointX="10.625" PointY="13.75" />
-        <EntityTypeShape EntityType="MyDbModels.MaritalStatus" Width="1.5" PointX="8.375" PointY="4.75" />
-        <EntityTypeShape EntityType="MyDbModels.ModeOfTransport" Width="1.5" PointX="8.375" PointY="7.75" />
-        <EntityTypeShape EntityType="MyDbModels.OnlineVisaApplication" Width="1.5" PointX="13.625" PointY="8.375" />
-        <EntityTypeShape EntityType="MyDbModels.PassportType" Width="1.5" PointX="11.375" PointY="10.625" />
-        <EntityTypeShape EntityType="MyDbModels.PurposeOfVisit" Width="1.5" PointX="8.375" PointY="15" />
-        <EntityTypeShape EntityType="MyDbModels.Sex" Width="1.5" PointX="11.375" PointY="19" />
-        <EntityTypeShape EntityType="MyDbModels.VisaTypeRequested" Width="1.5" PointX="11.375" PointY="21.5" />
-        <AssociationConnector Association="MyDbModels.FK_CitizenRegistration_PurposeOfVisit" />
-        <AssociationConnector Association="MyDbModels.FK_OnlineVisaApplication_PassportType" />
-        <AssociationConnector Association="MyDbModels.FK_OnlineVisaApplication_PurposeOfVisit" />
-        <AssociationConnector Association="MyDbModels.FK_OnlineVisaApplication_RGender" />
-        <AssociationConnector Association="MyDbModels.FK_OnlineVisaApplication_Sex" />
-        <AssociationConnector Association="MyDbModels.FK_OnlineVisaApplication_VisaTypeRequested" />
+      <Diagram DiagramId="e5319b253feb4541ac9d1fb7af79b3d6" Name="Diagram1">
+        <EntityTypeShape EntityType="DbModels.article" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.article_category" Width="1.5" PointX="8.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.BusinessInvestments" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.CitizenRegistration" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.EducationAndCulture" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.embassy_address" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.EmbassyMission" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.event" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.event_category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.FormerAmbassadors" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.ImportantNotice" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.MaritalStatus" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.messages" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.ModeOfTransport" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.OnlineVisaApplication" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.PassportType" Width="1.5" PointX="3.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.positions" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.PurposeOfVisit" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.Sex" Width="1.5" PointX="3.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.SSHistory" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.TurkeyRelations" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.VisaInfo" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.VisaTypeRequested" Width="1.5" PointX="3.75" PointY="17.5" IsExpanded="true" />
+        <AssociationConnector Association="DbModels.FK_article_category_id" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_CitizenRegistration_PurposeOfVisit" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_event_category" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_PassportType" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_PurposeOfVisit" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_RGender" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_Sex" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_VisaTypeRequested" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,72 @@
+﻿@model ssembassy_ankara.Models.BusinessInvestments
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Create new Business Investments page";
+}
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        @if (ViewBag.Message.Equals("Model available"))
+        {
+            <div class="card-panel">
+                <p>Business Page already exists, no multiple pages of this type allowed. Try to edit the available page instead</p>
+                <div>
+                    <a href="@Url.Action("Edit", "BusinessAndInvestments", new {id = Model.Id})" class="btn btn-flat btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        <h4><strong>Add Business Investments page</strong></h4>
+                    </div>
+                    <div class="box-tools pull-right">
+                        @Html.ActionLink("Back", "PreviewBusinessInvestments", null, new { @class = "btn btn-flat btn-primary btn-xs" })
+                    </div>
+                </div>
+                @using (Html.BeginForm("Create", "BusinessAndInvestments", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>@Html.ValidationMessageFor(model => model.body, "", new { @class = "text-danger" })</p>
+                    <div class="box-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.body, new { @class = "control-label" }) <span class="text-gray">(Use this area to input information)</span>
+                            @Html.TextAreaFor(model => model.body, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        @Html.ActionLink("Cancel", "PreviewBusinessInvestments", "BusinessAndInvestments", null, new { @class = "pull-left btn btn-danger btn-flat" })
+                        <input type="submit" value="Create" class="btn btn-primary pull-right btn-flat" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@section custom_javascript {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            tinymce.init({
+                selector: 'textarea',
+                height: 250,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor textcolor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code help wordcount'
+                ],
+                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i']
+            });
+        });
+    </script>
+}

@@ -1,39 +1,44 @@
 ﻿@model ssembassy_ankara.Models.article
 
 @{
-    ViewBag.Title = "Article";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Description = "#" + Model.id;
     ViewBag.Published = Model.published.ToString("d");
 }
-<style>
-    .page-header {
-        margin: 10px 0 5px 0;
-        font-weight: bold;
-    }
-     .article-image {
-         margin: 10px 0;
-     }
-    .subtitle {
-        color: #ccc;
-    }
-</style>
-<div class="invoice">
-    <section class="">
+@section custom_css
+{
+    <style>
+        .page-header {
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+        }
+
+        .article-image {
+            margin: 10px 0;
+        }
+        .article-image img {
+            margin: 0 auto;
+            display: table;
+        }
+        .subtitle {
+            color: #ccc;
+        }
+    </style>
+}
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
         <div class="card-panel grey lighten-5 z-depth-0">
-            <h5 class="">
-                @Html.DisplayFor(model => model.title)
-            </h5>
+            <h5>@Html.DisplayFor(model => model.title)</h5>
             <div class="divider"></div>
             <small class="subtitle">Published: @ViewBag.Published</small>
             <div class="article-image">
-                <img src="@Url.Content(""+ Model.imageUrl +"")" class="responsive-img"/>
+                <img src="@Url.Content(""+ Model.imageUrl +"")" class="responsive-img center" />
             </div>
-            <div class="article-content">
+            <div>
                 @Html.Raw(Model.contents)
             </div>
         </div>
-    </section>
+    </div>
 </div>
 
 @section scripts

@@ -1,0 +1,44 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<ssembassy_ankara.Models.RSSFeed>
+
+<style>
+        
+    .pagination li.active {
+        background-color: #2196f3;
+    }
+    #rsfeed .card-panel {
+        padding: 5px;
+    }
+</style>
+<div class="col s12">
+    <!-- News feed -->
+    <h5><strong>Latest News Feed</strong></h5>
+    <div class="divider"></div>
+    <div class="card-panel grey lighten-5 z-depth-0">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel wheat lighten-5 z-depth-0">
+                            <h6><a href="@item.Link">@item.Title</a></h6>
+                            <small class="grey-text lighten-5">@item.DateCreated</small>
+                            @Html.Raw(item.Description)
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- pagination -->
+            <div>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { page }))
+            </div>
+        }
+        else
+        {
+            <p class="grey-text lighten-5">No news articles available</p>
+        }
+    </div>
+</div>

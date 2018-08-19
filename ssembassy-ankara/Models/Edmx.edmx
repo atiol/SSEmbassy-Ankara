@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MyDbModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DbModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="article">
           <Key>
             <PropertyRef Name="id" />
@@ -24,6 +24,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="category" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="BusinessInvestments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="body" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="CitizenRegistration">
           <Key>
             <PropertyRef Name="Id" />
@@ -31,10 +38,12 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="ApplicationDate" Type="date" Nullable="false" />
-          <Property Name="PassportNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PassportImage" Type="nvarchar(max)" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="ExpiryDate" Type="date" Nullable="false" />
-          <Property Name="University" Type="nvarchar" MaxLength="50" />
+          <Property Name="University" Type="nvarchar" MaxLength="256" />
           <Property Name="NextOfKinInTurkey" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="NextOfKinContact" Type="nvarchar" MaxLength="13" />
           <Property Name="RelationshipWithNextOfKin" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar(max)" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
@@ -45,6 +54,13 @@
           <Property Name="ExpectedDurationOfStay" Type="int" Nullable="false" />
           <Property Name="IdeclareTruthOfInfo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="EducationAndCulture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="embassy_address">
           <Key>
             <PropertyRef Name="id" />
@@ -54,6 +70,13 @@
           <Property Name="telephone" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="fax" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EmbassyMission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="event">
           <Key>
@@ -73,31 +96,29 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="category" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="former_personel">
+        <EntityType Name="FormerAmbassadors">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="nchar" MaxLength="11" Nullable="false" />
-          <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="surname" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="telefon" Type="nvarchar" MaxLength="50" />
-          <Property Name="fax" Type="nvarchar" MaxLength="50" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImgUrl" Type="nvarchar(max)" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="Biography" Type="nvarchar(max)" />
+          <Property Name="JobStartDate" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'embassy_db.dbo.ImportantNotice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ImportantNotice">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="MessageEn" />
-            <PropertyRef Name="CreatedOn" />
-            <PropertyRef Name="Status" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="MessageEn" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MessageEn" Type="nvarchar(max)" />
           <Property Name="MessageTr" Type="nvarchar(max)" />
           <Property Name="CreatedOn" Type="date" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
@@ -229,16 +250,26 @@ warning 6002: The table/view 'embassy_db.dbo.ImportantNotice' does not have a pr
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SSHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TurkeyRelations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="VisaInfo">
           <Key>
             <PropertyRef Name="Id" />
-            
-            <PropertyRef Name="DateCreated" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InfoEn" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="InfoEn" Type="nvarchar(max)" />
           <Property Name="InfoTr" Type="nvarchar(max)" />
           <Property Name="DateCreated" Type="date" Nullable="false" />
         </EntityType>
@@ -248,13 +279,6 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VisaType" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="WelcomeMessage">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_article_category_id">
           <End Role="article_category" Type="Self.article_category" Multiplicity="1" />
@@ -352,14 +376,18 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MyDbModelsStoreContainer">
+        <EntityContainer Name="DbModelsStoreContainer">
           <EntitySet Name="article" EntityType="Self.article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="article_category" EntityType="Self.article_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessInvestments" EntityType="Self.BusinessInvestments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CitizenRegistration" EntityType="Self.CitizenRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EducationAndCulture" EntityType="Self.EducationAndCulture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="embassy_address" EntityType="Self.embassy_address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmbassyMission" EntityType="Self.EmbassyMission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="event_category" EntityType="Self.event_category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="former_personel" EntityType="Self.former_personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormerAmbassadors" EntityType="Self.FormerAmbassadors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportantNotice" EntityType="Self.ImportantNotice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaritalStatus" EntityType="Self.MaritalStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModeOfTransport" EntityType="Self.ModeOfTransport" Schema="dbo" store:Type="Tables" />
@@ -368,26 +396,10 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <EntitySet Name="positions" EntityType="Self.positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurposeOfVisit" EntityType="Self.PurposeOfVisit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SSHistory" EntityType="Self.SSHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TurkeyRelations" EntityType="Self.TurkeyRelations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisaInfo" EntityType="Self.VisaInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisaTypeRequested" EntityType="Self.VisaTypeRequested" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WelcomeMessage" EntityType="Self.WelcomeMessage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ImportantNotice" EntityType="Self.ImportantNotice" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ImportantNotice].[Id] AS [Id], 
-    [ImportantNotice].[Title] AS [Title], 
-    [ImportantNotice].[MessageEn] AS [MessageEn], 
-    [ImportantNotice].[MessageTr] AS [MessageTr], 
-    [ImportantNotice].[CreatedOn] AS [CreatedOn], 
-    [ImportantNotice].[Status] AS [Status]
-    FROM [dbo].[ImportantNotice] AS [ImportantNotice]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="VisaInfo" EntityType="Self.VisaInfo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [VisaInfo].[Id] AS [Id], 
-    [VisaInfo].[InfoEn] AS [InfoEn], 
-    [VisaInfo].[InfoTr] AS [InfoTr], 
-    [VisaInfo].[DateCreated] AS [DateCreated]
-    FROM [dbo].[VisaInfo] AS [VisaInfo]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
             <End Role="article_category" EntitySet="article_category" />
             <End Role="article" EntitySet="article" />
@@ -424,7 +436,7 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MyDbModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DbModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="article">
           <Key>
             <PropertyRef Name="id" />
@@ -435,8 +447,8 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <Property Name="contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="published" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="article_category" Relationship="Self.FK_article_category_id" FromRole="article" ToRole="article_category" />
           <Property Name="imageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="article_category" Relationship="Self.FK_article_category_id" FromRole="article" ToRole="article_category" />
         </EntityType>
         <EntityType Name="article_category">
           <Key>
@@ -444,7 +456,45 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="articles" Relationship="Self.FK_article_category_id" FromRole="article_category" ToRole="article" />
+          <NavigationProperty Name="article" Relationship="Self.FK_article_category_id" FromRole="article_category" ToRole="article" />
+        </EntityType>
+        <EntityType Name="BusinessInvestments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CitizenRegistration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PassportNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="University" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKinInTurkey" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RelationshipWithNextOfKin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TurkeyAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TurkeyPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PurposeOfVisitId" Type="Int32" Nullable="false" />
+          <Property Name="ExpectedDurationOfStay" Type="Int32" Nullable="false" />
+          <Property Name="IdeclareTruthOfInfo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PurposeOfVisit" Relationship="Self.FK_CitizenRegistration_PurposeOfVisit" FromRole="CitizenRegistration" ToRole="PurposeOfVisit" />
+          <Property Name="PassportImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKinContact" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EducationAndCulture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="embassy_address">
           <Key>
@@ -455,6 +505,13 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmbassyMission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="event">
           <Key>
@@ -474,19 +531,144 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="events" Relationship="Self.FK_event_category" FromRole="event_category" ToRole="event" />
+          <NavigationProperty Name="event" Relationship="Self.FK_event_category" FromRole="event_category" ToRole="event" />
         </EntityType>
-        <EntityType Name="former_personel">
+        <EntityType Name="FormerAmbassadors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Biography" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobStartDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ImportantNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MessageEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MessageTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaritalStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="messages">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="createdOn" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="ModeOfTransport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Transport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnlineVisaApplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationPlace" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PreviouslyApplied" Type="Boolean" Nullable="false" />
+          <Property Name="PreviousVisaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PrevIssueDate" Type="DateTime" Precision="0" />
+          <Property Name="PrevIssuePlace" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PrevArrivalDate" Type="DateTime" Precision="0" />
+          <Property Name="PrevEntryPoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PrevExitPoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VisaTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PurposeOfVisitId" Type="Int32" Nullable="false" />
+          <Property Name="DurationOfStay" Type="Int32" Nullable="false" />
+          <Property Name="IntendedArrivalDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TransportModeId" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GivenNames" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CountryOfBirth" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nationality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportDateOfIssue" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PassportCountryOfIssue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PassportPlaceOfIssue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PresentOccupation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OccupationTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmployerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmployerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmployerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicantPresentAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicantPermanentCountryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicantPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicantMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicantEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpouseSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseGivenNames" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SpousePermanentAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SpousePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KinSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KinGivenNames" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KinPermanentAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KinPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KinMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KinEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BeenConvicted" Type="Boolean" Nullable="false" />
+          <Property Name="BeenDeportedForViolationOfLaw" Type="Boolean" Nullable="false" />
+          <Property Name="DrugOffence" Type="Boolean" Nullable="false" />
+          <Property Name="CommittedTrafficking" Type="Boolean" Nullable="false" />
+          <Property Name="InfectiousOrContagiousDisease" Type="Boolean" Nullable="false" />
+          <Property Name="ExplanationIfYes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfStayAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FundsAvailableForStay" Type="Boolean" Nullable="false" />
+          <Property Name="ReferenceName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ReferencePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceBirthDate" Type="DateTime" Precision="0" />
+          <Property Name="ReferenceGenderId" Type="Int32" />
+          <Property Name="ReferenceRelationshipToApplicant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceProfession" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdeclareTruthOfInfo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PassportType" Relationship="Self.FK_OnlineVisaApplication_PassportType" FromRole="OnlineVisaApplication" ToRole="PassportType" />
+          <NavigationProperty Name="PurposeOfVisit" Relationship="Self.FK_OnlineVisaApplication_PurposeOfVisit" FromRole="OnlineVisaApplication" ToRole="PurposeOfVisit" />
+          <NavigationProperty Name="Sex" Relationship="Self.FK_OnlineVisaApplication_RGender" FromRole="OnlineVisaApplication" ToRole="Sex" />
+          <NavigationProperty Name="Sex1" Relationship="Self.FK_OnlineVisaApplication_Sex" FromRole="OnlineVisaApplication" ToRole="Sex" />
+          <NavigationProperty Name="VisaTypeRequested" Relationship="Self.FK_OnlineVisaApplication_VisaTypeRequested" FromRole="OnlineVisaApplication" ToRole="VisaTypeRequested" />
+        </EntityType>
+        <EntityType Name="PassportType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OnlineVisaApplication" Relationship="Self.FK_OnlineVisaApplication_PassportType" FromRole="PassportType" ToRole="OnlineVisaApplication" />
         </EntityType>
         <EntityType Name="positions">
           <Key>
@@ -497,12 +679,54 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           <Property Name="duties" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="weight" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="WelcomeMessage">
+        <EntityType Name="PurposeOfVisit">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Purpose" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CitizenRegistration" Relationship="Self.FK_CitizenRegistration_PurposeOfVisit" FromRole="PurposeOfVisit" ToRole="CitizenRegistration" />
+          <NavigationProperty Name="OnlineVisaApplication" Relationship="Self.FK_OnlineVisaApplication_PurposeOfVisit" FromRole="PurposeOfVisit" ToRole="OnlineVisaApplication" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OnlineVisaApplication" Relationship="Self.FK_OnlineVisaApplication_RGender" FromRole="Sex" ToRole="OnlineVisaApplication" />
+          <NavigationProperty Name="OnlineVisaApplication1" Relationship="Self.FK_OnlineVisaApplication_Sex" FromRole="Sex" ToRole="OnlineVisaApplication" />
+        </EntityType>
+        <EntityType Name="SSHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TurkeyRelations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VisaInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InfoEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InfoTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="VisaTypeRequested">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VisaType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OnlineVisaApplication" Relationship="Self.FK_OnlineVisaApplication_VisaTypeRequested" FromRole="VisaTypeRequested" ToRole="OnlineVisaApplication" />
         </EntityType>
         <Association Name="FK_article_category_id">
           <End Role="article_category" Type="Self.article_category" Multiplicity="1" />
@@ -513,6 +737,18 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
             </Principal>
             <Dependent Role="article">
               <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitizenRegistration_PurposeOfVisit">
+          <End Role="PurposeOfVisit" Type="Self.PurposeOfVisit" Multiplicity="1" />
+          <End Role="CitizenRegistration" Type="Self.CitizenRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurposeOfVisit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CitizenRegistration">
+              <PropertyRef Name="PurposeOfVisitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -528,257 +764,9 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="articles" EntityType="Self.article" />
-          <EntitySet Name="article_category" EntityType="Self.article_category" />
-          <EntitySet Name="embassy_address" EntityType="Self.embassy_address" />
-          <EntitySet Name="events" EntityType="Self.event" />
-          <EntitySet Name="event_category" EntityType="Self.event_category" />
-          <EntitySet Name="former_personel" EntityType="Self.former_personel" />
-          <EntitySet Name="positions" EntityType="MyDbModels.positions" />
-          <EntitySet Name="WelcomeMessages" EntityType="Self.WelcomeMessage" />
-          <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
-            <End Role="article_category" EntitySet="article_category" />
-            <End Role="article" EntitySet="articles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_event_category" Association="Self.FK_event_category">
-            <End Role="event_category" EntitySet="event_category" />
-            <End Role="event" EntitySet="events" />
-          </AssociationSet>
-          <EntitySet Name="VisaInfo" EntityType="MyDbModels.VisaInfo" />
-          <EntitySet Name="ImportantNotice" EntityType="MyDbModels.ImportantNotice" />
-          <EntitySet Name="messages" EntityType="MyDbModels.messages" />
-          <EntitySet Name="CitizenRegistration" EntityType="MyDbModels.CitizenRegistration" />
-          <EntitySet Name="MaritalStatus" EntityType="MyDbModels.MaritalStatus" />
-          <EntitySet Name="ModeOfTransport" EntityType="MyDbModels.ModeOfTransport" />
-          <EntitySet Name="OnlineVisaApplication" EntityType="MyDbModels.OnlineVisaApplication" />
-          <EntitySet Name="PassportType" EntityType="MyDbModels.PassportType" />
-          <EntitySet Name="PurposeOfVisit" EntityType="MyDbModels.PurposeOfVisit" />
-          <EntitySet Name="Sex" EntityType="MyDbModels.Sex" />
-          <EntitySet Name="VisaTypeRequested" EntityType="MyDbModels.VisaTypeRequested" />
-          <AssociationSet Name="FK_CitizenRegistration_PurposeOfVisit" Association="MyDbModels.FK_CitizenRegistration_PurposeOfVisit">
-            <End Role="PurposeOfVisit" EntitySet="PurposeOfVisit" />
-            <End Role="CitizenRegistration" EntitySet="CitizenRegistration" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OnlineVisaApplication_PassportType" Association="MyDbModels.FK_OnlineVisaApplication_PassportType">
-            <End Role="PassportType" EntitySet="PassportType" />
-            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OnlineVisaApplication_PurposeOfVisit" Association="MyDbModels.FK_OnlineVisaApplication_PurposeOfVisit">
-            <End Role="PurposeOfVisit" EntitySet="PurposeOfVisit" />
-            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OnlineVisaApplication_RGender" Association="MyDbModels.FK_OnlineVisaApplication_RGender">
-            <End Role="Sex" EntitySet="Sex" />
-            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OnlineVisaApplication_Sex" Association="MyDbModels.FK_OnlineVisaApplication_Sex">
-            <End Role="Sex" EntitySet="Sex" />
-            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OnlineVisaApplication_VisaTypeRequested" Association="MyDbModels.FK_OnlineVisaApplication_VisaTypeRequested">
-            <End Role="VisaTypeRequested" EntitySet="VisaTypeRequested" />
-            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="VisaInfo">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DateCreated" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="InfoEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="InfoTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="ImportantNotice">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="CreatedOn" />
-            <PropertyRef Name="MessageEn" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="Title" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MessageEn" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MessageTr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="messages">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="createdOn" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="CitizenRegistration">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="University" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NextOfKinInTurkey" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="RelationshipWithNextOfKin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TurkeyAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TurkeyPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PurposeOfVisitId" Type="Int32" Nullable="false" />
-          <Property Name="ExpectedDurationOfStay" Type="Int32" Nullable="false" />
-          <Property Name="IdeclareTruthOfInfo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PurposeOfVisit" Relationship="MyDbModels.FK_CitizenRegistration_PurposeOfVisit" FromRole="CitizenRegistration" ToRole="PurposeOfVisit" />
-        </EntityType>
-        <EntityType Name="MaritalStatus">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ModeOfTransport">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Transport" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="OnlineVisaApplication">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ApplicationPlace" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PreviouslyApplied" Type="Boolean" Nullable="false" />
-          <Property Name="PreviousVisaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PrevIssueDate" Type="DateTime" Precision="0" />
-          <Property Name="PrevIssuePlace" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PrevArrivalDate" Type="DateTime" Precision="0" />
-          <Property Name="PrevEntryPoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PrevExitPoint" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="VisaTypeId" Type="Int32" Nullable="false" />
-          <Property Name="PurposeOfVisitId" Type="Int32" Nullable="false" />
-          <Property Name="DurationOfStay" Type="Int32" Nullable="false" />
-          <Property Name="IntendedArrivalDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TransportModeId" Type="Int32" Nullable="false" />
-          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GivenNames" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CountryOfBirth" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GenderId" Type="Int32" Nullable="false" />
-          <Property Name="MaritalStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Nationality" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PassportTypeId" Type="Int32" Nullable="false" />
-          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PassportDateOfIssue" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PassportCountryOfIssue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PassportExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PassportPlaceOfIssue" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PresentOccupation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OccupationTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmployerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmployerAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmployerPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="EmployerEmail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicantPresentAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicantPermanentCountryAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicantPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicantMobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicantEmail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SpouseSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SpouseGivenNames" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="SpousePermanentAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SpousePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="SpouseMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="SpouseEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="KinSurname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="KinGivenNames" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="KinPermanentAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="KinPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="KinMobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="KinEmail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BeenConvicted" Type="Boolean" Nullable="false" />
-          <Property Name="BeenDeportedForViolationOfLaw" Type="Boolean" Nullable="false" />
-          <Property Name="DrugOffence" Type="Boolean" Nullable="false" />
-          <Property Name="CommittedTrafficking" Type="Boolean" Nullable="false" />
-          <Property Name="InfectiousOrContagiousDisease" Type="Boolean" Nullable="false" />
-          <Property Name="ExplanationIfYes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PlaceOfStayAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FundsAvailableForStay" Type="Boolean" Nullable="false" />
-          <Property Name="ReferenceName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ReferencePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="ReferenceAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReferenceBirthDate" Type="DateTime" Precision="0" />
-          <Property Name="ReferenceGenderId" Type="Int32" />
-          <Property Name="ReferenceRelationshipToApplicant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReferenceProfession" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReferenceNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IdeclareTruthOfInfo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PassportType" Relationship="MyDbModels.FK_OnlineVisaApplication_PassportType" FromRole="OnlineVisaApplication" ToRole="PassportType" />
-          <NavigationProperty Name="PurposeOfVisit" Relationship="MyDbModels.FK_OnlineVisaApplication_PurposeOfVisit" FromRole="OnlineVisaApplication" ToRole="PurposeOfVisit" />
-          <NavigationProperty Name="Sex" Relationship="MyDbModels.FK_OnlineVisaApplication_RGender" FromRole="OnlineVisaApplication" ToRole="Sex" />
-          <NavigationProperty Name="Sex1" Relationship="MyDbModels.FK_OnlineVisaApplication_Sex" FromRole="OnlineVisaApplication" ToRole="Sex" />
-          <NavigationProperty Name="VisaTypeRequested" Relationship="MyDbModels.FK_OnlineVisaApplication_VisaTypeRequested" FromRole="OnlineVisaApplication" ToRole="VisaTypeRequested" />
-        </EntityType>
-        <EntityType Name="PassportType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OnlineVisaApplication" Relationship="MyDbModels.FK_OnlineVisaApplication_PassportType" FromRole="PassportType" ToRole="OnlineVisaApplication" />
-        </EntityType>
-        <EntityType Name="PurposeOfVisit">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Purpose" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CitizenRegistration" Relationship="MyDbModels.FK_CitizenRegistration_PurposeOfVisit" FromRole="PurposeOfVisit" ToRole="CitizenRegistration" />
-          <NavigationProperty Name="OnlineVisaApplication" Relationship="MyDbModels.FK_OnlineVisaApplication_PurposeOfVisit" FromRole="PurposeOfVisit" ToRole="OnlineVisaApplication" />
-        </EntityType>
-        <EntityType Name="Sex">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OnlineVisaApplication" Relationship="MyDbModels.FK_OnlineVisaApplication_RGender" FromRole="Sex" ToRole="OnlineVisaApplication" />
-          <NavigationProperty Name="OnlineVisaApplication1" Relationship="MyDbModels.FK_OnlineVisaApplication_Sex" FromRole="Sex" ToRole="OnlineVisaApplication" />
-        </EntityType>
-        <EntityType Name="VisaTypeRequested">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VisaType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="OnlineVisaApplication" Relationship="MyDbModels.FK_OnlineVisaApplication_VisaTypeRequested" FromRole="VisaTypeRequested" ToRole="OnlineVisaApplication" />
-        </EntityType>
-        <Association Name="FK_CitizenRegistration_PurposeOfVisit">
-          <End Type="MyDbModels.PurposeOfVisit" Role="PurposeOfVisit" Multiplicity="1" />
-          <End Type="MyDbModels.CitizenRegistration" Role="CitizenRegistration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PurposeOfVisit">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CitizenRegistration">
-              <PropertyRef Name="PurposeOfVisitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OnlineVisaApplication_PassportType">
-          <End Type="MyDbModels.PassportType" Role="PassportType" Multiplicity="1" />
-          <End Type="MyDbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <End Role="PassportType" Type="Self.PassportType" Multiplicity="1" />
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PassportType">
               <PropertyRef Name="Id" />
@@ -789,8 +777,8 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OnlineVisaApplication_PurposeOfVisit">
-          <End Type="MyDbModels.PurposeOfVisit" Role="PurposeOfVisit" Multiplicity="1" />
-          <End Type="MyDbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <End Role="PurposeOfVisit" Type="Self.PurposeOfVisit" Multiplicity="1" />
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PurposeOfVisit">
               <PropertyRef Name="Id" />
@@ -801,8 +789,8 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OnlineVisaApplication_RGender">
-          <End Type="MyDbModels.Sex" Role="Sex" Multiplicity="1" />
-          <End Type="MyDbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sex">
               <PropertyRef Name="Id" />
@@ -813,8 +801,8 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OnlineVisaApplication_Sex">
-          <End Type="MyDbModels.Sex" Role="Sex" Multiplicity="1" />
-          <End Type="MyDbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sex">
               <PropertyRef Name="Id" />
@@ -825,8 +813,8 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OnlineVisaApplication_VisaTypeRequested">
-          <End Type="MyDbModels.VisaTypeRequested" Role="VisaTypeRequested" Multiplicity="1" />
-          <End Type="MyDbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <End Role="VisaTypeRequested" Type="Self.VisaTypeRequested" Multiplicity="1" />
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VisaTypeRequested">
               <PropertyRef Name="Id" />
@@ -836,35 +824,132 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="article" EntityType="Self.article" />
+          <EntitySet Name="article_category" EntityType="Self.article_category" />
+          <EntitySet Name="BusinessInvestments" EntityType="Self.BusinessInvestments" />
+          <EntitySet Name="CitizenRegistration" EntityType="Self.CitizenRegistration" />
+          <EntitySet Name="EducationAndCulture" EntityType="Self.EducationAndCulture" />
+          <EntitySet Name="embassy_address" EntityType="Self.embassy_address" />
+          <EntitySet Name="EmbassyMission" EntityType="Self.EmbassyMission" />
+          <EntitySet Name="event" EntityType="Self.event" />
+          <EntitySet Name="event_category" EntityType="Self.event_category" />
+          <EntitySet Name="FormerAmbassadors" EntityType="Self.FormerAmbassadors" />
+          <EntitySet Name="ImportantNotice" EntityType="Self.ImportantNotice" />
+          <EntitySet Name="MaritalStatus" EntityType="Self.MaritalStatus" />
+          <EntitySet Name="messages" EntityType="Self.messages" />
+          <EntitySet Name="ModeOfTransport" EntityType="Self.ModeOfTransport" />
+          <EntitySet Name="OnlineVisaApplication" EntityType="Self.OnlineVisaApplication" />
+          <EntitySet Name="PassportType" EntityType="Self.PassportType" />
+          <EntitySet Name="positions" EntityType="Self.positions" />
+          <EntitySet Name="PurposeOfVisit" EntityType="Self.PurposeOfVisit" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" />
+          <EntitySet Name="SSHistory" EntityType="Self.SSHistory" />
+          <EntitySet Name="TurkeyRelations" EntityType="Self.TurkeyRelations" />
+          <EntitySet Name="VisaInfo" EntityType="Self.VisaInfo" />
+          <EntitySet Name="VisaTypeRequested" EntityType="Self.VisaTypeRequested" />
+          <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
+            <End Role="article_category" EntitySet="article_category" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitizenRegistration_PurposeOfVisit" Association="Self.FK_CitizenRegistration_PurposeOfVisit">
+            <End Role="PurposeOfVisit" EntitySet="PurposeOfVisit" />
+            <End Role="CitizenRegistration" EntitySet="CitizenRegistration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_event_category" Association="Self.FK_event_category">
+            <End Role="event_category" EntitySet="event_category" />
+            <End Role="event" EntitySet="event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_PassportType" Association="Self.FK_OnlineVisaApplication_PassportType">
+            <End Role="PassportType" EntitySet="PassportType" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_PurposeOfVisit" Association="Self.FK_OnlineVisaApplication_PurposeOfVisit">
+            <End Role="PurposeOfVisit" EntitySet="PurposeOfVisit" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_RGender" Association="Self.FK_OnlineVisaApplication_RGender">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_Sex" Association="Self.FK_OnlineVisaApplication_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_VisaTypeRequested" Association="Self.FK_OnlineVisaApplication_VisaTypeRequested">
+            <End Role="VisaTypeRequested" EntitySet="VisaTypeRequested" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MyDbModelsStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="articles">
-            <EntityTypeMapping TypeName="MyDbModels.article">
+        <EntityContainerMapping StorageEntityContainer="DbModelsStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="article">
+            <EntityTypeMapping TypeName="DbModels.article">
               <MappingFragment StoreEntitySet="article">
-                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="contents" ColumnName="contents" />
                 <ScalarProperty Name="published" ColumnName="published" />
                 <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="article_category">
-            <EntityTypeMapping TypeName="MyDbModels.article_category">
+            <EntityTypeMapping TypeName="DbModels.article_category">
               <MappingFragment StoreEntitySet="article_category">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="category" ColumnName="category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BusinessInvestments">
+            <EntityTypeMapping TypeName="DbModels.BusinessInvestments">
+              <MappingFragment StoreEntitySet="BusinessInvestments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="body" ColumnName="body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CitizenRegistration">
+            <EntityTypeMapping TypeName="DbModels.CitizenRegistration">
+              <MappingFragment StoreEntitySet="CitizenRegistration">
+                <ScalarProperty Name="NextOfKinContact" ColumnName="NextOfKinContact" />
+                <ScalarProperty Name="PassportImage" ColumnName="PassportImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="NextOfKinInTurkey" ColumnName="NextOfKinInTurkey" />
+                <ScalarProperty Name="RelationshipWithNextOfKin" ColumnName="RelationshipWithNextOfKin" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="TurkeyAddress" ColumnName="TurkeyAddress" />
+                <ScalarProperty Name="TurkeyPhone" ColumnName="TurkeyPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PurposeOfVisitId" ColumnName="PurposeOfVisitId" />
+                <ScalarProperty Name="ExpectedDurationOfStay" ColumnName="ExpectedDurationOfStay" />
+                <ScalarProperty Name="IdeclareTruthOfInfo" ColumnName="IdeclareTruthOfInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EducationAndCulture">
+            <EntityTypeMapping TypeName="DbModels.EducationAndCulture">
+              <MappingFragment StoreEntitySet="EducationAndCulture">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="embassy_address">
-            <EntityTypeMapping TypeName="MyDbModels.embassy_address">
+            <EntityTypeMapping TypeName="DbModels.embassy_address">
               <MappingFragment StoreEntitySet="embassy_address">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -874,8 +959,16 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="events">
-            <EntityTypeMapping TypeName="MyDbModels.event">
+          <EntitySetMapping Name="EmbassyMission">
+            <EntityTypeMapping TypeName="DbModels.EmbassyMission">
+              <MappingFragment StoreEntitySet="EmbassyMission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event">
+            <EntityTypeMapping TypeName="DbModels.event">
               <MappingFragment StoreEntitySet="event">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -887,218 +980,208 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="event_category">
-            <EntityTypeMapping TypeName="MyDbModels.event_category">
+            <EntityTypeMapping TypeName="DbModels.event_category">
               <MappingFragment StoreEntitySet="event_category">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="category" ColumnName="category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="former_personel">
-            <EntityTypeMapping TypeName="MyDbModels.former_personel">
-              <MappingFragment StoreEntitySet="former_personel">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
-                <ScalarProperty Name="telefon" ColumnName="telefon" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="email" ColumnName="email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="positions">
-            <EntityTypeMapping TypeName="MyDbModels.positions">
-              <MappingFragment StoreEntitySet="positions">
-                <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="position" ColumnName="position" />
-                <ScalarProperty Name="duties" ColumnName="duties" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WelcomeMessages">
-            <EntityTypeMapping TypeName="MyDbModels.WelcomeMessage">
-              <MappingFragment StoreEntitySet="WelcomeMessage">
+          <EntitySetMapping Name="FormerAmbassadors">
+            <EntityTypeMapping TypeName="DbModels.FormerAmbassadors">
+              <MappingFragment StoreEntitySet="FormerAmbassadors">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VisaInfo">
-            <EntityTypeMapping TypeName="MyDbModels.VisaInfo">
-              <MappingFragment StoreEntitySet="VisaInfo">
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="InfoTr" ColumnName="InfoTr" />
-                <ScalarProperty Name="InfoEn" ColumnName="InfoEn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Biography" ColumnName="Biography" />
+                <ScalarProperty Name="JobStartDate" ColumnName="JobStartDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ImportantNotice">
-            <EntityTypeMapping TypeName="MyDbModels.ImportantNotice">
+            <EntityTypeMapping TypeName="DbModels.ImportantNotice">
               <MappingFragment StoreEntitySet="ImportantNotice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="MessageTr" ColumnName="MessageTr" />
                 <ScalarProperty Name="MessageEn" ColumnName="MessageEn" />
+                <ScalarProperty Name="MessageTr" ColumnName="MessageTr" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="MyDbModels.messages">
-              <MappingFragment StoreEntitySet="messages">
-                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
-                <ScalarProperty Name="message" ColumnName="message" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CitizenRegistration">
-            <EntityTypeMapping TypeName="MyDbModels.CitizenRegistration">
-              <MappingFragment StoreEntitySet="CitizenRegistration">
-                <ScalarProperty Name="IdeclareTruthOfInfo" ColumnName="IdeclareTruthOfInfo" />
-                <ScalarProperty Name="ExpectedDurationOfStay" ColumnName="ExpectedDurationOfStay" />
-                <ScalarProperty Name="PurposeOfVisitId" ColumnName="PurposeOfVisitId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="TurkeyPhone" ColumnName="TurkeyPhone" />
-                <ScalarProperty Name="TurkeyAddress" ColumnName="TurkeyAddress" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="RelationshipWithNextOfKin" ColumnName="RelationshipWithNextOfKin" />
-                <ScalarProperty Name="NextOfKinInTurkey" ColumnName="NextOfKinInTurkey" />
-                <ScalarProperty Name="University" ColumnName="University" />
-                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaritalStatus">
-            <EntityTypeMapping TypeName="MyDbModels.MaritalStatus">
+            <EntityTypeMapping TypeName="DbModels.MaritalStatus">
               <MappingFragment StoreEntitySet="MaritalStatus">
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="DbModels.messages">
+              <MappingFragment StoreEntitySet="messages">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ModeOfTransport">
-            <EntityTypeMapping TypeName="MyDbModels.ModeOfTransport">
+            <EntityTypeMapping TypeName="DbModels.ModeOfTransport">
               <MappingFragment StoreEntitySet="ModeOfTransport">
-                <ScalarProperty Name="Transport" ColumnName="Transport" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Transport" ColumnName="Transport" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OnlineVisaApplication">
-            <EntityTypeMapping TypeName="MyDbModels.OnlineVisaApplication">
+            <EntityTypeMapping TypeName="DbModels.OnlineVisaApplication">
               <MappingFragment StoreEntitySet="OnlineVisaApplication">
-                <ScalarProperty Name="IdeclareTruthOfInfo" ColumnName="IdeclareTruthOfInfo" />
-                <ScalarProperty Name="ReferenceNationality" ColumnName="ReferenceNationality" />
-                <ScalarProperty Name="ReferenceProfession" ColumnName="ReferenceProfession" />
-                <ScalarProperty Name="ReferenceRelationshipToApplicant" ColumnName="ReferenceRelationshipToApplicant" />
-                <ScalarProperty Name="ReferenceGenderId" ColumnName="ReferenceGenderId" />
-                <ScalarProperty Name="ReferenceBirthDate" ColumnName="ReferenceBirthDate" />
-                <ScalarProperty Name="ReferenceAddress" ColumnName="ReferenceAddress" />
-                <ScalarProperty Name="ReferencePhone" ColumnName="ReferencePhone" />
-                <ScalarProperty Name="ReferenceName" ColumnName="ReferenceName" />
-                <ScalarProperty Name="FundsAvailableForStay" ColumnName="FundsAvailableForStay" />
-                <ScalarProperty Name="PlaceOfStayAddress" ColumnName="PlaceOfStayAddress" />
-                <ScalarProperty Name="ExplanationIfYes" ColumnName="ExplanationIfYes" />
-                <ScalarProperty Name="InfectiousOrContagiousDisease" ColumnName="InfectiousOrContagiousDisease" />
-                <ScalarProperty Name="CommittedTrafficking" ColumnName="CommittedTrafficking" />
-                <ScalarProperty Name="DrugOffence" ColumnName="DrugOffence" />
-                <ScalarProperty Name="BeenDeportedForViolationOfLaw" ColumnName="BeenDeportedForViolationOfLaw" />
-                <ScalarProperty Name="BeenConvicted" ColumnName="BeenConvicted" />
-                <ScalarProperty Name="KinEmail" ColumnName="KinEmail" />
-                <ScalarProperty Name="KinMobile" ColumnName="KinMobile" />
-                <ScalarProperty Name="KinPhone" ColumnName="KinPhone" />
-                <ScalarProperty Name="KinPermanentAddress" ColumnName="KinPermanentAddress" />
-                <ScalarProperty Name="KinGivenNames" ColumnName="KinGivenNames" />
-                <ScalarProperty Name="KinSurname" ColumnName="KinSurname" />
-                <ScalarProperty Name="SpouseEmail" ColumnName="SpouseEmail" />
-                <ScalarProperty Name="SpouseMobile" ColumnName="SpouseMobile" />
-                <ScalarProperty Name="SpousePhone" ColumnName="SpousePhone" />
-                <ScalarProperty Name="SpousePermanentAddress" ColumnName="SpousePermanentAddress" />
-                <ScalarProperty Name="SpouseGivenNames" ColumnName="SpouseGivenNames" />
-                <ScalarProperty Name="SpouseSurname" ColumnName="SpouseSurname" />
-                <ScalarProperty Name="ApplicantEmail" ColumnName="ApplicantEmail" />
-                <ScalarProperty Name="ApplicantMobile" ColumnName="ApplicantMobile" />
-                <ScalarProperty Name="ApplicantPhone" ColumnName="ApplicantPhone" />
-                <ScalarProperty Name="ApplicantPermanentCountryAddress" ColumnName="ApplicantPermanentCountryAddress" />
-                <ScalarProperty Name="ApplicantPresentAddress" ColumnName="ApplicantPresentAddress" />
-                <ScalarProperty Name="EmployerEmail" ColumnName="EmployerEmail" />
-                <ScalarProperty Name="EmployerPhone" ColumnName="EmployerPhone" />
-                <ScalarProperty Name="EmployerAddress" ColumnName="EmployerAddress" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="OccupationTitle" ColumnName="OccupationTitle" />
-                <ScalarProperty Name="PresentOccupation" ColumnName="PresentOccupation" />
-                <ScalarProperty Name="PassportPlaceOfIssue" ColumnName="PassportPlaceOfIssue" />
-                <ScalarProperty Name="PassportExpiryDate" ColumnName="PassportExpiryDate" />
-                <ScalarProperty Name="PassportCountryOfIssue" ColumnName="PassportCountryOfIssue" />
-                <ScalarProperty Name="PassportDateOfIssue" ColumnName="PassportDateOfIssue" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
-                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
-                <ScalarProperty Name="CountryOfBirth" ColumnName="CountryOfBirth" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="GivenNames" ColumnName="GivenNames" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="TransportModeId" ColumnName="TransportModeId" />
-                <ScalarProperty Name="IntendedArrivalDate" ColumnName="IntendedArrivalDate" />
-                <ScalarProperty Name="DurationOfStay" ColumnName="DurationOfStay" />
-                <ScalarProperty Name="PurposeOfVisitId" ColumnName="PurposeOfVisitId" />
-                <ScalarProperty Name="VisaTypeId" ColumnName="VisaTypeId" />
-                <ScalarProperty Name="PrevExitPoint" ColumnName="PrevExitPoint" />
-                <ScalarProperty Name="PrevEntryPoint" ColumnName="PrevEntryPoint" />
-                <ScalarProperty Name="PrevArrivalDate" ColumnName="PrevArrivalDate" />
-                <ScalarProperty Name="PrevIssuePlace" ColumnName="PrevIssuePlace" />
-                <ScalarProperty Name="PrevIssueDate" ColumnName="PrevIssueDate" />
-                <ScalarProperty Name="PreviousVisaNo" ColumnName="PreviousVisaNo" />
-                <ScalarProperty Name="PreviouslyApplied" ColumnName="PreviouslyApplied" />
-                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
-                <ScalarProperty Name="ApplicationPlace" ColumnName="ApplicationPlace" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ApplicationPlace" ColumnName="ApplicationPlace" />
+                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+                <ScalarProperty Name="PreviouslyApplied" ColumnName="PreviouslyApplied" />
+                <ScalarProperty Name="PreviousVisaNo" ColumnName="PreviousVisaNo" />
+                <ScalarProperty Name="PrevIssueDate" ColumnName="PrevIssueDate" />
+                <ScalarProperty Name="PrevIssuePlace" ColumnName="PrevIssuePlace" />
+                <ScalarProperty Name="PrevArrivalDate" ColumnName="PrevArrivalDate" />
+                <ScalarProperty Name="PrevEntryPoint" ColumnName="PrevEntryPoint" />
+                <ScalarProperty Name="PrevExitPoint" ColumnName="PrevExitPoint" />
+                <ScalarProperty Name="VisaTypeId" ColumnName="VisaTypeId" />
+                <ScalarProperty Name="PurposeOfVisitId" ColumnName="PurposeOfVisitId" />
+                <ScalarProperty Name="DurationOfStay" ColumnName="DurationOfStay" />
+                <ScalarProperty Name="IntendedArrivalDate" ColumnName="IntendedArrivalDate" />
+                <ScalarProperty Name="TransportModeId" ColumnName="TransportModeId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GivenNames" ColumnName="GivenNames" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CountryOfBirth" ColumnName="CountryOfBirth" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportDateOfIssue" ColumnName="PassportDateOfIssue" />
+                <ScalarProperty Name="PassportCountryOfIssue" ColumnName="PassportCountryOfIssue" />
+                <ScalarProperty Name="PassportExpiryDate" ColumnName="PassportExpiryDate" />
+                <ScalarProperty Name="PassportPlaceOfIssue" ColumnName="PassportPlaceOfIssue" />
+                <ScalarProperty Name="PresentOccupation" ColumnName="PresentOccupation" />
+                <ScalarProperty Name="OccupationTitle" ColumnName="OccupationTitle" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="EmployerAddress" ColumnName="EmployerAddress" />
+                <ScalarProperty Name="EmployerPhone" ColumnName="EmployerPhone" />
+                <ScalarProperty Name="EmployerEmail" ColumnName="EmployerEmail" />
+                <ScalarProperty Name="ApplicantPresentAddress" ColumnName="ApplicantPresentAddress" />
+                <ScalarProperty Name="ApplicantPermanentCountryAddress" ColumnName="ApplicantPermanentCountryAddress" />
+                <ScalarProperty Name="ApplicantPhone" ColumnName="ApplicantPhone" />
+                <ScalarProperty Name="ApplicantMobile" ColumnName="ApplicantMobile" />
+                <ScalarProperty Name="ApplicantEmail" ColumnName="ApplicantEmail" />
+                <ScalarProperty Name="SpouseSurname" ColumnName="SpouseSurname" />
+                <ScalarProperty Name="SpouseGivenNames" ColumnName="SpouseGivenNames" />
+                <ScalarProperty Name="SpousePermanentAddress" ColumnName="SpousePermanentAddress" />
+                <ScalarProperty Name="SpousePhone" ColumnName="SpousePhone" />
+                <ScalarProperty Name="SpouseMobile" ColumnName="SpouseMobile" />
+                <ScalarProperty Name="SpouseEmail" ColumnName="SpouseEmail" />
+                <ScalarProperty Name="KinSurname" ColumnName="KinSurname" />
+                <ScalarProperty Name="KinGivenNames" ColumnName="KinGivenNames" />
+                <ScalarProperty Name="KinPermanentAddress" ColumnName="KinPermanentAddress" />
+                <ScalarProperty Name="KinPhone" ColumnName="KinPhone" />
+                <ScalarProperty Name="KinMobile" ColumnName="KinMobile" />
+                <ScalarProperty Name="KinEmail" ColumnName="KinEmail" />
+                <ScalarProperty Name="BeenConvicted" ColumnName="BeenConvicted" />
+                <ScalarProperty Name="BeenDeportedForViolationOfLaw" ColumnName="BeenDeportedForViolationOfLaw" />
+                <ScalarProperty Name="DrugOffence" ColumnName="DrugOffence" />
+                <ScalarProperty Name="CommittedTrafficking" ColumnName="CommittedTrafficking" />
+                <ScalarProperty Name="InfectiousOrContagiousDisease" ColumnName="InfectiousOrContagiousDisease" />
+                <ScalarProperty Name="ExplanationIfYes" ColumnName="ExplanationIfYes" />
+                <ScalarProperty Name="PlaceOfStayAddress" ColumnName="PlaceOfStayAddress" />
+                <ScalarProperty Name="FundsAvailableForStay" ColumnName="FundsAvailableForStay" />
+                <ScalarProperty Name="ReferenceName" ColumnName="ReferenceName" />
+                <ScalarProperty Name="ReferencePhone" ColumnName="ReferencePhone" />
+                <ScalarProperty Name="ReferenceAddress" ColumnName="ReferenceAddress" />
+                <ScalarProperty Name="ReferenceBirthDate" ColumnName="ReferenceBirthDate" />
+                <ScalarProperty Name="ReferenceGenderId" ColumnName="ReferenceGenderId" />
+                <ScalarProperty Name="ReferenceRelationshipToApplicant" ColumnName="ReferenceRelationshipToApplicant" />
+                <ScalarProperty Name="ReferenceProfession" ColumnName="ReferenceProfession" />
+                <ScalarProperty Name="ReferenceNationality" ColumnName="ReferenceNationality" />
+                <ScalarProperty Name="IdeclareTruthOfInfo" ColumnName="IdeclareTruthOfInfo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PassportType">
-            <EntityTypeMapping TypeName="MyDbModels.PassportType">
+            <EntityTypeMapping TypeName="DbModels.PassportType">
               <MappingFragment StoreEntitySet="PassportType">
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="positions">
+            <EntityTypeMapping TypeName="DbModels.positions">
+              <MappingFragment StoreEntitySet="positions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="duties" ColumnName="duties" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PurposeOfVisit">
-            <EntityTypeMapping TypeName="MyDbModels.PurposeOfVisit">
+            <EntityTypeMapping TypeName="DbModels.PurposeOfVisit">
               <MappingFragment StoreEntitySet="PurposeOfVisit">
-                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sex">
-            <EntityTypeMapping TypeName="MyDbModels.Sex">
+            <EntityTypeMapping TypeName="DbModels.Sex">
               <MappingFragment StoreEntitySet="Sex">
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SSHistory">
+            <EntityTypeMapping TypeName="DbModels.SSHistory">
+              <MappingFragment StoreEntitySet="SSHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TurkeyRelations">
+            <EntityTypeMapping TypeName="DbModels.TurkeyRelations">
+              <MappingFragment StoreEntitySet="TurkeyRelations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisaInfo">
+            <EntityTypeMapping TypeName="DbModels.VisaInfo">
+              <MappingFragment StoreEntitySet="VisaInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InfoEn" ColumnName="InfoEn" />
+                <ScalarProperty Name="InfoTr" ColumnName="InfoTr" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VisaTypeRequested">
-            <EntityTypeMapping TypeName="MyDbModels.VisaTypeRequested">
+            <EntityTypeMapping TypeName="DbModels.VisaTypeRequested">
               <MappingFragment StoreEntitySet="VisaTypeRequested">
-                <ScalarProperty Name="VisaType" ColumnName="VisaType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VisaType" ColumnName="VisaType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1116,7 +1199,7 @@ warning 6002: The table/view 'embassy_db.dbo.VisaInfo' does not have a primary k
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

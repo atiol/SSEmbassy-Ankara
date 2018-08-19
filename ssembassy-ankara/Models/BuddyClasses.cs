@@ -9,14 +9,14 @@ using System.Web.Mvc;
 
 namespace ssembassy_ankara.Models
 {
-    [MetadataType(typeof(articleAttribs))]
+    [MetadataType(typeof(ArticleAttribs))]
     public partial class article
     {
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
     }
 
-    public class articleAttribs
+    public class ArticleAttribs
     {
         [Required]
         [ForeignKey("article_category")]
@@ -85,17 +85,16 @@ namespace ssembassy_ankara.Models
         public bool Status { get; set; }
     }
 
-    // Welcome message
-    [MetadataType(typeof(WelcomeMessageAttribs))]
-    public partial class WelcomeMessage
+    [MetadataType(typeof(BusinessInvestmentsAttrib))]
+    public partial class BusinessInvestments
     {
 
     }
 
-    public class WelcomeMessageAttribs
+    public class BusinessInvestmentsAttrib
     {
-        [Required]
         [AllowHtml]
-        public string Message { get; set; }
+        [Display(Name = "Content")]
+        public string body { get; set; }
     }
 }

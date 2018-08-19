@@ -1,39 +1,43 @@
-﻿@model ssembassy_ankara.Models.WelcomeMessage
+﻿@model ssembassy_ankara.Models.EmbassyMission
 
 @{
-    ViewBag.Title = "CreateWelcomeMessage";
+    ViewBag.Title = "CreateEmbassyMission";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
-    ViewBag.Description = "Create welcome message here";
+    ViewBag.Description = "Create a new embassy mission page here";
 }
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <div class="box-title">
-                        <h4>Welcome Message</h4>
-                    </div>
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="title">
+                    <h4>Embassy Mission</h4>
                 </div>
+                <div class="box-tools pull-right">
+                    @Html.ActionLink("Cancel", "PreviewEmbassyMission", null, new { @class = "btn btn-danger btn-xs" })
+                </div>
+            </div>
+            @using (Html.BeginForm("CreateEmbassyMission", "CPanel", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
                 <div class="box-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="box-footer">
-                    @Html.ActionLink("Cancel", "WelcomeMessages", "CPanel", new {@class="btn btn-flat btn-danger"})
-                    <input type="submit" value="Create" class="btn btn-primary btn-flat pull-right" />
+                    @Html.ActionLink("Back", "PreviewEmbassyMission")
+                    <input type="submit" value="Create" class="btn btn-success btn-flat pull-right" />
                 </div>
-            </div>
+            }
         </div>
     </div>
-}
+</div>
+
 @section custom_javascript {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="~/Scripts/tinymce/tinymce.min.js"></script>
@@ -41,7 +45,7 @@
         $(document).ready(function() {
             tinymce.init({
                 selector: 'textarea',
-                height: 250,
+                height: 350,
                 menubar: false,
                 plugins: [
                     'advlist autolink lists link image charmap print preview anchor textcolor',

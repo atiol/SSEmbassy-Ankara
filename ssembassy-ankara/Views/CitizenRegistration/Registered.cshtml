@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc;
+
+@model PagedList.IPagedList<ssembassy_ankara.Models.CitizenRegistration>
+
+@{
+    ViewBag.Title = "Registered Nationals";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "A list of all registered South Sudanese in Turkey";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-danger">
+            <div class="box-header">
+                <div class="box-title"><h4><strong>Registered South Sudanese Nationals in Turkey</strong></h4></div>
+            </div>
+            <div class="box-body">
+                <table class="table table-responsive table-striped">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].PurposeOfVisit.Purpose)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].ApplicationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].University)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].TurkeyAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].TurkeyPhone)
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PurposeOfVisit.Purpose)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ApplicationDate.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.University)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TurkeyAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TurkeyPhone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PassportImage)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new {onclick = "return confirm('Are you sure you want to delete this information?')"})
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class="box-footer">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    </div>
+</div>

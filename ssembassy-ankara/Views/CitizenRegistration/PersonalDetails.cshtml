@@ -1,0 +1,73 @@
+﻿@model ssembassy_ankara.Models.AboutCitizen
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section custom_css
+{
+    @Styles.Render("~/css/datepicker")
+}
+<style>
+    .reg-form {
+        display: contents;
+    }
+</style>
+
+<div class="card-panel">
+    <h5 class="center-text">Registration Form For South Sudanese nationals in Turkey</h5>
+    <div class="divider"></div>
+    <small class="blue-text">This registration form is for South Sudanese Nationals only.</small>
+    <div class="reg-form">
+        <h5><strong>Step 1: Citizen Basic Details</strong></h5>
+        @using (Html.BeginForm("PersonalDetails", "CitizenRegistration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="error-content">
+                @*@Html.ValidationSummary("", new {@class = "red-text"})*@
+            </div>
+            @Html.LabelFor(model => model.FullName)<br/>
+            @Html.TextBoxFor(model => model.FullName)
+            @Html.ValidationMessageFor(model => model.FullName, "", new {@class = "red-text"})<br/>
+
+            @Html.LabelFor(model => model.ImageFile)
+            <br/>
+            <input type="file" name="ImageFile" accept=".png, .jpg, .jpeg"/>
+            @Html.ValidationMessageFor(model => model.ImageFile, "", new {@class = "red-text"})
+            <br/>
+
+            @Html.LabelFor(model => model.BirthDate)<br/>
+            @Html.TextBoxFor(model => model.BirthDate, new {@class = "datepicker"})
+            @Html.ValidationMessageFor(model => model.BirthDate, "", new {@class = "red-text"})<br/>
+
+            @Html.LabelFor(model => model.PassportNumber)<br/>
+            @Html.TextBoxFor(model => model.PassportNumber)
+            @Html.ValidationMessageFor(model => model.PassportNumber, "", new {@class = "red-text"})<br/>
+
+            @Html.LabelFor(model => model.ExpiryDate)<br/>
+            @Html.TextBoxFor(model => model.ExpiryDate, new {@class = "datepicker"})
+            @Html.ValidationMessageFor(model => model.ExpiryDate, "", new {@class = "red-text"})<br/>
+
+            @Html.LabelFor(model => model.University)<br/>
+            @Html.TextBoxFor(model => model.University)
+            @Html.ValidationMessageFor(model => model.University, "", new {@class = "red-text"})<br/>
+
+            <input type="submit" name="nextBtn" value="Next" class="btn btn-primary right"/>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        jQuery.noConflict();
+        (function($) {
+            (function() {
+                $('.datepicker').datepicker({
+                    autoclose: true
+                });
+            });
+        })(jQuery);
+    </script>
+}

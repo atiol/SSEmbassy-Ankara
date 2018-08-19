@@ -12,14 +12,9 @@ namespace ssembassy_ankara.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class former_personel
+    public partial class EducationAndCulture
     {
-        public string id { get; set; }
-        public string title { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public string telefon { get; set; }
-        public string fax { get; set; }
-        public string email { get; set; }
+        public int Id { get; set; }
+        public string Body { get; set; }
     }
 }

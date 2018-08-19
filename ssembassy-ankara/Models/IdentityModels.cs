@@ -31,14 +31,14 @@ namespace ssembassy_ankara.Models
         [Required]
         public string Position { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Job Start Date")]
         public DateTime ContractStart { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Job End Date")]
         public DateTime ContractEnd { get; set; }
 
         [AllowHtml]
@@ -57,10 +57,8 @@ namespace ssembassy_ankara.Models
 
         public DbSet<@event> Event { get; set; }
         public DbSet<event_category> EventCategory { get; set; }
-        public DbSet<former_personel> FormerPersonel { get; set; }
         public DbSet<positions> Positions { get; set; }
         public DbSet<embassy_address> EmbassyAddress { get; set; }
-        public DbSet<WelcomeMessage> WelcomeMessage { get; set; }
         public DbSet<article> Articles { get; set; }
         public DbSet<article_category> ArticleCategory { get; set; }
         public DbSet<VisaInfo> VisaInfo { get; set; }
@@ -74,6 +72,11 @@ namespace ssembassy_ankara.Models
         public DbSet<PurposeOfVisit> PurposeOfVisit { get; set; }
         public DbSet<Sex> Sex { get; set; }
         public DbSet<VisaTypeRequested> VisaTypeRequested { get; set; }
+        public DbSet<BusinessInvestments> BusinessInvestments { get; set; }
+        public DbSet<SSHistory> SSHistory { get; set; }
+        public DbSet<TurkeyRelations> TurkeyRelations { get; set; }
+        public DbSet<EmbassyMission> EmbassyMission { get; set; }
+        public DbSet<EducationAndCulture> EducationAndCulture { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -86,5 +89,6 @@ namespace ssembassy_ankara.Models
 
             base.OnModelCreating(modelBuilder);
         }
+        
     }
 }

@@ -3,6 +3,14 @@
     ViewBag.Title = "Success";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h5 class="green-text">Data saved successfully!!!</h5>
-@Html.ActionLink("Back to home", "Index", "Home")
+<style>
+    #success-body {
+        min-height: 450px;
+    }
+</style>
+<div class="row" id="success-body">
+    <div class="col s12">
+        <h5 class="green-text">You have registered successfully!!!</h5>
+        @Html.ActionLink("<-- Back to page", "Index", "CitizenRegistration")
+    </div>
+</div>

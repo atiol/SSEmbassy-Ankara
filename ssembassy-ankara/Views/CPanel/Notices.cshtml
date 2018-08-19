@@ -1,50 +1,68 @@
 ﻿@using System.Reflection
-@model IEnumerable<ssembassy_ankara.Models.ImportantNotice>
+@using PagedList.Mvc;
+
+@model PagedList.IPagedList<ssembassy_ankara.Models.ImportantNotice>
 
 @{
     ViewBag.Title = "Notices";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Important announcements here";
 }
 
-<p>
-    @Html.ActionLink("Create New", "CreateNotice")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </th>
-        <th>
-            Show
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>Actions</th>
-    </tr>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.CreatedOn.ToString("d")
-        </td>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <div class="box-title">
+                    <h4><strong>Announcements</strong></h4>
+                </div>
+                <div class="box-tools pull-right">
+                    @Html.ActionLink("Add Notice", "CreateNotice", "CPanel", null, new {@class = "btn btn-xs btn-primary"})
+                </div>
+            </div>
+            <div class="box-body">
+                <table class="table table-responsive table-striped">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].CreatedOn)
+                        </th>
+                        <th>
+                            Show
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Title)
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>
+                                @item.CreatedOn.ToString("d")
+                            </td>
         
-            @if (item.Status)
-            {
-                <td>Yes</td>
-            }
-            else
-            {
-                <td>No</td>
-            }    
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditNotice", new { id=item.Id }) |
-            @Html.ActionLink("Details", "NoticeDetails", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteNotice", new { id = item.Id }, new { onclick = "return confirm ('Are you sure want to delete Notice?')"})
-        </td>
-    </tr>
-}
-
-</table>
+                            @if (item.Status)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }    
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditNotice", new { id=item.Id }) |
+                                @Html.ActionLink("Details", "NoticeDetails", new { id=item.Id }) |
+                                @Html.ActionLink("Delete", "DeleteNotice", new { id = item.Id }, new { onclick = "return confirm ('Are you sure want to delete Notice?')"})
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div>
+                    @Html.PagedListPager(Model, page => Url.Action("Notices", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

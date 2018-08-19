@@ -1,0 +1,27 @@
+﻿@model ssembassy_ankara.Models.SSHistory
+
+@{
+    ViewBag.Title = "Preview History Page";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "This is how this page will appear in the main website";
+}
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="card-panel">
+            @if (Model != null)
+            {
+                <div class="pull-right"><a href="@Url.Action("EditHistoryPage", new {id = Model.Id})" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a></div>
+                @Html.Raw(Model.Body)
+            }
+            else
+            {
+                <p class="text-gray">
+                    <em>No article added yet!</em><br /><br />
+                    <span>@Html.ActionLink("Create Page", "CreateSSHistoryPage", null, new { @class = "btn btn-flat btn-success" })</span>
+                </p>
+            }
+        </div>
+
+    </div>
+</div>

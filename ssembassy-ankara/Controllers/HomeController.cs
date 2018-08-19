@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using ssembassy_ankara.Models;
 
 namespace ssembassy_ankara.Controllers
@@ -31,9 +27,8 @@ namespace ssembassy_ankara.Controllers
         // GET: Latest 5 articles
         public PartialViewResult GetLatest5Articles()
         {
-            var articleList = _db.Articles.OrderByDescending(x => x.published).Take(5).ToList();
+            var articleList = _db.Articles.OrderByDescending(x => x.id).Take(5).ToList();
             var articles = new List<NewsViewModel>();
-            
 
             foreach (var item in articleList)
             {
@@ -58,25 +53,53 @@ namespace ssembassy_ankara.Controllers
 
         public ActionResult Staff()
         {
-            var staffList = _db.Users.ToList();
-
+            var staffList = _db.Users.OrderBy(x => x.Id).ToList();
             var staffViewList = new List<StaffBasicInfoViewModel>();
-            var staffView = new StaffBasicInfoViewModel();
 
             if (staffList.Count > 0)
             {
                 foreach (var staff in staffList)
                 {
-                    staffView.Id = staff.Id;
-                    staffView.FullName = staff.FullName;
-                    staffView.ImgUrl = string.IsNullOrEmpty(staff.ImgUrl) ? _defaultStaffImageUrl: staff.ImgUrl;
-                    staffView.Position = staff.Position;
-
-                    staffViewList.Add(staffView);
+                    var staffViewModel = new StaffBasicInfoViewModel
+                    {
+                        Id = staff.Id,
+                        FullName = staff.FullName,
+                        ImgUrl = string.IsNullOrEmpty(staff.ImgUrl) ? _defaultStaffImageUrl: staff.ImgUrl,
+                        Position = staff.Position
+                    };
+                    staffViewList.Add(staffViewModel);
                 }
             }
 
             return View(staffViewList);
+        }
+
+        // History Page Details
+        public ActionResult History()
+        {
+            var model = _db.SSHistory.FirstOrDefault();
+            return View(model);
+        }
+
+        // Embassy Mission Page Details
+        public ActionResult EmbassyMission()
+        {
+            var model = _db.EmbassyMission.FirstOrDefault();
+            return View(model);
+        }
+
+        // Relationship with Turkey
+        public ActionResult TurkeyRelations()
+        {
+            var model = _db.TurkeyRelations.FirstOrDefault();
+            return View(model);
+        }
+
+        // Education and Culture
+        public ActionResult EducationAndCulture()
+        {
+            var model = _db.EducationAndCulture.FirstOrDefault();
+            return View(model);
         }
     }
 }

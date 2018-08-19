@@ -15,17 +15,6 @@ namespace ssembassy_ankara.Controllers
             _context = new ApplicationDbContext();
         }
 
-        // GET: Welcome message
-        public PartialViewResult _WelcomeMessagePartialViewResult()
-        {
-            var model = _context.WelcomeMessage.FirstOrDefault();
-            
-            return PartialView( new WelcomeMessage
-            {
-                Message = model.Message
-            });
-        }
-
         // Get: Ambassador Info
         public PartialViewResult AmbassadorInfoPartial()
         {
@@ -37,7 +26,8 @@ namespace ssembassy_ankara.Controllers
                     Id = model.Id,
                     FullName = model.FullName,
                     Position = model.Position,
-                    ImgUrl = model.ImgUrl
+                    ImgUrl = model.ImgUrl,
+                    Message = model.Message
                 });
             }
 

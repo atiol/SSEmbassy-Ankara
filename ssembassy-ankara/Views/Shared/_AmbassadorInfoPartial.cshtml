@@ -1,13 +1,14 @@
 ﻿@model ssembassy_ankara.Models.StaffBasicInfoViewModel
 
-<div class="card-panel grey lighten-5 z-depth-0" style="padding: 0;">
-    <div class="row valign-wrapper">
-        @if (Model != null)
-        {
+@if (Model != null)
+{
+    <div class="card-panel grey lighten-5 z-depth-0" style="padding: 0;">
+        <div class="row valign-wrapper">
+
             <div class="col s2 m2 l4">
                 @if (Model.ImgUrl != null)
                 {
-                    <img src="@Url.Content(""+ Model.ImgUrl +"")" alt="" class="circle responsive-img">
+                    <img src="@Url.Content("" + Model.ImgUrl + "")" alt="" class="circle responsive-img">
                 }
                 else
                 {
@@ -24,6 +25,18 @@
                 <div class="divider"></div>
                 @Html.ActionLink("Ambassador's Message", "Index", "Home")
             </div>
-        }
+
+        </div>
     </div>
-</div>
+    <!-- Ambassador's message -->
+    if (!string.IsNullOrEmpty(Model.Message))
+     {
+         <div class="card-panel z-depth-1 grey lighten-5" style="padding: 10px;">
+             <h5 style="margin: 0.093333rem 0 0.656rem 0; font-size: 15px; text-transform: uppercase;">Welcome Message</h5>
+             <div class="divider"></div>
+             <div>
+                 @Html.Raw(Model.Message)
+             </div>
+         </div>
+     }
+}

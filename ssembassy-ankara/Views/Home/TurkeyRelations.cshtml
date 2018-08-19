@@ -1,0 +1,28 @@
+﻿@model ssembassy_ankara.Models.TurkeyRelations
+
+@{
+    ViewBag.Title = "Turkey Relations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-panel grey lighten-5 z-depth-0">
+    @if (Model != null)
+    {
+        @Html.Raw(Model.Body)
+    }
+    else
+    {
+        <h5>Relationship with Turkey</h5>
+        <p class="grey-text">Content Unavailable</p>
+    }
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('p img').addClass('responsive-img');
+        });
+    </script>
+}
+
+

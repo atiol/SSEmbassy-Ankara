@@ -23,9 +23,7 @@
         }
     </style>
 }
-
 @Html.Action("GetLatest5Articles", "Home")
-
 <!-- card panels -->
 <div class="row">
     <div class="col s6">
@@ -43,69 +41,9 @@
         </a>
     </div>
 </div>
-<div class="row">
-    <div class="col s12">
-        <!-- News feed -->
-        <h5>LATEST NEWS</h5>
-        <div class="divider"></div>
-        <div class="card-panel wheat lighten-5 z-depth-1">
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <a href="#">
-                        <img src="@Url.Content("~/Content/img/peace.jpg")" alt="" class="responsive-img">
-                    </a>
-                </div>
-                <div class="col s10">
-                    <a href="#">
-                        <span class="black-text">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga fugit sapiente assumenda,
-                            qui tempora iste culpa dolores neque a commodi doloribus sequi dignissimos sed cum
-                            exercitationem molestias officiis, optio ab.
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-panel wheat lighten-5 z-depth-1">
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <img src="@Url.Content("~/Content/img/ss2.jpg")" class="responsive-img" alt="News">
-                </div>
-                <div class="col s10">
-                    <span class="black-text">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga fugit sapiente assumenda,
-                        qui tempora iste culpa dolores neque a commodi doloribus sequi dignissimos sed cum
-                        exercitationem molestias officiis, optio ab.
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-panel wheat lighten-5 z-depth-1">
-            <div class="row valign-wrapper">
-                <div class="col s2">
-                    <img src="@Url.Content("~/Content/img/ss2.jpg")" alt="" class="responsive-img">
-                </div>
-                <div class="col s10">
-                    <span class="black-text">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga fugit sapiente assumenda,
-                        qui tempora iste culpa dolores neque a commodi doloribus sequi dignissimos sed cum
-                        exercitationem molestias officiis, optio ab.
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- pagination -->
-        <ul class="pagination">
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        </ul>
-    </div>
+<div class="row" id="rsfeed">
+    <!-- News Feed-->
+    @Html.Action("Index", "RSS")
 </div>
 
 @section scripts
@@ -122,7 +60,9 @@
                 prevText: '<i class="material-icons black-text">chevron_left</i>',
                 nextText: '<i class="material-icons black-text">chevron_right</i>',
                 pager: false
-        });
+            });
+
+            $("#rsfeed .card-panel > p").addClass("block-with-text");
         });
     </script>
 }

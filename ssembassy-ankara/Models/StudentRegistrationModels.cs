@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
 
 namespace ssembassy_ankara.Models
@@ -15,22 +13,25 @@ namespace ssembassy_ankara.Models
         public string ImageUrl { get; set; }
 
         [Required]
+        [Display(Name = "Upload a recent passport size photo of yourself")]
+        public HttpPostedFileBase ImageFile { get; set; }
+
+        [Required]
         [Display(Name = "Date of Birth")]
         public DateTime BirthDate { get; set; }
 
         [Required]
+        [RegularExpression("^R+\\d*")]
         [Display(Name = "Passport Number")]
         public string PassportNumber { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Date of Expiry")]
         public DateTime ExpiryDate { get; set; }
 
-        [Display(Name = "Name of University or College (applicable for students)")]
+        [Display(Name = "Name of College or University (applicable for students)")]
         public string University { get; set; }
-
-        [Required]
-        public HttpPostedFileBase ImageFile { get; set; }
     }
 
     public class CitizenContactDetails
@@ -44,27 +45,32 @@ namespace ssembassy_ankara.Models
         public string TurkeyPhone { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Person to be contacted in Turkey incase of emmergency")]
+        [Display(Name = "Name Surname of who to contact incase of emmergency")]
         public string NextOfKinInTurkey { get; set; }
 
         [Required]
         [Display(Name = "Their relationship with you")]
         public string RelationshipWithNextOfKin { get; set; }
 
+        [Display(Name = "Next of kin phone")]
+        public string NextOfKinContact { get; set; }
+
         [Required]
         [Display(Name = "Purpose of Stay in Turkey")]
         public int PurposeOfStayId { get; set; }
 
         [Required]
-        [Display(Name = "Expected duration of Stay in Turkey")]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Expected duration of Stay in Turkey in months")]
         public int DurationOfStay { get; set; }
 
         [Required]
-        [Display(Name = "I declare that the information provided in this form is true and accurate")]
+        [Display(Name = "I declare that the information provided above is true and accurate.")]
         public bool IdeclareTruthOfInfo { get; set; }
     }
 }

@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
+using PagedList;
 using ssembassy_ankara.Models;
 
 namespace ssembassy_ankara.Controllers
 {
     public class CitizenRegistrationController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
+        private const string DefaultUserImgUrl = "~/Content/img/muser.png";
+ 
         public CitizenRegistrationController()
         {
-            _context = new ApplicationDbContext();
-        }
-        // GET: CitizenRegistration
-        public ActionResult Index()
-        {
-            return View();
+            _db = new ApplicationDbContext();
         }
 
         // GET: Purpose of stay
         public List<SelectListItem> GetPurposeOfStayListItems()
         {
-            var purposeList = _context.PurposeOfVisit.ToList();
-            List<SelectListItem> visitPurposeListItems = new List<SelectListItem>();
+            var purposeList = _db.PurposeOfVisit.ToList();
+            var visitPurposeListItems = new List<SelectListItem>();
             foreach (var item in purposeList)
             {
                 visitPurposeListItems.Add(
@@ -35,7 +34,6 @@ namespace ssembassy_ankara.Controllers
                         Value = item.Id.ToString()
                     });
             }
-
             return visitPurposeListItems;
         }
 
@@ -54,62 +52,70 @@ namespace ssembassy_ankara.Controllers
             Session.Remove("citizen");
         }
 
+        // GET: Index page
+        public ActionResult Index()
+        {
+            return View();
+        }
+        
+        // GET: CitizenRegistration
+        public ActionResult PersonalDetails()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public PartialViewResult AboutCitizen(AboutCitizen aboutCitizen, string prevBtn, string nextBtn)
+        [ValidateAntiForgeryToken]
+        public ActionResult PersonalDetails(AboutCitizen aboutCitizen, string prevBtn, string nextBtn)
         {
             if (nextBtn != null)
             {
-                if (ModelState.IsValid)
-                {
-                    CitizenRegistration obj = GetCitizen();
+                if (!ModelState.IsValid) return View();
 
-                    obj.ApplicationDate = DateTime.Now;
-                    obj.FullName = aboutCitizen.FullName;
-                    obj.BirthDate = aboutCitizen.BirthDate;
-                    obj.PassportNumber = aboutCitizen.PassportNumber;
-                    obj.ExpiryDate = aboutCitizen.ExpiryDate;
+                var obj = GetCitizen();
 
-                    string filename = Path.GetFileNameWithoutExtension(aboutCitizen.ImageFile.FileName);
-                    string extension = Path.GetExtension(aboutCitizen.ImageFile.FileName);
-                    filename = filename + extension;
-                    aboutCitizen.ImageUrl = "~/Content/citizenImages/" + filename;
+                obj.ApplicationDate = DateTime.Now;
+                obj.FullName = aboutCitizen.FullName;
+                obj.BirthDate = aboutCitizen.BirthDate;
+                obj.PassportNumber = aboutCitizen.PassportNumber;
+                obj.ExpiryDate = aboutCitizen.ExpiryDate;
+                obj.University = aboutCitizen.University;
 
-                    filename = Path.Combine(Server.MapPath("~/Content/citizenImages/"), filename);
-                    aboutCitizen.ImageFile.SaveAs(filename);
+                var filename = Path.GetFileNameWithoutExtension(aboutCitizen.ImageFile.FileName);
+                var extension = Path.GetExtension(aboutCitizen.ImageFile.FileName);
+                filename = filename + extension;
+                aboutCitizen.ImageUrl = "~/Content/citizenImages/" + filename;
+                obj.ImageUrl = aboutCitizen.ImageUrl;
+                filename = Path.Combine(Server.MapPath("~/Content/citizenImages/"), filename);
+                aboutCitizen.ImageFile.SaveAs(filename);
 
-                    obj.University = aboutCitizen.University;
-                    obj.ImageUrl = aboutCitizen.ImageUrl;
-
-                    return PartialView("_CitizenContactInfo");
-
-                }
+                return RedirectToAction("ContactInfo");
             }
-            return PartialView("_AboutCitizen");
+            return View();
         }
 
-        public PartialViewResult CitizenContactInfoPartial()
+        public ActionResult ContactInfo()
         {
             ViewBag.PurposeOfVisit = GetPurposeOfStayListItems();
-
-            return PartialView("_CitizenContactInfo");
+            return View();
         }
 
         [HttpPost]
-        public ActionResult CitizenContactInfoPartial(CitizenContactDetails model, string prevBtn, string nextBtn)
+        [ValidateAntiForgeryToken]
+        public ActionResult ContactInfo(CitizenContactDetails model, string prevBtn, string nextBtn)
         {
-            CitizenRegistration obj = GetCitizen();
+            var obj = GetCitizen();
             if (prevBtn != null)
             {
-                AboutCitizen abt = new AboutCitizen
+                var abt = new AboutCitizen
                 {
                     FullName = obj.FullName,
-                    ImageUrl = obj.ImageUrl,
                     BirthDate = obj.BirthDate,
                     PassportNumber = obj.PassportNumber,
                     ExpiryDate = obj.ExpiryDate,
                     University = obj.University
                 };
-                return PartialView("_AboutCitizen", abt);
+                return View("PersonalDetails", abt);
             }
 
             if (nextBtn != null)
@@ -119,18 +125,66 @@ namespace ssembassy_ankara.Controllers
                 obj.Email = model.Email;
                 obj.NextOfKinInTurkey = model.NextOfKinInTurkey;
                 obj.RelationshipWithNextOfKin = model.RelationshipWithNextOfKin;
+                obj.NextOfKinContact = model.NextOfKinContact;
                 obj.PurposeOfVisitId = model.PurposeOfStayId;
                 obj.ExpectedDurationOfStay = model.DurationOfStay;
                 obj.IdeclareTruthOfInfo = model.IdeclareTruthOfInfo;
 
-                _context.CitizenRegistration.Add(obj);
-                _context.SaveChanges();
+                _db.CitizenRegistration.Add(obj);
+                _db.SaveChanges();
                 RemoveCitizen();
-
                 return View("Success");
             }
 
-            return PartialView("_CitizenContactInfo");
+            ViewBag.PurposeOfVisit = GetPurposeOfStayListItems();
+            return View("ContactInfo");
+        }
+
+        // GET: List all registered nationals
+        [Authorize(Roles = "Admin,Content Manager")]
+        public ActionResult Registered(int? page)
+        {
+            const int pageSize = 10;
+            var pageIndex = 1;
+
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            
+            var users = _db.CitizenRegistration.Include(p => p.PurposeOfVisit).OrderByDescending(x => x.Id).ToList();
+            var usersList = users.ToPagedList(pageIndex, pageSize);
+
+            return View(usersList);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = _db.CitizenRegistration.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.CitizenRegistration.Remove(model);
+            _db.SaveChanges();
+
+            return RedirectToAction("Registered");
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if(id == null) {return new HttpStatusCodeResult(HttpStatusCode.BadGateway); }
+
+            var model = _db.CitizenRegistration.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
         }
     }
 }

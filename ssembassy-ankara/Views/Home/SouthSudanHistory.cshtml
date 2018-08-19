@@ -1,0 +1,13 @@
+﻿@model ssembassy_ankara.Models.Page
+
+@{
+    ViewBag.Title = "SouthSudanHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="card-panel grey lighten-5 z-depth-0">
+        @Html.Raw(Model.ContentEn)
+    </div>
+}

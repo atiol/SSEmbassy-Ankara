@@ -12,9 +12,18 @@ namespace ssembassy_ankara.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WelcomeMessage
+    public partial class FormerAmbassadors
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
+        public string PhoneNumber { get; set; }
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+        public string ImgUrl { get; set; }
+        public string Position { get; set; }
         public string Message { get; set; }
+        public string Biography { get; set; }
+        public Nullable<System.DateTime> JobStartDate { get; set; }
     }
 }
