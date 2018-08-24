@@ -50,7 +50,8 @@
 {
     @Scripts.Render("~/bundles/bxslider")
     <script>
-        $(document).ready(function() {
+        jQuery.noConflict();
+        (function($) {
             $('.articlesCarousel').bxSlider({
                 mode: 'horizontal',
                 captions: true,
@@ -63,6 +64,6 @@
             });
 
             $("#rsfeed .card-panel > p").addClass("block-with-text");
-        });
+        })(jQuery);
     </script>
 }

@@ -30,18 +30,10 @@ namespace ssembassy_ankara.Controllers
         }
 
         // GET: Visa/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(int? id)
+        [Authorize(Roles = "Admin, Content Manager")]
+        public ActionResult Details()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VisaInfo visaInfo = _db.VisaInfo.Find(id);
-            if (visaInfo == null)
-            {
-                return HttpNotFound();
-            }
+            var visaInfo = _db.VisaInfo.FirstOrDefault();
             return View(visaInfo);
         }
 

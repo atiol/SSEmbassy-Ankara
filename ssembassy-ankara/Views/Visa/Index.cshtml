@@ -6,27 +6,15 @@
 }
 
 <div class="card-panel grey lighten-5 z-depth-0">
-    <h4>VISA</h4>
+    <h5>VISA</h5>
     <div class="divider"></div>
-    <small class="text-gray">@Model.DateCreated.ToString("d")</small>
-    @Html.Raw(Model.InfoEn)
-</div>
-<div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-        <div class="card-panel">
-            @if (Model != null)
-            {
-                <div class="pull-right"><a href="@Url.Action("Edit", new {id = Model.Id})" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a></div>
-                @Html.Raw(Model.InfoEn)
-            }
-            else
-            {
-                <p class="text-gray">
-                    <em>No content added yet!</em><br /><br />
-                    <span>@Html.ActionLink("Create Page", "Create", "Visa", null, new { @class = "btn btn-flat btn-success" })</span>
-                </p>
-            }
-        </div>
-
-    </div>
+    @if (Model != null)
+    {
+        <small class="text-gray">@Model.DateCreated.ToString("d")</small>
+        @Html.Raw(Model.InfoEn)
+    }
+    else
+    {
+        <small class="grey-text lighten-5">No content available at the moment. Try again later</small>
+    }
 </div>

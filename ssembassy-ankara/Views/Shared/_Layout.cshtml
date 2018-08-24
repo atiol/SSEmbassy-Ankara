@@ -258,10 +258,9 @@
     </footer><!-- end of footer-->
 
     @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     @Scripts.Render("~/bundles/defaultjs")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false)
 </body>
 </html>

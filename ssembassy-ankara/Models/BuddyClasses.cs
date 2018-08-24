@@ -85,6 +85,7 @@ namespace ssembassy_ankara.Models
         public bool Status { get; set; }
     }
 
+    // Business Investments Model
     [MetadataType(typeof(BusinessInvestmentsAttrib))]
     public partial class BusinessInvestments
     {
@@ -96,5 +97,24 @@ namespace ssembassy_ankara.Models
         [AllowHtml]
         [Display(Name = "Content")]
         public string body { get; set; }
+    }
+
+    // Citizen Registration Model
+    [MetadataType(typeof(CitizenRegistrationAttribs))]
+    public partial class CitizenRegistration
+    {
+
+    }
+
+    public class CitizenRegistrationAttribs
+    {
+        [Display(Name = "Applied On")]
+        public DateTime ApplicationDate { get; set; }
+
+        [Display(Name = "Expiry Date")]
+        public DateTime ExpiryDate { get; set; }
+
+        [Display(Name = "Birthday")]
+        public DateTime BirthDate { get; set; }
     }
 }

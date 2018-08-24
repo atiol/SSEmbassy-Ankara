@@ -97,6 +97,7 @@ namespace ssembassy_ankara.Controllers
         public ActionResult ContactInfo()
         {
             ViewBag.PurposeOfVisit = GetPurposeOfStayListItems();
+
             return View();
         }
 
@@ -144,13 +145,38 @@ namespace ssembassy_ankara.Controllers
         [Authorize(Roles = "Admin,Content Manager")]
         public ActionResult Registered(int? page)
         {
-            const int pageSize = 10;
+            const int pageSize = 16;
             var pageIndex = 1;
 
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            
             var users = _db.CitizenRegistration.Include(p => p.PurposeOfVisit).OrderByDescending(x => x.Id).ToList();
-            var usersList = users.ToPagedList(pageIndex, pageSize);
+            ViewBag.CitizenCount = users.Count;
+            var usersListView = new List<CitizenViewModel>();
+            foreach (var citizen in users)
+            {
+                usersListView.Add( new CitizenViewModel
+                {
+                    Id = citizen.Id,
+                    FullName = citizen.FullName,
+                    ImageUrl = citizen.ImageUrl,
+                    Email = citizen.Email,
+                    ApplicationDateForDisplay = citizen.ApplicationDate.ToString("d"),
+                    BirthDateForDisplay = citizen.BirthDate.ToShortDateString(),
+                    PassportNumber = citizen.PassportNumber,
+                    PassportImage = citizen.PassportImage,
+                    ExpiryDateForDisplay = citizen.ExpiryDate.ToShortDateString(),
+                    ExpectedDurationOfStay = citizen.ExpectedDurationOfStay,
+                    NextOfKinInTurkey = citizen.NextOfKinInTurkey,
+                    NextOfKinContact = citizen.NextOfKinContact,
+                    RelationshipWithNextOfKin = citizen.RelationshipWithNextOfKin,
+                    PurposeOfVisit = citizen.PurposeOfVisit,
+                    TurkeyAddress = citizen.TurkeyAddress,
+                    TurkeyPhone = citizen.TurkeyPhone,
+                    University = citizen.University,
+                    IdeclareTruthOfInfo = citizen.IdeclareTruthOfInfo
+                });
+            }
+            var usersList = usersListView.ToPagedList(pageIndex, pageSize);
 
             return View(usersList);
         }

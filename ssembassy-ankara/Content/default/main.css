@@ -108,6 +108,9 @@ address {
     margin-top: 0.2em;
     background: white;
 }
+.collapsible {
+    margin-top: 0;
+}
 
 /* media queries */
 /* small screens*/

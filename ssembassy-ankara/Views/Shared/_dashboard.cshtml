@@ -107,7 +107,7 @@
                 </li>
                 <li class="treeview">
                     <a href="@Url.Action("Notices", "CPanel")">
-                        <i class="fa fa-print"></i> <span>Announcements</span>
+                        <i class="fa fa-bullhorn"></i> <span>Announcements</span>
                     </a>
                 </li>
                 <li class="treeview">
@@ -136,11 +136,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Visa Applicants</a></li>
-                        <li class="active"><a href="@Url.Action("Index", "Visa")"><i class="fa fa-circle-o"></i> Visa</a></li>
-                        @if (HttpContext.Current.User.IsInRole("Admin, Content Manager"))
-                        {
-                            <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> S.Sudanese in Turkey</a></li>
-                        }
+                        <li class="active"><a href="@Url.Action("Details", "Visa")"><i class="fa fa-circle-o"></i> Visa</a></li>
+                        <li class="active"><a href="@Url.Action("Registered", "CitizenRegistration")"><i class="fa fa-circle-o"></i> S.Sudanese in Turkey</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

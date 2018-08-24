@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 
 namespace ssembassy_ankara.Models
@@ -72,5 +73,13 @@ namespace ssembassy_ankara.Models
         [Required]
         [Display(Name = "I declare that the information provided above is true and accurate.")]
         public bool IdeclareTruthOfInfo { get; set; }
+    }
+
+    [NotMapped]
+    public class CitizenViewModel : CitizenRegistration
+    {
+        public string ApplicationDateForDisplay { get; set; }
+        public string ExpiryDateForDisplay { get; set; }
+        public string BirthDateForDisplay { get; set; }
     }
 }

@@ -4,8 +4,15 @@
     ViewBag.Title = "Contact Info";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="card-panel">
+@section custom_css
+{
+    <style>
+        #step2 {
+            margin-top: 0;
+        }
+    </style>
+}
+<div class="card-panel" id="step2">
     <h5>Registration form for South Sudanese Nationals</h5>
     <div class="divider"></div>
     <small class="blue-text">This registration form is strictly for South Sudanese Nationals only.</small>
@@ -16,7 +23,7 @@
             @Html.ValidationSummary("", new { @class = "red-text" })
             <h6><strong>Step 2: Citizen Contact Details</strong></h6>
             @Html.LabelFor(model => model.TurkeyAddress)<br/>
-            @Html.TextAreaFor(model => model.TurkeyAddress)
+            @Html.TextAreaFor(model => model.TurkeyAddress, new {@class = "materialize-textarea" })
             @Html.ValidationMessageFor(model => model.TurkeyAddress, "", new { @class = "red-text" })<br/>
 
             @Html.LabelFor(model => model.TurkeyPhone)<br />
@@ -53,33 +60,38 @@
             @Html.LabelFor(model => model.DurationOfStay)<br />
             @Html.TextBoxFor(model => model.DurationOfStay)
             @Html.ValidationMessageFor(model => model.DurationOfStay, "", new { @class = "red-text" })<br />
-
-            @Html.LabelFor(model => model.IdeclareTruthOfInfo)
-            <div>
-                <span>@Html.RadioButtonFor(model => model.IdeclareTruthOfInfo, 1, new { @class = "with-gap" }) I agree</span>
-                <span class="right">@Html.RadioButtonFor(model => model.IdeclareTruthOfInfo, 0, new { @class = "with-gap" , selected = true }) I disagree</span>
-            </div>
+            
+            @*@Html.LabelFor(model => model.IdeclareTruthOfInfo)<br/>*@
+            <p>I declare that the information provided is accurate and true</p>
+            @Html.RadioButtonFor(model => model.IdeclareTruthOfInfo, true) 
+            @Html.LabelFor(model => model.IdeclareTruthOfInfo, "I agree")<br />
+            @Html.RadioButtonFor(model => model.IdeclareTruthOfInfo, false, new { @checked = "checked" }) <span>I disagree</span>
+            
             @Html.ValidationMessageFor(model => model.IdeclareTruthOfInfo, "", new { @class = "red-text" })<br />
-    
+            
+            <div class="divider" style="margin: 10px 0;"></div>
             <input type="submit" name="prevBtn" value="Previous" class="btn btn-default"/>
-            <input type="submit" name="nextBtn" value="Finish" class="btn btn-success right" id="nextBtn" />
+            <input type="submit" name="nextBtn" value="Finish" class="btn btn-success right disabled" id="nextBtn" />
         }
     </div>
 </div>
-
 @section scripts
 {
     <script type="text/javascript">
         (function($) {
-            $(function() {
-                $('select').formSelect();
-                // validate declaration statement
-                var $declaration = $(".with-gap").values;
-                if ($declaration === 0) {
-                    var disabled = $("#nextBtn").disabled;
-                    disabled.disabled = true;
+            $('select').formSelect();
+
+            //var selectedValue = $("input[type='radio'][name='IdeclareTruthOfInfo']:checked").val();
+            var finishBtn = $("input[type='submit'][name='nextBtn']");
+            var selectedOption = $("input[type='radio'][name='IdeclareTruthOfInfo']:checked");
+
+            function revealBtn() {
+                var selectedValue = selectedOption.val();
+                if (selectedValue === true) {
+                    finishBtn.removeClass("disabled");
                 }
-            });
+            }
+            selectedOption.click(revealBtn());
         })(jQuery);
     </script>
 }

@@ -11,7 +11,11 @@
         <div class="card-panel">
             @if (Model != null)
             {
-                <div class="pull-right"><a href="@Url.Action("Edit", new {id = Model.Id})" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a></div>
+                <div class="pull-right">
+                    <a href="@Url.Action("Edit", new {id = Model.Id})" class="btn btn-warning btn-xs">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                </div>
                 @Html.Raw(Model.InfoEn)
             }
             else

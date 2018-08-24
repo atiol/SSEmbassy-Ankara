@@ -7,20 +7,18 @@
 
 @section custom_css
 {
-    @Styles.Render("~/css/datepicker")
+    <style>
+        .reg-form {
+            display: contents;
+        }
+    </style>
 }
-<style>
-    .reg-form {
-        display: contents;
-    }
-</style>
-
 <div class="card-panel">
     <h5 class="center-text">Registration Form For South Sudanese nationals in Turkey</h5>
     <div class="divider"></div>
-    <small class="blue-text">This registration form is for South Sudanese Nationals only.</small>
+    <p class="blue-text">This registration form is for South Sudanese Nationals only.</p>
     <div class="reg-form">
-        <h5><strong>Step 1: Citizen Basic Details</strong></h5>
+        <h6><strong>Step 1: Citizen Basic Details</strong></h6>
         @using (Html.BeginForm("PersonalDetails", "CitizenRegistration", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -38,7 +36,7 @@
             <br/>
 
             @Html.LabelFor(model => model.BirthDate)<br/>
-            @Html.TextBoxFor(model => model.BirthDate, new {@class = "datepicker"})
+            @Html.TextBoxFor(model => model.BirthDate, new {@class = "datepicker" })
             @Html.ValidationMessageFor(model => model.BirthDate, "", new {@class = "red-text"})<br/>
 
             @Html.LabelFor(model => model.PassportNumber)<br/>
@@ -46,7 +44,7 @@
             @Html.ValidationMessageFor(model => model.PassportNumber, "", new {@class = "red-text"})<br/>
 
             @Html.LabelFor(model => model.ExpiryDate)<br/>
-            @Html.TextBoxFor(model => model.ExpiryDate, new {@class = "datepicker"})
+            @Html.TextBoxFor(model => model.ExpiryDate, new {@class = "datepicker" })
             @Html.ValidationMessageFor(model => model.ExpiryDate, "", new {@class = "red-text"})<br/>
 
             @Html.LabelFor(model => model.University)<br/>
@@ -61,13 +59,14 @@
 @section scripts
 {
     <script type="text/javascript">
-        jQuery.noConflict();
-        (function($) {
-            (function() {
-                $('.datepicker').datepicker({
-                    autoclose: true
-                });
-            });
-        })(jQuery);
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+            instances.open();
+        });
+        options = {
+            autoClose: true,
+            format: 'dd mmm, yyyy'
+        };
     </script>
 }
