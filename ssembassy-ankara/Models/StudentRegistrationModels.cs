@@ -11,11 +11,19 @@ namespace ssembassy_ankara.Models
         [Display(Name = "Full name as it appears on passport")]
         public string FullName { get; set; }
 
+        [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }
 
         [Required]
         [Display(Name = "Upload a recent passport size photo of yourself")]
         public HttpPostedFileBase ImageFile { get; set; }
+
+        [Required]
+        [Display(Name = "Scanned passport image")]
+        public HttpPostedFileBase PassportImageFile { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string PassportImage { get; set; }
 
         [Required]
         [Display(Name = "Date of Birth")]
@@ -66,13 +74,8 @@ namespace ssembassy_ankara.Models
         public int PurposeOfStayId { get; set; }
 
         [Required]
-        [DataType(DataType.Currency)]
-        [Display(Name = "Expected duration of Stay in Turkey in months")]
+        [Display(Name = "Expected duration of Stay in Turkey (in months)")]
         public int DurationOfStay { get; set; }
-
-        [Required]
-        [Display(Name = "I declare that the information provided above is true and accurate.")]
-        public bool IdeclareTruthOfInfo { get; set; }
     }
 
     [NotMapped]

@@ -111,7 +111,33 @@ address {
 .collapsible {
     margin-top: 0;
 }
+.btn, .btn-large, .btn-small {
+    background-color: #003875;
+}
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), 
+input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), 
+input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), 
+input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]), 
+input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), 
+input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #0b6eda;
+    -webkit-box-shadow: 0 1px 0 0 #0b6eda;
+    box-shadow: 0 1px 0 0 #0b6eda;
+}
 
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), 
+input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), 
+input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), 
+input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), 
+input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    height: 1.5rem;
+    font-size: 14px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #0b6fdc;
+}
 /* media queries */
 /* small screens*/
 @media only screen and (max-width: 767px) {

@@ -10,14 +10,14 @@
         <p>This form is only for SOUTH SUDANESE NATIONALS ONLY</p>
     </div>
     <div class="col s6">
-        <div class="card-panel center grey">
+        <div class="card-panel center">
             <p>To register with the embassy click "Register"</p>
             @Html.ActionLink("Register", "PersonalDetails", "CitizenRegistration", null, new {@class = "btn btn-primary"})
         </div>
     </div>
     <div class="col s6">
-        <div class="card-panel center grey">
-            <p>Click "Continue" to update your information</p>
+        <div class="card-panel center">
+            <p>Click "Continue" to update your information <span>(You must have registered before)</span></p>
             @Html.ActionLink("Continue", "", "CitizenRegistration", null, new { @class = "btn btn-warning" })
         </div>
     </div>

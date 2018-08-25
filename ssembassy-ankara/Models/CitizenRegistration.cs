@@ -29,7 +29,6 @@ namespace ssembassy_ankara.Models
         public string Email { get; set; }
         public int PurposeOfVisitId { get; set; }
         public int ExpectedDurationOfStay { get; set; }
-        public bool IdeclareTruthOfInfo { get; set; }
         public string PassportImage { get; set; }
         public string NextOfKinContact { get; set; }
     

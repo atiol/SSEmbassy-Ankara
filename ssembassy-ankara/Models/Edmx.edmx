@@ -52,7 +52,6 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PurposeOfVisitId" Type="int" Nullable="false" />
           <Property Name="ExpectedDurationOfStay" Type="int" Nullable="false" />
-          <Property Name="IdeclareTruthOfInfo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EducationAndCulture">
           <Key>
@@ -484,7 +483,6 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PurposeOfVisitId" Type="Int32" Nullable="false" />
           <Property Name="ExpectedDurationOfStay" Type="Int32" Nullable="false" />
-          <Property Name="IdeclareTruthOfInfo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="PurposeOfVisit" Relationship="Self.FK_CitizenRegistration_PurposeOfVisit" FromRole="CitizenRegistration" ToRole="PurposeOfVisit" />
           <Property Name="PassportImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NextOfKinContact" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
@@ -936,7 +934,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PurposeOfVisitId" ColumnName="PurposeOfVisitId" />
                 <ScalarProperty Name="ExpectedDurationOfStay" ColumnName="ExpectedDurationOfStay" />
-                <ScalarProperty Name="IdeclareTruthOfInfo" ColumnName="IdeclareTruthOfInfo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

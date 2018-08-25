@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -89,6 +90,14 @@ namespace ssembassy_ankara.Controllers
                 filename = Path.Combine(Server.MapPath("~/Content/citizenImages/"), filename);
                 aboutCitizen.ImageFile.SaveAs(filename);
 
+                var fn = Path.GetFileNameWithoutExtension(aboutCitizen.PassportImageFile.FileName);
+                var ext = Path.GetExtension(aboutCitizen.PassportImageFile.FileName);
+                fn = fn + ext;
+                aboutCitizen.PassportImage = "~/Content/citizenImages/" + fn;
+                obj.PassportImage = aboutCitizen.PassportImage;
+                fn = Path.Combine(Server.MapPath("~/Content/citizenImages/"), fn);
+                aboutCitizen.PassportImageFile.SaveAs(fn);
+
                 return RedirectToAction("ContactInfo");
             }
             return View();
@@ -108,6 +117,7 @@ namespace ssembassy_ankara.Controllers
             var obj = GetCitizen();
             if (prevBtn != null)
             {
+
                 var abt = new AboutCitizen
                 {
                     FullName = obj.FullName,
@@ -118,7 +128,6 @@ namespace ssembassy_ankara.Controllers
                 };
                 return View("PersonalDetails", abt);
             }
-
             if (nextBtn != null)
             {
                 obj.TurkeyAddress = model.TurkeyAddress;
@@ -129,7 +138,6 @@ namespace ssembassy_ankara.Controllers
                 obj.NextOfKinContact = model.NextOfKinContact;
                 obj.PurposeOfVisitId = model.PurposeOfStayId;
                 obj.ExpectedDurationOfStay = model.DurationOfStay;
-                obj.IdeclareTruthOfInfo = model.IdeclareTruthOfInfo;
 
                 _db.CitizenRegistration.Add(obj);
                 _db.SaveChanges();
@@ -143,14 +151,19 @@ namespace ssembassy_ankara.Controllers
 
         // GET: List all registered nationals
         [Authorize(Roles = "Admin,Content Manager")]
-        public ActionResult Registered(int? page)
+        public ActionResult Registered(int? page, string searchTerm)
         {
-            const int pageSize = 16;
+            const int pageSize = 12;
             var pageIndex = 1;
+            ViewBag.SearchResult = "";
 
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var users = _db.CitizenRegistration.Include(p => p.PurposeOfVisit).OrderByDescending(x => x.Id).ToList();
+            var users = _db.CitizenRegistration.Include(p => p.PurposeOfVisit).OrderByDescending(x => x.Id).Where(x => x.FullName.Contains(searchTerm) || searchTerm == null).ToList();
             ViewBag.CitizenCount = users.Count;
+            if (ViewBag.CitizenCount < 1)
+            {
+                ViewBag.SearchResult = "No results found!";
+            }
             var usersListView = new List<CitizenViewModel>();
             foreach (var citizen in users)
             {
@@ -172,8 +185,7 @@ namespace ssembassy_ankara.Controllers
                     PurposeOfVisit = citizen.PurposeOfVisit,
                     TurkeyAddress = citizen.TurkeyAddress,
                     TurkeyPhone = citizen.TurkeyPhone,
-                    University = citizen.University,
-                    IdeclareTruthOfInfo = citizen.IdeclareTruthOfInfo
+                    University = citizen.University
                 });
             }
             var usersList = usersListView.ToPagedList(pageIndex, pageSize);

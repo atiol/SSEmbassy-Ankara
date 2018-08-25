@@ -8,42 +8,46 @@
 @section custom_css
 {
     <style>
-        .reg-form {
-            display: contents;
-        }
+        
+
     </style>
 }
-<div class="card-panel">
-    <h5 class="center-text">Registration Form For South Sudanese nationals in Turkey</h5>
-    <div class="divider"></div>
-    <p class="blue-text">This registration form is for South Sudanese Nationals only.</p>
-    <div class="reg-form">
+<div class="card-panel" style="display: table;">
+    <h5 class="center-text"><strong>Registration Form For South Sudanese nationals in Turkey</strong></h5>
         <h6><strong>Step 1: Citizen Basic Details</strong></h6>
+    <div class="divider"></div>
+    <p class="grey-text lighten-5"><em>This registration form is for South Sudanese Nationals only.</em></p>
         @using (Html.BeginForm("PersonalDetails", "CitizenRegistration", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div class="error-content">
                 @*@Html.ValidationSummary("", new {@class = "red-text"})*@
             </div>
-            @Html.LabelFor(model => model.FullName)<br/>
+            @Html.LabelFor(model => model.FullName)<span class="red-text"> *</span><br/>
             @Html.TextBoxFor(model => model.FullName)
             @Html.ValidationMessageFor(model => model.FullName, "", new {@class = "red-text"})<br/>
 
-            @Html.LabelFor(model => model.ImageFile)
+            @Html.LabelFor(model => model.ImageFile)<span class="red-text"> *</span>
             <br/>
             <input type="file" name="ImageFile" accept=".png, .jpg, .jpeg"/>
             @Html.ValidationMessageFor(model => model.ImageFile, "", new {@class = "red-text"})
             <br/>
 
-            @Html.LabelFor(model => model.BirthDate)<br/>
+            @Html.LabelFor(model => model.BirthDate)<span class="red-text"> *</span><br />
             @Html.TextBoxFor(model => model.BirthDate, new {@class = "datepicker" })
             @Html.ValidationMessageFor(model => model.BirthDate, "", new {@class = "red-text"})<br/>
 
-            @Html.LabelFor(model => model.PassportNumber)<br/>
+            @Html.LabelFor(model => model.PassportNumber)<span class="red-text"> *</span><br />
             @Html.TextBoxFor(model => model.PassportNumber)
             @Html.ValidationMessageFor(model => model.PassportNumber, "", new {@class = "red-text"})<br/>
 
-            @Html.LabelFor(model => model.ExpiryDate)<br/>
+            @Html.LabelFor(model => model.PassportImageFile)<span class="red-text"> *</span>
+            <br />
+            <input type="file" name="PassportImageFile" accept=".png, .jpg, .jpeg" />
+            @Html.ValidationMessageFor(model => model.PassportImageFile, "", new { @class = "red-text" })
+            <br />
+
+            @Html.LabelFor(model => model.ExpiryDate)<span class="red-text"> *</span><br />
             @Html.TextBoxFor(model => model.ExpiryDate, new {@class = "datepicker" })
             @Html.ValidationMessageFor(model => model.ExpiryDate, "", new {@class = "red-text"})<br/>
 
@@ -53,7 +57,6 @@
 
             <input type="submit" name="nextBtn" value="Next" class="btn btn-primary right"/>
         }
-    </div>
 </div>
 
 @section scripts
@@ -62,7 +65,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.datepicker');
             var instances = M.Datepicker.init(elems, options);
-            instances.open();
+            //instances.open();
         });
         options = {
             autoClose: true,

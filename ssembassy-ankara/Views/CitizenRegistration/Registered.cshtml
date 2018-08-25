@@ -13,39 +13,48 @@
         <!-- STAFF LIST -->
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">All Registered Citizens</h3>
+                <h3 class="box-title">@Html.ActionLink("All Registered Citizens", "Registered")</h3>
                 <div class="box-tools pull-right">
+                    @using (Html.BeginForm("Registered", "CitizenRegistration", FormMethod.Get, new {@class = "form-inline"}))
+                    {
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="searchTerm" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    }
                     <span class="label label-danger">@ViewBag.CitizenCount Citizens</span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
                         <i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove">
-                        <i class="fa fa-times"></i>
                     </button>
                 </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <ul class="users-list clearfix">
-                    @*@if (ViewBag.Staff.Count > 0)
+                    @if (Model.Any())
                     {
-                        
-                    }*@
-                    @foreach (var citizen in Model)
+                        foreach (var citizen in Model)
+                         {
+                             <li>
+                                 @if (!string.IsNullOrEmpty(citizen.ImageUrl))
+                                 {
+                                     <img src="@Url.Content(""+ citizen.ImageUrl +"")" style="width: 128px; height: 128px;" alt="citizen image">
+                                 }
+                                 else
+                                 {
+                                     <img src="@Url.Content("~/Content/img/muser.png")" alt="User Image">
+                                 }
+                                 <a class="users-list-name" href="@Url.Action("Details", "CitizenRegistration", new {id = citizen.Id})">@citizen.FullName.ToUpper()</a>
+                                 <span class="users-list-date">@citizen.ApplicationDateForDisplay</span>
+                                 <span class="users-list-date">@citizen.TurkeyPhone</span>
+                             </li>
+                         }
+                    }
+                    else
                     {
-                        <li>
-                            @if (!string.IsNullOrEmpty(citizen.ImageUrl))
-                            {
-                                <img src="@Url.Content(""+ citizen.ImageUrl +"")" alt="citizen image">
-                            }
-                            else
-                            {
-                                <img src="@Url.Content("~/Content/img/muser.png")" alt="User Image">
-                            }
-                            <a class="users-list-name" href="@Url.Action("Details", "CitizenRegistration", new {id = citizen.Id})">@citizen.FullName</a>
-                            <span class="users-list-date">@citizen.ApplicationDateForDisplay</span>
-                            <span class="users-list-date">@citizen.TurkeyPhone</span>
-                        </li>
+                        <li class="text-muted">@ViewBag.SearchResult</li>
                     }
                 </ul>
                 <!-- /.users-list -->
