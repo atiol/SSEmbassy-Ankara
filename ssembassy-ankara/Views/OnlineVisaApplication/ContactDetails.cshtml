@@ -1,0 +1,65 @@
+﻿@model ssembassy_ankara.Models.ApplicantContactDetails
+
+@{
+    ViewBag.Title = "ContactDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6>5. Applicant's Contact Details</h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("ContactDetails", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "red-text", style = "font-size: 12px;" })
+
+                    @Html.LabelFor(model => model.Address, "Present Address") <span class="red-text">*</span><br/>
+                    @Html.ValidationMessageFor(model => model.Address, "")
+                    @Html.TextBoxFor(model => model.Address, new {@class = "input-field"})
+
+                    @Html.LabelFor(model => model.PermanentCountryOfOriginAddress, "Permanent Country of Origin Address") <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.PermanentCountryOfOriginAddress, "")
+                    @Html.TextBoxFor(model => model.PermanentCountryOfOriginAddress, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Phone, "Phone No:") <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.Phone, "")
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Mobile, "Mobile No:") <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.Mobile, "")
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Email, "Email Address:") <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.Email, "")
+                    @Html.TextBoxFor(model => model.Email, new { @class = "input-field email" })
+
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous" />
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next"/>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        (function($) {
+            var allInputs = $(".vf-form > input[type=text]");
+            allInputs.attr("required", true);
+            allInputs.keyup(function() {
+                if ($(this).hasClass("email")) {
+                    $(this).val($(this).val().toLowerCase());
+                } else {
+                    $(this).val($(this).val().toUpperCase());
+                }
+            });
+        })(jQuery);
+    </script>
+}

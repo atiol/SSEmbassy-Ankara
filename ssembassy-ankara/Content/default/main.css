@@ -46,6 +46,10 @@ footer ul li a {
 footer h6 a {
     color: yellow;
 }
+.card-panel {
+    margin: 0 0 1rem 0;
+    display: grid;
+}
 .card .card-title {
     font-size: 16px;
 }
@@ -137,6 +141,41 @@ input[type=number]:not(.browser-default), input[type=search]:not(.browser-defaul
 }
 .btn:hover, .btn-large:hover, .btn-small:hover {
     background-color: #0b6fdc;
+}
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+    background-color: #003875;
+}
+[type="radio"]:not(:checked), [type="radio"]:checked {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+}
+[type="radio"]:hover {
+    cursor: pointer;
+}
+[type="radio"] {
+    margin-right: 10px;
+}
+.submitBtns {
+    margin-top: 20px;
+}
+.field-validation-error {
+    font-size: 12px;
+    color: red;
+}
+.vf-header {
+    text-align: center;
+}
+.vf-disclaimer {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+    margin: 5px 0 20px 0;
+    -ms-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    font-size: 12px;
+    color: #333;
 }
 /* media queries */
 /* small screens*/

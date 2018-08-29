@@ -1,0 +1,92 @@
+﻿@model ssembassy_ankara.Models.VisaTypeDetails
+
+@{
+    ViewBag.Title = "Visa Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6><strong>1. Visa Type Requested</strong></h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("VisaType", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "red-text", style = "font-size: 12px;" })
+
+                    @Html.LabelFor(model => model.VisaTypeId) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.VisaTypeId, "")
+                    if (ViewBag.VisaType != null)
+                    {
+                        @Html.DropDownListFor(model => model.VisaTypeId, (IEnumerable<SelectListItem>)ViewBag.VisaType, new { @class = "browser-default" })
+                    }
+                    else
+                    {
+                        <small class="grey lighten-5"><em>Failed to load Marital Status list, refresh your browser or try again later</em></small>
+                    }
+
+                    @Html.LabelFor(model => model.PurposeOfVisitId) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.PurposeOfVisitId, "")
+                    if (ViewBag.Purpose != null)
+                    {
+                        @Html.DropDownListFor(model => model.PurposeOfVisitId, (IEnumerable<SelectListItem>)ViewBag.Purpose, new { @class = "browser-default" })
+                    }
+                    else
+                    {
+                        <small class="grey lighten-5"><em>Failed to load gender list, refresh your browser or try again later</em></small>
+                    }
+
+                    @Html.LabelFor(model => model.DurationOfIntendedStay) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.DurationOfIntendedStay, "")
+                    @Html.TextBoxFor(model => model.DurationOfIntendedStay, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.IntendedArrivalDate) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.IntendedArrivalDate, "")
+                    @Html.TextBoxFor(model => model.IntendedArrivalDate, new { @class = "input-field datepicker" })
+
+                    @Html.LabelFor(model => model.TransportModeId) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.TransportModeId, "")
+                    if (ViewBag.TransportType != null)
+                    {
+                        @Html.DropDownListFor(model => model.TransportModeId, (IEnumerable<SelectListItem>)ViewBag.TransportType, new { @class = "browser-default" })
+                    }
+                    else
+                    {
+                        <small class="grey lighten-5"><em>Failed to load Marital Status list, refresh your browser or try again later</em></small>
+                    }
+                    
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous" />
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+            //instances.open();
+        });
+        options = {
+            autoClose: true
+        };
+    </script>
+    <script>
+            (function($) {
+                var allInputs = $(".vf-form [type=text]");
+                allInputs.keyup(function() {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            })(jQuery);
+    </script>
+}
+

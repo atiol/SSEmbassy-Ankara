@@ -183,8 +183,6 @@ namespace ssembassy_ankara.Controllers
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
                 user.Position = model.Position;
-                user.ContractEnd = model.ContractEnd.Date;
-                user.ContractStart = model.ContractStart.Date;
                 user.FullName = model.FullName;
                 user.Biography = model.Biography;
                 user.Message = model.Message;

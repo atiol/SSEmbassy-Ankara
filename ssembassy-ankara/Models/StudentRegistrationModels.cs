@@ -30,6 +30,7 @@ namespace ssembassy_ankara.Models
         public DateTime BirthDate { get; set; }
 
         [Required]
+        [StringLength(9, ErrorMessage = "Please enter a valid South Sudanese passport number", MinimumLength = 9)]
         [RegularExpression("^R+\\d*")]
         [Display(Name = "Passport Number")]
         public string PassportNumber { get; set; }

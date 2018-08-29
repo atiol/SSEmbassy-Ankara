@@ -1,11 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -30,16 +27,6 @@ namespace ssembassy_ankara.Models
 
         [Required]
         public string Position { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Job Start Date")]
-        public DateTime ContractStart { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Job End Date")]
-        public DateTime ContractEnd { get; set; }
 
         [AllowHtml]
         public string Biography { get; set; }
@@ -77,8 +64,17 @@ namespace ssembassy_ankara.Models
         public DbSet<TurkeyRelations> TurkeyRelations { get; set; }
         public DbSet<EmbassyMission> EmbassyMission { get; set; }
         public DbSet<EducationAndCulture> EducationAndCulture { get; set; }
+        //public DbSet<PersonalDetails> PersonalDetails { get; set; }
+        //public DbSet<PassportDetails> PassportDetails { get; set; }
+        //public DbSet<ProfessionalDetails> ProfessionalDetails { get; set; }
+        //public DbSet<ApplicantContactDetails> ContactDetails { get; set; }
+        //public DbSet<SpouseDetails> SpouseDetails { get; set; }
+        //public DbSet<NextOfKinDetails> NextOfKinDetails { get; set; }
+        //public DbSet<HaveYouEver> HaveYouEver { get; set; }
+        //public DbSet<ReferencesInSouthSudan> ReferenceDetails { get; set; }
+        //public DbSet<Declaration> Declaration { get; set; }
 
-        public static ApplicationDbContext Create()
+    public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
@@ -86,6 +82,15 @@ namespace ssembassy_ankara.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<OnlineVisaApplication>()
+                .HasRequired<Sex>(s => s.Sex)
+                .WithMany(g => g.OnlineVisaApplication)
+                .HasForeignKey<int>(s => s.GenderId);
+
+            modelBuilder.Entity<OnlineVisaApplication>()
+                .HasRequired<Sex>(s => s.Sex2)
+                .WithMany(g => g.OnlineVisaApplication2)
+                .HasForeignKey<int?>(s => s.ReferenceGenderId);
 
             base.OnModelCreating(modelBuilder);
         }

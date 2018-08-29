@@ -1,0 +1,119 @@
+﻿@model ssembassy_ankara.Models.GeneralInformation
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section custom_css
+{
+    <style>
+        #pv-group {
+            display: none;
+            -webkit-transition: 2s ease-in-out; /* Safari */
+            -ms-transition: 2s ease-in-out;
+            -o-transition: 2s ease-in-out;
+            transition: 2s ease-in-out;
+        }
+    </style>
+}
+<div class="row">
+    <div class="col xs-12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6 class="center">
+                Visa Application Form <br/>
+                <strong>Form 5A</strong>
+            </h6>
+            <div class="vf-disclaimer">
+                <span><strong class="red-text">Warning: </strong> giving false information is considered a crime in accordance with the Passport and Immigration Act, 2011. Visa fees are non-refundable. Visa is not transferable and attempt to do so is considered a crime.</span>
+            </div>
+            <div class="vf-body">
+                <div class="vf-form">
+                    @using (Html.BeginForm("Index", "OnlineVisaApplication", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.LabelFor(model => model.PlaceOfApplication) <span class="red-text">*</span>
+                        @Html.ValidationMessageFor(model => model.PlaceOfApplication, "")
+                        @Html.TextBoxFor(model => model.PlaceOfApplication, new {@class="input-field"})
+
+                        @Html.LabelFor(model => model.AppliedBefore) <span class="red-text">*</span><br/>
+                        @Html.ValidationMessageFor(model => model.AppliedBefore, "")
+                        <p class="valign-wrapper">
+                            @Html.RadioButtonFor(model => model.AppliedBefore, true, new { @class = "radioBtn" }) <text> Yes</text>
+                        </p>
+                        <p class="valign-wrapper">
+                            @Html.RadioButtonFor(model => model.AppliedBefore, false, new { @class = "radioBtn"}) <text> No</text>
+                        </p>
+
+                        <div id="pv-group">
+                            @Html.LabelFor(model => model.PreviousVisaNumber)
+                            @Html.TextBoxFor(model => model.PreviousVisaNumber, new {@class = "input-field"})
+
+                            @Html.LabelFor(model => model.DateOfIssue)
+                            @Html.ValidationMessageFor(model => model.DateOfIssue, "")
+                            @Html.TextBoxFor(model => model.DateOfIssue, new { @class = "datepicker" })
+
+                            @Html.LabelFor(model => model.PlaceOfIssue)
+                            @Html.ValidationMessageFor(model => model.PlaceOfIssue, "")
+                            @Html.TextBoxFor(model => model.PlaceOfIssue, new { @class = "input-field" })
+                        
+                            @Html.LabelFor(model => model.DateOfArrival)
+                            @Html.ValidationMessageFor(model => model.DateOfArrival, "")
+                            @Html.TextBoxFor(model => model.DateOfArrival, new { @class = "datepicker" })
+                        
+                            @Html.LabelFor(model => model.PointOfEntry)
+                            @Html.ValidationMessageFor(model => model.PointOfEntry, "")
+                            @Html.TextBoxFor(model => model.PointOfEntry, new { @class = "input-field" })
+                        
+                            @Html.LabelFor(model => model.PointOfExit)
+                            @Html.ValidationMessageFor(model => model.PointOfExit, "")
+                            @Html.TextBoxFor(model => model.PointOfExit, new { @class = "input-field" })
+                        </div>
+                        
+                        <div class="submitBtns">
+                            <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+        });
+        options = {
+            autoClose: true
+        };
+    </script>
+    <script>
+        (function($) {
+            $(".vf-form input[type=text]").keyup(function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+            // handling previous visa application
+            $('.radioBtn').click(function() {
+                var answer = $('[type=radio]:checked').val();
+                var allInputs = $("#pv-group > input[type=text]");
+                if (answer === "True") {
+                    allInputs.attr("required", true);
+                    allInputs.keyup(function() {
+                        $(this).val($(this).val().toUpperCase());
+                    });
+
+                    $("#pv-group").css("display", "block");
+                } else {
+                    allInputs.val('');
+                    allInputs.attr("required", false);
+                    $("#pv-group").css("display", "none");
+                }
+            });
+        })(jQuery);
+    </script>
+}

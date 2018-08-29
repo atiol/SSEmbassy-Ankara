@@ -168,6 +168,7 @@
           <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="GivenNames" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="BirthPlace" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CountryOfBirth" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="GenderId" Type="int" Nullable="false" />
           <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -179,11 +180,11 @@
           <Property Name="PassportExpiryDate" Type="date" Nullable="false" />
           <Property Name="PassportPlaceOfIssue" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PresentOccupation" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="OccupationTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="EmployerName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="EmployerAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="EmployerPhone" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="EmployerEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OccupationTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmployerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmployerAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmployerPhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="EmployerEmail" Type="nvarchar" MaxLength="100" />
           <Property Name="ApplicantPresentAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ApplicantPermanentCountryAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ApplicantPhone" Type="nvarchar" MaxLength="15" Nullable="false" />
@@ -208,7 +209,7 @@
           <Property Name="InfectiousOrContagiousDisease" Type="bit" Nullable="false" />
           <Property Name="ExplanationIfYes" Type="nvarchar" MaxLength="500" />
           <Property Name="PlaceOfStayAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="FundsAvailableForStay" Type="bit" Nullable="false" />
+          <Property Name="FundsAvailableForStay" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="ReferenceName" Type="nvarchar" MaxLength="150" />
           <Property Name="ReferencePhone" Type="nvarchar" MaxLength="15" />
           <Property Name="ReferenceAddress" Type="nvarchar" MaxLength="100" />
@@ -217,7 +218,6 @@
           <Property Name="ReferenceRelationshipToApplicant" Type="nvarchar" MaxLength="50" />
           <Property Name="ReferenceProfession" Type="nvarchar" MaxLength="100" />
           <Property Name="ReferenceNationality" Type="nvarchar" MaxLength="100" />
-          <Property Name="IdeclareTruthOfInfo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PassportType">
           <Key>
@@ -340,14 +340,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OnlineVisaApplication_RGender">
-          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
           <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sex">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="OnlineVisaApplication">
-              <PropertyRef Name="GenderId" />
+              <PropertyRef Name="ReferenceGenderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -615,11 +615,11 @@
           <Property Name="PassportExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PassportPlaceOfIssue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PresentOccupation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="OccupationTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmployerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmployerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmployerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OccupationTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmployerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmployerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="EmployerEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ApplicantPresentAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ApplicantPermanentCountryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ApplicantPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
@@ -644,7 +644,7 @@
           <Property Name="InfectiousOrContagiousDisease" Type="Boolean" Nullable="false" />
           <Property Name="ExplanationIfYes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PlaceOfStayAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FundsAvailableForStay" Type="Boolean" Nullable="false" />
+          <Property Name="FundsAvailableForStay" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
           <Property Name="ReferenceName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="ReferencePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="ReferenceAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -653,12 +653,12 @@
           <Property Name="ReferenceRelationshipToApplicant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReferenceProfession" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ReferenceNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IdeclareTruthOfInfo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="PassportType" Relationship="Self.FK_OnlineVisaApplication_PassportType" FromRole="OnlineVisaApplication" ToRole="PassportType" />
           <NavigationProperty Name="PurposeOfVisit" Relationship="Self.FK_OnlineVisaApplication_PurposeOfVisit" FromRole="OnlineVisaApplication" ToRole="PurposeOfVisit" />
           <NavigationProperty Name="Sex" Relationship="Self.FK_OnlineVisaApplication_RGender" FromRole="OnlineVisaApplication" ToRole="Sex" />
-          <NavigationProperty Name="Sex1" Relationship="Self.FK_OnlineVisaApplication_Sex" FromRole="OnlineVisaApplication" ToRole="Sex" />
           <NavigationProperty Name="VisaTypeRequested" Relationship="Self.FK_OnlineVisaApplication_VisaTypeRequested" FromRole="OnlineVisaApplication" ToRole="VisaTypeRequested" />
+          <Property Name="BirthPlace" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sex2" Relationship="DbModels.FK_OnlineVisaApplication_RGender1" FromRole="OnlineVisaApplication" ToRole="Sex" />
         </EntityType>
         <EntityType Name="PassportType">
           <Key>
@@ -693,7 +693,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="OnlineVisaApplication" Relationship="Self.FK_OnlineVisaApplication_RGender" FromRole="Sex" ToRole="OnlineVisaApplication" />
-          <NavigationProperty Name="OnlineVisaApplication1" Relationship="Self.FK_OnlineVisaApplication_Sex" FromRole="Sex" ToRole="OnlineVisaApplication" />
+          <NavigationProperty Name="OnlineVisaApplication2" Relationship="DbModels.FK_OnlineVisaApplication_RGender1" FromRole="Sex" ToRole="OnlineVisaApplication" />
         </EntityType>
         <EntityType Name="SSHistory">
           <Key>
@@ -798,18 +798,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OnlineVisaApplication_Sex">
-          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
-          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sex">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OnlineVisaApplication">
-              <PropertyRef Name="GenderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OnlineVisaApplication_VisaTypeRequested">
           <End Role="VisaTypeRequested" Type="Self.VisaTypeRequested" Multiplicity="1" />
           <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
@@ -870,15 +858,27 @@
             <End Role="Sex" EntitySet="Sex" />
             <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
           </AssociationSet>
-          <AssociationSet Name="FK_OnlineVisaApplication_Sex" Association="Self.FK_OnlineVisaApplication_Sex">
-            <End Role="Sex" EntitySet="Sex" />
-            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
-          </AssociationSet>
           <AssociationSet Name="FK_OnlineVisaApplication_VisaTypeRequested" Association="Self.FK_OnlineVisaApplication_VisaTypeRequested">
             <End Role="VisaTypeRequested" EntitySet="VisaTypeRequested" />
             <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
           </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_RGender1" Association="DbModels.FK_OnlineVisaApplication_RGender1">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_OnlineVisaApplication_RGender1">
+          <End Type="DbModels.Sex" Role="Sex" Multiplicity="0..1" />
+          <End Type="DbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnlineVisaApplication">
+              <PropertyRef Name="ReferenceGenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1043,6 +1043,7 @@
           <EntitySetMapping Name="OnlineVisaApplication">
             <EntityTypeMapping TypeName="DbModels.OnlineVisaApplication">
               <MappingFragment StoreEntitySet="OnlineVisaApplication">
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ApplicationPlace" ColumnName="ApplicationPlace" />
                 <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
@@ -1110,7 +1111,6 @@
                 <ScalarProperty Name="ReferenceRelationshipToApplicant" ColumnName="ReferenceRelationshipToApplicant" />
                 <ScalarProperty Name="ReferenceProfession" ColumnName="ReferenceProfession" />
                 <ScalarProperty Name="ReferenceNationality" ColumnName="ReferenceNationality" />
-                <ScalarProperty Name="IdeclareTruthOfInfo" ColumnName="IdeclareTruthOfInfo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

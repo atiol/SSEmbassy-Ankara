@@ -1,0 +1,96 @@
+﻿@model ssembassy_ankara.Models.PersonalDetails
+
+@{
+    ViewBag.Title = "Personal Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6><strong>2. Personal Details (As in Passport)</strong></h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("PersonalDetails", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "red-text", style = "font-size: 12px;" })
+
+                    @Html.LabelFor(model => model.Surname) <span class="red-text">*</span><br/>
+                    @Html.ValidationMessageFor(model => model.Surname, "")
+                    @Html.TextBoxFor(model => model.Surname, new {@class="input-field"})
+
+                    @Html.LabelFor(model => model.GivenNames) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.GivenNames, "")
+                    @Html.TextBoxFor(model => model.GivenNames, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.DateOfBirth) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.DateOfBirth, "")
+                    @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "input-field datepicker" })
+
+                    @Html.LabelFor(model => model.PlaceOfBirth) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.PlaceOfBirth, "")
+                    @Html.TextBoxFor(model => model.PlaceOfBirth, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.CountryOfBirth) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.CountryOfBirth, "")
+                    @Html.TextBoxFor(model => model.CountryOfBirth, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.GenderId) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.GenderId, "")
+                    if (ViewBag.Gender != null)
+                    {
+                        @Html.DropDownListFor(model => model.GenderId, (IEnumerable<SelectListItem>)ViewBag.Gender, new { @class = "browser-default" })
+                    }
+                    else
+                    {
+                        <small class="grey lighten-5"><em>Failed to load gender list, refresh your browser or try again later</em></small>
+                    }
+
+                    @Html.LabelFor(model => model.MaritalStatus) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.MaritalStatus, "")
+                    if (ViewBag.Status != null)
+                    {
+                        @Html.DropDownListFor(model => model.MaritalStatus, (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "browser-default" })
+                    }
+                    else
+                    {
+                        <small class="grey lighten-5"><em>Failed to load Marital Status list, refresh your browser or try again later</em></small>
+                    }
+
+                    @Html.LabelFor(model => model.Nationality) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.Nationality, "")
+                    @Html.TextBoxFor(model => model.Nationality, new { @class = "input-field" })
+
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous" />
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next"/>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+        });
+        options = {
+            autoClose: true
+        };
+    </script>
+    <script>
+        (function($) {
+            var allInputs = $(".vf-form [type=text]");
+            allInputs.attr("required", true);
+            allInputs.keyup(function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+        })(jQuery);
+    </script>
+}

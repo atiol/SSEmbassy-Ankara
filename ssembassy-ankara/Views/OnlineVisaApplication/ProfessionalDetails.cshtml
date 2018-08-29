@@ -1,0 +1,67 @@
+﻿@model ssembassy_ankara.Models.ProfessionalDetails
+@{
+    ViewBag.Title = "Professional Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6>4. Professional/Occupation Details</h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("ProfessionalDetails", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "red-text", style = "font-size: 12px;" })
+
+                    @Html.LabelFor(model => model.PresentOccupation)<span class="red-text">*</span>
+                    @Html.ValidationMessageFor(model => model.PresentOccupation, "")
+                    @Html.TextBoxFor(model => model.PresentOccupation, new {@class = "input-field"})
+                
+                    @Html.LabelFor(model => model.Title)
+                    @Html.ValidationMessageFor(model => model.Title, "")
+                    @Html.TextBoxFor(model => model.Title, new { @class = "input-field" })
+                
+                    @Html.LabelFor(model => model.GivenNames, "Employer Name")
+                    @Html.ValidationMessageFor(model => model.GivenNames, "")
+                    @Html.TextBoxFor(model => model.GivenNames, new { @class = "input-field" })
+                
+                    @Html.LabelFor(model => model.Address, "Employer Address")
+                    @Html.ValidationMessageFor(model => model.Address, "")
+                    @Html.TextBoxFor(model => model.Address, new { @class = "input-field" })
+                
+                    @Html.LabelFor(model => model.Phone)
+                    @Html.ValidationMessageFor(model => model.Phone, "")
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "input-field" })
+                
+                    @Html.LabelFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email, "", new {@class = "red-text"})
+                    @Html.TextBoxFor(model => model.Email, new { @class = "input-field email" })
+
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous"/>
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next"/>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        (function($) {
+            var allInputs = $(".vf-form [type=text]");
+            allInputs.keyup(function() {
+                if ($(this).hasClass("email")) {
+                    $(this).val($(this).val().toLowerCase());
+                } else {
+                    $(this).val($(this).val().toUpperCase());
+                }
+            });
+        })(jQuery);
+    </script>
+}

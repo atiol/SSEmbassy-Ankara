@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e5319b253feb4541ac9d1fb7af79b3d6" Name="Diagram1">
+      <Diagram DiagramId="e5319b253feb4541ac9d1fb7af79b3d6" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="DbModels.article" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.article_category" Width="1.5" PointX="8.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.BusinessInvestments" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
@@ -34,8 +34,8 @@
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_PassportType" ManuallyRouted="false" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_PurposeOfVisit" ManuallyRouted="false" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_RGender" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_Sex" ManuallyRouted="false" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_VisaTypeRequested" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_RGender1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

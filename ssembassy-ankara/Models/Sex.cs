@@ -18,7 +18,7 @@ namespace ssembassy_ankara.Models
         public Sex()
         {
             this.OnlineVisaApplication = new HashSet<OnlineVisaApplication>();
-            this.OnlineVisaApplication1 = new HashSet<OnlineVisaApplication>();
+            this.OnlineVisaApplication2 = new HashSet<OnlineVisaApplication>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace ssembassy_ankara.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OnlineVisaApplication> OnlineVisaApplication { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OnlineVisaApplication> OnlineVisaApplication1 { get; set; }
+        public virtual ICollection<OnlineVisaApplication> OnlineVisaApplication2 { get; set; }
     }
 }

@@ -117,4 +117,28 @@ namespace ssembassy_ankara.Models
         [Display(Name = "Birthday")]
         public DateTime BirthDate { get; set; }
     }
+
+    [MetadataType(typeof(OnlineVisaApplicationAttribs))]
+    public partial class OnlineVisaApplication
+    {
+
+    }
+
+    public class OnlineVisaApplicationAttribs
+    {
+        [ForeignKey("VisaTypeRequested")]
+        public int VisaTypeId { get; set; }
+
+        [ForeignKey("PurposeOfVisit")]
+        public int PurposeOfVisitId { get; set; }
+
+        //[ForeignKey("Sex")]
+        //public int GenderId { get; set; }
+
+        //[ForeignKey("Sex2")]
+        //public Nullable<int> ReferenceGenderId { get; set; }
+
+        [ForeignKey("PassportType")]
+        public int PassportTypeId { get; set; }
+    }
 }

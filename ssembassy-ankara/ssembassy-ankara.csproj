@@ -195,6 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainLayoutPartialsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OnlineVisaApplicationController.cs" />
     <Compile Include="Controllers\RSSController.cs" />
     <Compile Include="Controllers\VisaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -620,6 +621,19 @@
     <Content Include="Views\CitizenRegistration\Index.cshtml" />
     <Content Include="Views\CitizenRegistration\Registered.cshtml" />
     <Content Include="Views\CitizenRegistration\Details.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\Index.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\Success.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\_FormHeaderPartial.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\PersonalDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\VisaType.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\PassportDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\ProfessionalDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\ContactDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\SpouseDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\NextOfKinDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\ExtraQuestions.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\ReferencesDetails.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\Declaration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

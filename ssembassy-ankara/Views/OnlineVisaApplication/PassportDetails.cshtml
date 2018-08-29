@@ -1,0 +1,86 @@
+﻿@model ssembassy_ankara.Models.PassportDetails
+@{
+    ViewBag.Title = "PassportDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6><strong>3. Passport Details</strong></h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("PassportDetails", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "red-text", style = "font-size: 12px;" })
+
+                    @Html.LabelFor(model => model.PassportTypeId) <span class="red-text">*</span><br/>
+                    @Html.ValidationMessageFor(model => model.PassportTypeId, "")
+                    if (ViewBag.PassportType != null)
+                    {
+                        @Html.DropDownListFor(model => model.PassportTypeId, (IEnumerable<SelectListItem>)ViewBag.PassportType, new { @class = "browser-default" })
+                    }
+                    else
+                    {
+                        <p class="red-text">Passport type list failed to load</p>
+                    }
+                    
+                    @Html.LabelFor(model => model.PassportNo) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.PassportNo, "")
+                    @Html.TextBoxFor(model => model.PassportNo, new {@class = "input-field"})
+
+                    @Html.LabelFor(model => model.IssueDate) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.IssueDate, "")
+                    @Html.TextBoxFor(model => model.IssueDate, new {@class = "datepicker"})
+
+                    @Html.LabelFor(model => model.IssuingCountry) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.IssuingCountry, "")
+                    @Html.TextBoxFor(model => model.IssuingCountry, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.ExpiryDate) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.ExpiryDate, "")
+                    @Html.TextBoxFor(model => model.ExpiryDate, new { @class = "datepicker" })
+
+                    @Html.LabelFor(model => model.PlaceOfIssue) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.PlaceOfIssue, "")
+                    @Html.TextBoxFor(model => model.PlaceOfIssue, new { @class = "input-field" })
+                    
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous" />
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+        });
+        options = {
+            autoClose: true
+        };
+    </script>
+    <script type="text/javascript">
+        (function($) {
+            var allInputs = $(".vf-form input[type=text]");
+            allInputs.keyup(function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+        })(jQuery);
+    </script>
+    <script>
+            (function($) {
+                var allInputs = $(".vf-form [type=text]");
+                allInputs.keyup(function() {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            })(jQuery);
+    </script>
+}

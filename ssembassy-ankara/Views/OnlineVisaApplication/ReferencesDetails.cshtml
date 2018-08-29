@@ -1,0 +1,75 @@
+﻿@model ssembassy_ankara.Models.ReferencesInSouthSudan
+@{
+    ViewBag.Title = "References Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6>9. Guarantor or references in South Sudan</h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("ReferencesDetails", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "red-text", style = "font-size: 12px;" })
+
+                    @Html.LabelFor(model => model.Name)<br/>
+                    @Html.ValidationMessageFor(model => model.Name, "")
+                    @Html.TextBoxFor(model => model.Name, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Address)
+                    @Html.ValidationMessageFor(model => model.Address, "")
+                    @Html.TextBoxFor(model => model.Address, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Phone)
+                    @Html.ValidationMessageFor(model => model.Phone, "")
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.BirthDate)
+                    @Html.ValidationMessageFor(model => model.BirthDate, "")
+                    @Html.TextBoxFor(model => model.BirthDate, new { @class = "datepicker" })
+
+                    @Html.LabelFor(model => model.SexId)
+                    if (ViewBag.Gender != null)
+                    {
+                        @Html.DropDownListFor(model => model.SexId, (IEnumerable<SelectListItem>)ViewBag.Gender, "Select gender...", new { @class = "browser-default", style= "font-size: 12px;" })
+                    }
+                    else
+                    {
+                        <small class="red-text">Failed to load gender list</small>
+                    }
+
+                    @Html.LabelFor(model => model.Relationship)
+                    @Html.TextBoxFor(model => model.Relationship, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Occupation)
+                    @Html.TextBoxFor(model => model.Occupation, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.NationalityAndImmigrationStatus)
+                    @Html.TextBoxFor(model => model.NationalityAndImmigrationStatus, new { @class = "input-field" })
+
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous" />
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+            (function($) {
+                var allInputs = $(".vf-form [type=text]");
+                allInputs.keyup(function() {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            })(jQuery);
+    </script>
+}
+

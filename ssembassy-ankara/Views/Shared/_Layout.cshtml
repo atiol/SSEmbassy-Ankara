@@ -201,8 +201,8 @@
                         </div>
                         <div class="collapsible-body" style="padding: 0;">
                             <div class="card" style="margin: 0;">
-                                <div class="card-image">
-                                    <img src="@Url.Content("~/Content/img/map.PNG")" class="responsive-img"/>
+                                <div class="card-image" id="embassyMap">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -261,6 +261,21 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     @Scripts.Render("~/bundles/defaultjs")
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            var uluru = {lat: 39.890996, lng: 32.875031};
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('embassyMap'), {zoom: 4, center: uluru});
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({position: uluru, map: map});
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoCS739ShC87PbnVp5FBeG-KJC41k0czA&callback=initMap">
+    </script>
     @RenderSection("scripts", false)
 </body>
 </html>

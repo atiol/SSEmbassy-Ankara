@@ -72,7 +72,7 @@ namespace ssembassy_ankara.Models
         public bool InfectiousOrContagiousDisease { get; set; }
         public string ExplanationIfYes { get; set; }
         public string PlaceOfStayAddress { get; set; }
-        public bool FundsAvailableForStay { get; set; }
+        public string FundsAvailableForStay { get; set; }
         public string ReferenceName { get; set; }
         public string ReferencePhone { get; set; }
         public string ReferenceAddress { get; set; }
@@ -81,12 +81,12 @@ namespace ssembassy_ankara.Models
         public string ReferenceRelationshipToApplicant { get; set; }
         public string ReferenceProfession { get; set; }
         public string ReferenceNationality { get; set; }
-        public bool IdeclareTruthOfInfo { get; set; }
+        public string BirthPlace { get; set; }
     
         public virtual PassportType PassportType { get; set; }
         public virtual PurposeOfVisit PurposeOfVisit { get; set; }
         public virtual Sex Sex { get; set; }
-        public virtual Sex Sex1 { get; set; }
         public virtual VisaTypeRequested VisaTypeRequested { get; set; }
+        public virtual Sex Sex2 { get; set; }
     }
 }

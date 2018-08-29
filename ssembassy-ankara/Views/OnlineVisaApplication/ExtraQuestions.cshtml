@@ -1,0 +1,88 @@
+﻿@model ssembassy_ankara.Models.HaveYouEver
+
+@{
+    ViewBag.Title = "ExtraQuestions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel">
+            @Html.Partial("_FormHeaderPartial")
+            <h6>8. Have you ever:</h6>
+            <div class="vf-form">
+                @using (Html.BeginForm("ExtraQuestions", "OnlineVisaApplication", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new {@class = "red-text", style = "font-size: 12px;"})
+
+                    @Html.LabelFor(model => model.CrimeConvict) <span class="red-text">*</span><br/>
+                    @Html.ValidationMessageFor(model => model.CrimeConvict, "")
+                    <p>
+                        @Html.RadioButtonFor(model => model.CrimeConvict, true) @Html.Label("CrimeConvict", "Yes ") <br/>
+                        @Html.RadioButtonFor(model => model.CrimeConvict, false) @Html.Label("CrimeConvict", "No ")
+                    </p>
+
+                    @Html.LabelFor(model => model.DeportedForOverstayOrAnyReason) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.DeportedForOverstayOrAnyReason, "")
+                    <p>
+                        @Html.RadioButtonFor(model => model.DeportedForOverstayOrAnyReason, true) @Html.Label("DeportedForOverstayOrAnyReason", "Yes ") <br />
+                        @Html.RadioButtonFor(model => model.DeportedForOverstayOrAnyReason, false) @Html.Label("DeportedForOverstayOrAnyReason", "No ") 
+                    </p>
+
+                    @Html.LabelFor(model => model.DrugOffence) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.DrugOffence, "")
+                    <p>
+                        @Html.RadioButtonFor(model => model.DrugOffence, true) @Html.Label("DrugOffence", "Yes ") <br />
+                        @Html.RadioButtonFor(model => model.DrugOffence, false) @Html.Label("DrugOffence", "No ") 
+                    </p>
+
+                    @Html.LabelFor(model => model.HumanTrafficking) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.HumanTrafficking, "")
+                    <p>
+                        @Html.RadioButtonFor(model => model.HumanTrafficking, true) @Html.Label("HumanTrafficking", "Yes ")<br />
+                        @Html.RadioButtonFor(model => model.HumanTrafficking, false) @Html.Label("HumanTrafficking", "No ")
+                        
+                    </p>
+
+                    @Html.LabelFor(model => model.ContagiousDisease) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.ContagiousDisease, "")
+                    <p>
+                        @Html.RadioButtonFor(model => model.ContagiousDisease, true) @Html.Label("ContagiousDisease", "Yes ") <br />
+                        @Html.RadioButtonFor(model => model.ContagiousDisease, false) @Html.Label("ContagiousDisease", "No ") 
+                    </p>
+
+                    @Html.LabelFor(model => model.ExplanationIfYes) <br />
+                    @Html.ValidationMessageFor(model => model.ExplanationIfYes, "")
+                    @Html.TextBoxFor(model => model.ExplanationIfYes, new {@class = "input-field"})
+
+                    @Html.LabelFor(model => model.Address) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.Address, "")
+                    @Html.TextBoxFor(model => model.Address, new { @class = "input-field" })
+
+                    @Html.LabelFor(model => model.Funds) <span class="red-text">*</span><br />
+                    @Html.ValidationMessageFor(model => model.Funds, "")
+                    @Html.TextBoxFor(model => model.Funds, new { @class = "input-field" })
+
+                    <div class="submitBtns">
+                        <input type="submit" class="btn btn-primary left" name="prevBtn" value="Previous" />
+                        <input type="submit" class="btn btn-primary right" name="nextBtn" value="Next" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        (function($) {
+            $("label").css({ "color": "black", "font-size": "14px" });
+            $(".vf-form input[type=text]").keyup(function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+        })(jQuery);
+    </script>
+}

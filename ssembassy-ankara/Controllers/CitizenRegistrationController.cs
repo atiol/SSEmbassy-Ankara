@@ -117,7 +117,6 @@ namespace ssembassy_ankara.Controllers
             var obj = GetCitizen();
             if (prevBtn != null)
             {
-
                 var abt = new AboutCitizen
                 {
                     FullName = obj.FullName,

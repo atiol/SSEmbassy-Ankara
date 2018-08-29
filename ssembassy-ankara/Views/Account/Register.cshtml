@@ -126,14 +126,6 @@
                 </div>
             </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.ContractStart, new {@class = "form-control datepicker", placeholder = "Contract start date..."})
-                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.ContractEnd, new {@class = "form-control datepicker", placeholder = "Contract End date..."})
-                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
                 @Html.LabelFor(m => m.Biography) <span class="text-gray">(optional)</span>
                 @Html.TextAreaFor(m => m.Biography)
             </div>

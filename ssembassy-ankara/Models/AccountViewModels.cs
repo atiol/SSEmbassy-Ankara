@@ -79,16 +79,6 @@ namespace ssembassy_ankara.Models
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Contract Start")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime ContractStart { get; set; }
-
-        [DataType(DataType.Date)]
-        [Display(Name = "Contract End")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime ContractEnd { get; set; }
-
         public string ImgUrl { get; set; }
 
         [NotMapped]
