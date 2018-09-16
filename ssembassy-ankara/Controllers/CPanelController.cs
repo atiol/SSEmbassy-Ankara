@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Xml.XPath;
 using Microsoft.AspNet.Identity;
 using ssembassy_ankara.Models;
 using PagedList;
@@ -419,6 +420,47 @@ namespace ssembassy_ankara.Controllers
             _db.SaveChanges();
 
             return RedirectToAction("PreviewEducationAndCulture");
+        }
+
+        [HttpGet]
+        public ActionResult VisaApplicants(int? page)
+        {
+            const int pageSize = 10;
+            var pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            var applicants = _db.OnlineVisaApplication.Include(p => p.VisaTypeRequested).OrderByDescending(o => o.Id).ToList();
+            var applicantsList = new List<ApplicantsViewModel>();
+            foreach (var applicant in applicants)
+            {
+                applicantsList.Add(new ApplicantsViewModel
+                {
+                    Id = applicant.Id,
+                    Surname = applicant.Surname,
+                    GivenNames = applicant.GivenNames,
+                    Nationality = applicant.Nationality,
+                    AppliedOn = applicant.ApplicationDate
+                });
+            }
+            var applicantsListView = applicantsList.ToPagedList(pageIndex, pageSize);
+            
+            return View(applicantsListView);
+        }
+
+        public ActionResult VisaApplicantDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = _db.OnlineVisaApplication.Find(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(model);
         }
     }
 }

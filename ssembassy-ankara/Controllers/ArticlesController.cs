@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ssembassy_ankara.Models;
+using PagedList;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -39,9 +38,12 @@ namespace ssembassy_ankara.Controllers
             return categoryList;
         }
         // GET: Articles
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var articles = _db.Articles.Include(a => a.article_category).OrderByDescending(x => x.id).ToList();
+            int pageSize = 10;
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            var articles = _db.Articles.Include(a => a.article_category).OrderByDescending(x => x.id).ToList();            
             var articleViewModelList = new List<ArticleViewModel>();
             foreach (var article in articles)
             {
@@ -51,10 +53,11 @@ namespace ssembassy_ankara.Controllers
                     title = article.title,
                     article_category = article.article_category,
                     author = article.author,
-                    PublishedDate = article.published.ToString("d")
+                    PublishedDate = article.published.ToString("dd/MM/yyyy")
                 });
             }
-            return View(articleViewModelList);
+            var articlesList = articleViewModelList.ToPagedList(pageIndex, pageSize);
+            return View(articlesList);
         }
 
         // GET: Articles/Create
@@ -76,12 +79,21 @@ namespace ssembassy_ankara.Controllers
             {
                 if (article.ImageFile != null)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(article.ImageFile.FileName);
-                    string extension = Path.GetExtension(article.ImageFile.FileName);
-                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    article.imageUrl = "~/Content/img/articles/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("~/Content/img/articles/"), fileName);
-                    article.ImageFile.SaveAs(fileName);
+                    if (article.ImageFile.IsImage())
+                    {
+                        var fileName = Path.GetFileNameWithoutExtension(article.ImageFile.FileName);
+                        var extension = Path.GetExtension(article.ImageFile.FileName);
+                        fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        article.imageUrl = "~/Content/img/articles/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/Content/img/articles/"), fileName);
+                        article.ImageFile.SaveAs(fileName);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ImageError", "Invalid image type. Please upload a valid image");
+                        ViewBag.ArticleCategoryList = PopulateArticleCategory();
+                        return View(article);
+                    }
                 }
                 else
                 {
@@ -104,8 +116,16 @@ namespace ssembassy_ankara.Controllers
             if(id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var model = _db.Articles.Find(id);
             if (model == null) return HttpNotFound();
-
+            ViewBag.PublishedDate = model.published.ToString("dd/MM/yyyy");
+            model.imageUrl = string.IsNullOrEmpty(model.imageUrl) ? _defaultArticleImageUrl : model.imageUrl;
             return View(model);
+        }
+
+        public FileResult ReturnFile(string filePath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(filePath);
+            string fileName = Path.GetFileName(filePath);
+            return File(imageBytes, System.Net.Mime.MediaTypeNames.Image.Jpeg, fileName);
         }
 
         // GET: Articles/Edit/5
@@ -121,7 +141,7 @@ namespace ssembassy_ankara.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             ViewBag.ArticleCategoryList = PopulateArticleCategory();
             return View(article);
         }
@@ -133,6 +153,11 @@ namespace ssembassy_ankara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,published,author,title,category_id,contents")] article article)
         {
+            if (article.ImageFile == null)
+            {
+                var thisArticle = _db.Articles.FirstOrDefault(a => a.id == article.id);
+                article.imageUrl = thisArticle == null ? "":thisArticle.imageUrl;
+            }
             if (ModelState.IsValid)
             {
                 _db.Entry(article).State = EntityState.Modified;

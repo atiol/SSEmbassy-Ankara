@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ssembassy_ankara.Models;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Mime;
 using System.Web.Security;
 using System.IO;
@@ -66,13 +67,18 @@ namespace ssembassy_ankara.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "CPanel");
+            }
+            return View(new LoginViewModel(ConfigurationManager.AppSettings["RecaptchaPublicKey"]));
         }
 
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [ValidateRecaptcha]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -87,7 +93,7 @@ namespace ssembassy_ankara.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return returnUrl != null ? RedirectToLocal(returnUrl) : RedirectToAction("Index", "CPanel");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -187,26 +193,36 @@ namespace ssembassy_ankara.Controllers
                 user.Biography = model.Biography;
                 user.Message = model.Message;
 
-                string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
-                string extension = Path.GetExtension(model.ImageFile.FileName);
-                fileName = fileName + extension;
-                model.ImgUrl = "~/Content/img/" + fileName;
-                ViewBag.Message = "";
-                if (!System.IO.File.Exists(Server.MapPath("~/Content/img/")))
+                if (model.ImageFile.IsImage())
                 {
-                    fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
-                    model.ImageFile.SaveAs(fileName);
-                    user.ImgUrl = model.ImgUrl;
+                    string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
+                    string extension = Path.GetExtension(model.ImageFile.FileName);
+                    fileName = fileName + extension;
+                    model.ImgUrl = "~/Content/img/" + fileName;
+                    ViewBag.Message = "";
+                    if (!System.IO.File.Exists(Server.MapPath("~/Content/img/")))
+                    {
+                        fileName = Path.Combine(Server.MapPath("~/Content/img/"), fileName);
+                        model.ImageFile.SaveAs(fileName);
+                        user.ImgUrl = model.ImgUrl;
+                    }
+                    else
+                    {
+                        System.IO.File.Delete(Server.MapPath(Path.Combine("~/Content/img/", fileName)));
+                        model.ImageFile.SaveAs(fileName);
+                        user.ImgUrl = model.ImgUrl;
+                        ViewBag.Message =
+                            "File already exists, it will be replaced with the newly uploaded one.";
+                    }
                 }
                 else
                 {
-                    System.IO.File.Delete(Server.MapPath(Path.Combine("~/Content/img/", fileName)));
-                    model.ImageFile.SaveAs(fileName);
-                    user.ImgUrl = model.ImgUrl;
-                    ViewBag.Message =
-                        "File already exists, it will be replaced with the newly uploaded one.";
-                }
+                    ViewBag.Roles = GetRoles();
+                    ViewBag.Positions = GetPositions();
 
+                    ModelState.AddModelError("", "Invalid image. Please upload a valid image in .jpg, .jpeg, .png format.");
+                    return View(model);
+                }
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

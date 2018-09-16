@@ -96,6 +96,19 @@
                     </ul>
                 </li>
                 <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-building-o"></i> <span>Consular Services</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href="@Url.Action("VisaApplicants", "CPanel")"><i class="fa fa-circle-o"></i> Visa Applicants</a></li>
+                        <li class="active"><a href="@Url.Action("Details", "Visa")"><i class="fa fa-circle-o"></i> Visa Information</a></li>
+                        <li class="active"><a href="@Url.Action("Registered", "CitizenRegistration")"><i class="fa fa-circle-o"></i> S.Sudanese in Turkey</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
                     <a href="@Url.Action("Index", "Articles")">
                         <i class="fa fa-newspaper-o"></i> <span>News Articles</span>
                     </a>
@@ -129,15 +142,13 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-building-o"></i> <span>Consular Services</span>
+                        <i class="fa fa-lock"></i> <span>Management</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Visa Applicants</a></li>
-                        <li class="active"><a href="@Url.Action("Details", "Visa")"><i class="fa fa-circle-o"></i> Visa Information</a></li>
-                        <li class="active"><a href="@Url.Action("Registered", "CitizenRegistration")"><i class="fa fa-circle-o"></i> S.Sudanese in Turkey</a></li>
+                        <li class="active"><a href="@Url.Action("Index", "Roles")"><i class="fa fa-circle-o"></i> Roles</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -150,6 +161,11 @@
                     <ul class="treeview-menu">
                         <li class="active"><a href="@Url.Action("Index", "CPanel")"><i class="fa fa-circle-o"></i> Past Events</a></li>
                     </ul>
+                </li>
+                <li class="treeview">
+                    <a href="http://www.portakalyazilim.com.tr" target="_blank">
+                        <img src="@Url.Content("~/Content/img/portakal-logo.png")" style="height: 30px; -ms-border-radius: 2px; border-radius: 2px;" class="img-responsive"/>
+                    </a>
                 </li>
             </ul>
         </section>

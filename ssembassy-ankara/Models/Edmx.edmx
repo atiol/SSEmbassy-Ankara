@@ -230,7 +230,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="position" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="duties" Type="nvarchar" MaxLength="2000" />
           <Property Name="weight" Type="int" Nullable="false" />

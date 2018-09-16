@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ssembassy_ankara.Models;

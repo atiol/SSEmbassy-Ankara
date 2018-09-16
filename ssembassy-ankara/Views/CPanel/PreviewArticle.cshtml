@@ -4,7 +4,7 @@
     ViewBag.Title = "Preview";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
     ViewBag.Description = "#" + Model.title;
-    ViewBag.Published = Model.published.ToString("d");
+    ViewBag.Published = Model.published.ToString("dd/MM/yyyy");
 }
 @section custom_css
 {

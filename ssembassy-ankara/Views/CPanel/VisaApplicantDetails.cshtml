@@ -1,0 +1,18 @@
+﻿@model ssembassy_ankara.Models.OnlineVisaApplication
+@{
+    ViewBag.Title = "Visa Applicant Details";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Information about " + @Model.GivenNames + " " + Model.Surname;
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h6>1. General Information</h6>
+        <p>Visa Type: @Model.VisaTypeRequested.VisaType</p>
+    </div>
+    <div class="col-sm-6">
+        <h6>2. Personal Details</h6>
+        <p>Surname: @Model.Surname</p>
+    </div>
+</div>
+

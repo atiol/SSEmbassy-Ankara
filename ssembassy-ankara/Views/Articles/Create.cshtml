@@ -17,7 +17,7 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="box-body">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                         <div class="form-group">
                             @Html.LabelFor(model => model.author, new {@class = "control-label"})
                             @Html.TextBoxFor(model => model.author, new { @class = "form-control", placeholder = "Author" })

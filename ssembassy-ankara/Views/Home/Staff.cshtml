@@ -3,25 +3,15 @@
     ViewBag.Title = "Staff";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@section custom_css
-{
-    <style>
-
-    </style>
-}
-
-<div class="card-panel">
-    <div class="card-title">
-        <h5>List of staff</h5>
-        <div class="divider"></div>
-    </div>
+<div class="row">
+    <h5>List of staff</h5>
+    <div class="divider"></div>
     @if (Model.Any())
     {
-        <div class="row">
+        <div class="col s12">
             @foreach (var staff in Model)
             {
-                if (staff.Position == "Ambassador")
+                if (staff.Position.Equals("Ambassador", StringComparison.CurrentCultureIgnoreCase))
                 {
                     <h4>Head of Mission</h4>
                     @Html.Partial("_StaffMiniProfile", staff)<br/>
@@ -32,5 +22,9 @@
                 }
             }
         </div>
+    }
+    else
+    {
+        <p class="grey-text">No staff added</p>
     }
 </div>

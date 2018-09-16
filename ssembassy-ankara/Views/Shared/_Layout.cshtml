@@ -10,6 +10,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     @Styles.Render("~/default/css")
     @RenderSection("custom_css", false)
+    <style>
+        #embassyMap {
+            width: 100%;
+            max-height: 400px;
+            min-height: 200px; 
+        }
+    </style>
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -17,14 +24,6 @@
         <div class="nav-wrapper">
             <a href="@Url.Action("Index", "Home")" class="brand-logo" id="nav-logo"><img src="@Url.Content("~/Content/img/emblem.png")" alt="S.S logo"><span class="embassy-text">Embassy Of South Sudan In Turkey</span></a>
             <a href="#" data-target="mobile-content" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right">
-                <li>
-                    <select class="browser-default">
-                        <option value="en" selected>English</option>
-                        <option value="tr">Turkish</option>
-                    </select>
-                </li>
-            </ul>
             <div class="nav-content">
                 <ul class="hide-on-med-and-down">
                     <li>
@@ -175,8 +174,8 @@
                             <ul list-style="circle">
                                 <li>
                                     <a class="modal-trigger" href="#up-events-modal">Independece Day, 9th July</a>
-                                    <div class="modal">
-                                        <div id="up-events-modal" class="modal-content">
+                                    <div class="modal" id="up-events-modal">
+                                        <div class="modal-content">
                                             <p>
                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio,
                                                 magnam tempore, rerum quidem sit magni, fugit neque voluptate velit dicta
@@ -202,7 +201,6 @@
                         <div class="collapsible-body" style="padding: 0;">
                             <div class="card" style="margin: 0;">
                                 <div class="card-image" id="embassyMap">
-                                    
                                 </div>
                             </div>
                         </div>
@@ -262,15 +260,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     @Scripts.Render("~/bundles/defaultjs")
     <script>
+        // The location of Embassy
+        var embassyMap = {lat: 39.892502, lng: 32.869643};
         // Initialize and add the map
         function initMap() {
-            // The location of Uluru
-            var uluru = {lat: 39.890996, lng: 32.875031};
-            // The map, centered at Uluru
+            // The map
             var map = new google.maps.Map(
-                document.getElementById('embassyMap'), {zoom: 4, center: uluru});
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({position: uluru, map: map});
+                document.getElementById('embassyMap'), {zoom: 13, center: embassyMap});
+            // The marker
+            var marker = new google.maps.Marker({position: embassyMap, map: map});
         }
     </script>
     <script async defer

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -60,9 +59,12 @@ namespace ssembassy_ankara.Controllers
         }
         
         // GET: CitizenRegistration
+        [HttpGet]
         public ActionResult PersonalDetails()
         {
-            return View();
+            var obj = TempData["about"];
+
+            return obj != null ? View(obj):View();
         }
 
         [HttpPost]
@@ -125,7 +127,8 @@ namespace ssembassy_ankara.Controllers
                     ExpiryDate = obj.ExpiryDate,
                     University = obj.University
                 };
-                return View("PersonalDetails", abt);
+                TempData["about"] = abt;
+                return View("PersonalDetails");
             }
             if (nextBtn != null)
             {

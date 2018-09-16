@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ssembassy_ankara.Models.ArticleViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<ssembassy_ankara.Models.ArticleViewModel>
 
 @{
     ViewBag.Title = "News Articles";
@@ -21,16 +22,16 @@
                 <table class="table table-striped table-responsive">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.PublishedDate)
+                            @Html.DisplayNameFor(model => model[0].PublishedDate)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.title)
+                            @Html.DisplayNameFor(model => model[0].title)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.author)
+                            @Html.DisplayNameFor(model => model[0].author)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.category_id)
+                            @Html.DisplayNameFor(model => model[0].category_id)
                         </th>
                         <th>
                             Actions
@@ -63,6 +64,9 @@
                     }
 
                 </table>
+                <div>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
             </div>
         </div>
     </div>

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Icheck -->
     @Styles.Render("~/css/icheck")
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -28,10 +29,10 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "LoginForm" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="divider"></div>
                 <div class="form-group has-feedback">
                     @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", placeholder = "UserName" })
@@ -51,13 +52,12 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat g-recaptcha" data-callback="OnSubmit" data-sitekey="@Model.RecaptchaPublicKey">Sign In</button>
                     </div>
                 </div>
             }
             @Html.ActionLink("I forgot my password", "", "")<br/>
             @Html.ActionLink("Register a new membership", "Register", "Account", new { @class = "text-center" })
-
         </div>
         <!-- /.login-box-body -->
     </div>
@@ -69,13 +69,18 @@
     @Scripts.Render("~/bundles/icheck")
 
     <script type="text/javascript">
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
+        (function ($) {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        function OnSubmit(token) {
+            document.getElementById("LoginForm").submit();
+        }
     </script>
 </body>
 </html>

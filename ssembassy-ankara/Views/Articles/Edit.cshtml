@@ -20,7 +20,7 @@
                 </div>
                 <!-- /. tools -->
             </div>
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Edit", "Articles", FormMethod.Post))
             {
                 <div class="box-body">
                     @Html.AntiForgeryToken()

@@ -216,4 +216,19 @@ namespace ssembassy_ankara.Models
         [Display(Name = "I declare that the information provided in this form is true and accurate")]
         public bool IdeclareTruthOfInfo { get; set; }
     }
+
+    public class ApplicantsViewModel
+    {
+        [Display(Name = "Applied On")]
+        public DateTime AppliedOn { get; set; }
+
+        public string Surname { get; set; }
+
+        [Display(Name = "Given Name")]
+        public string GivenNames { get; set; }
+
+        public string Nationality { get; set; }
+
+        public int Id { get; set; }
+    }
 }

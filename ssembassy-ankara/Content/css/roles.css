@@ -1,0 +1,19 @@
+﻿
+.dd-wrapper {
+    border-bottom: 1px solid #d2d6de;
+    border-top: 1px solid #d2d6de;
+    border-right: 1px solid #d2d6de;
+}
+.dd-wrapper select {
+    padding: 6px;
+    border: 1px solid #ddd;
+}
+.input-group-btn {
+    font-size: inherit;
+}
+#dd {
+    border: none;
+}
+#dd:focus {
+    outline : none;
+}

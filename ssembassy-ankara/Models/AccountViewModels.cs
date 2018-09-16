@@ -52,6 +52,13 @@ namespace ssembassy_ankara.Models
 
     public class LoginViewModel
     {
+        public LoginViewModel() { }
+
+        public LoginViewModel(string recaptchaPublicKey)
+        {
+            RecaptchaPublicKey = recaptchaPublicKey;
+        }
+
         [Required]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
@@ -63,6 +70,8 @@ namespace ssembassy_ankara.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public string RecaptchaPublicKey { get; }
     }
 
     public class RegisterViewModel

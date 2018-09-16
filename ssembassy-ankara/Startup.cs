@@ -36,7 +36,7 @@ namespace ssembassy_ankara
                     UserName = "Atiol",
                     Email = "atl.rafa@gmail.com",
                     FullName = "Atiol Raphael",
-                    Position = "Systems Engineer"
+                    Position = "Administrative Attache"
                 };
 
                 string uPassword = "M@ma400";

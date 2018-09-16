@@ -1,6 +1,6 @@
 ﻿@model ssembassy_ankara.Models.StaffBasicInfoViewModel
 
-<div class="col s12 m4 l4">
+<div class="col s12 m3 l3">
     <div class="card amb-card">
         <div class="card-image">
             @if (!string.IsNullOrEmpty(Model.ImgUrl))
@@ -13,7 +13,7 @@
             }
         </div>
         <div class="card-content center">
-            <span class="card-title activator grey-text text-darken-4">@Model.FullName</span>
+            <span class="card-title grey-text text-darken-4">@Model.FullName</span>
             <p class="grey-text">@Model.Position</p>
         </div>
     </div>
