@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web.Mvc;
 using PagedList;
 using ssembassy_ankara.Models;
@@ -14,6 +16,10 @@ namespace ssembassy_ankara.Controllers
     {
         private readonly ApplicationDbContext _db;
         private const string DefaultUserImgUrl = "~/Content/img/muser.png";
+        private readonly string _senderMail = System.Configuration.ConfigurationManager.AppSettings["senderMail"];
+        private readonly string _password = System.Configuration.ConfigurationManager.AppSettings["mailPass"];
+        private readonly string _toMail = System.Configuration.ConfigurationManager.AppSettings["toMail"];
+        private readonly string _subject = "Newly registered citizen!";
  
         public CitizenRegistrationController()
         {
@@ -141,14 +147,60 @@ namespace ssembassy_ankara.Controllers
                 obj.PurposeOfVisitId = model.PurposeOfStayId;
                 obj.ExpectedDurationOfStay = model.DurationOfStay;
 
-                _db.CitizenRegistration.Add(obj);
-                _db.SaveChanges();
-                RemoveCitizen();
-                return View("Success");
+                try
+                {
+                    _db.CitizenRegistration.Add(obj);
+                    _db.SaveChanges();
+                    var result  = SendMail(_toMail, _subject, obj.Id); // send a notification email to secretary about new member
+                    if (!result)
+                    {
+                        // email wasn't sent to secretary
+                    }
+
+                    RemoveCitizen();
+                    return View("Success");
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
             }
 
             ViewBag.PurposeOfVisit = GetPurposeOfStayListItems();
             return View("ContactInfo");
+        }
+
+        private bool SendMail(string toEmail, string subject, int id)
+        {
+            try
+            {
+                var mailBody =
+                    $"<p>A new user has registered. Please click the link below to view and verify user information</p><a href=\"https://localhost:44340/CitizenRegistration/Details/{id}\" target=\"_blank\">Click here to view user information</a><br/>";
+
+                var client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    EnableSsl = true,
+                    Timeout = 100000,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(_senderMail, _password)
+                };
+
+                // create mail message and send
+                var mailMessage = new MailMessage(_senderMail, toEmail, subject, mailBody)
+                {
+                    IsBodyHtml = true,
+                    BodyEncoding = Encoding.UTF8
+                };
+
+                client.Send(mailMessage);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // GET: List all registered nationals
