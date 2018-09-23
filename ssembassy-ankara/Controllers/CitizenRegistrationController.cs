@@ -9,6 +9,7 @@ using System.Text;
 using System.Web.Mvc;
 using PagedList;
 using ssembassy_ankara.Models;
+using ssembassy_ankara.Services;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -16,11 +17,9 @@ namespace ssembassy_ankara.Controllers
     {
         private readonly ApplicationDbContext _db;
         private const string DefaultUserImgUrl = "~/Content/img/muser.png";
-        private readonly string _senderMail = System.Configuration.ConfigurationManager.AppSettings["senderMail"];
-        private readonly string _password = System.Configuration.ConfigurationManager.AppSettings["mailPass"];
-        private readonly string _toMail = System.Configuration.ConfigurationManager.AppSettings["toMail"];
-        private readonly string _subject = "Newly registered citizen!";
- 
+        private static readonly string SenderMail = System.Configuration.ConfigurationManager.AppSettings["senderMail"];
+        private static readonly string Password = System.Configuration.ConfigurationManager.AppSettings["mailPass"];
+        
         public CitizenRegistrationController()
         {
             _db = new ApplicationDbContext();
@@ -151,7 +150,16 @@ namespace ssembassy_ankara.Controllers
                 {
                     _db.CitizenRegistration.Add(obj);
                     _db.SaveChanges();
-                    var result  = SendMail(_toMail, _subject, obj.Id); // send a notification email to secretary about new member
+
+                    // prepare email notification parameters
+                    var mailBody =
+                        $"<p>A new user has registered. Please click the link below to view and verify user information</p><a href=\"https://localhost:44340/CitizenRegistration/Details/{obj.Id}\" target=\"_blank\">Click here to view user information</a><br/>";
+                    const string toMail = "embassy.southsudan.ankara@gmail.com";
+                    const string subject = "Newly registered citizen!";
+                    
+                    // SendMail(toMail, subject, mailBody);
+                    var notifier = new NotifyByEmail();
+                    var result = notifier.SendEmailNotification(toMail, subject, mailBody); // send a notification email to secretary about new member
                     if (!result)
                     {
                         // email wasn't sent to secretary
@@ -170,24 +178,21 @@ namespace ssembassy_ankara.Controllers
             return View("ContactInfo");
         }
 
-        private bool SendMail(string toEmail, string subject, int id)
+        public static bool SendMail(string toEmail, string subject, string body)
         {
             try
             {
-                var mailBody =
-                    $"<p>A new user has registered. Please click the link below to view and verify user information</p><a href=\"https://localhost:44340/CitizenRegistration/Details/{id}\" target=\"_blank\">Click here to view user information</a><br/>";
-
                 var client = new SmtpClient("smtp.gmail.com", 587)
                 {
                     EnableSsl = true,
                     Timeout = 100000,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(_senderMail, _password)
+                    Credentials = new NetworkCredential(SenderMail, Password)
                 };
 
                 // create mail message and send
-                var mailMessage = new MailMessage(_senderMail, toEmail, subject, mailBody)
+                var mailMessage = new MailMessage(SenderMail, toEmail, subject, body)
                 {
                     IsBodyHtml = true,
                     BodyEncoding = Encoding.UTF8

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using ssembassy_ankara.Models;
+using ssembassy_ankara.Services;
 
 namespace ssembassy_ankara.Controllers
 {
     public class OnlineVisaApplicationController : Controller
     {
         private readonly ApplicationDbContext _db;
+
         public OnlineVisaApplicationController()
         {
             _db = new ApplicationDbContext();
@@ -615,11 +617,31 @@ namespace ssembassy_ankara.Controllers
                 var status = Convert.ToBoolean(collection["declaration"].Split(',')[0]);
                 if ( status )
                 {
-                    _db.OnlineVisaApplication.Add(applicant);
-                    _db.SaveChanges();
-                    RemoveApplicant();
+                    try
+                    {
+                        _db.OnlineVisaApplication.Add(applicant);
+                        _db.SaveChanges();
+                    
+                        // send a notification email to secretary
+                        const string secretaryMail = "embassy.southsudan.ankara@gmail.com";
+                        const string subject = "New Visa Application!";
+                        var body = $"<p>A new user has applied for South Sudanese Visa. Please click the link below to view user information</p><a href=\"https://localhost:44340/CPanel/VisaApplicantDetails/{applicant.Id}\" target=\"_blank\">Click here to view user information</a><br/>";
 
-                    return RedirectToAction("Success");
+                        var notifier = new NotifyByEmail();
+                        var result = notifier.SendEmailNotification(secretaryMail, subject, body);
+
+                        if (!result)
+                        {
+                            // email not sent.
+                        }
+
+                        RemoveApplicant();
+                        return RedirectToAction("Success");
+                    }
+                    catch (Exception)
+                    {
+                        return View(applicant);
+                    }
                 }
 
                 return View(applicant);
@@ -628,6 +650,7 @@ namespace ssembassy_ankara.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Success()
         {
             return View();
