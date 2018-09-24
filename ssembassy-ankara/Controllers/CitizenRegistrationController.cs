@@ -4,10 +4,10 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
-using System.Text;
 using System.Web.Mvc;
 using PagedList;
+using Rotativa.Core;
+using Rotativa.MVC;
 using ssembassy_ankara.Models;
 using ssembassy_ankara.Services;
 
@@ -16,9 +16,9 @@ namespace ssembassy_ankara.Controllers
     public class CitizenRegistrationController : Controller
     {
         private readonly ApplicationDbContext _db;
-        private const string DefaultUserImgUrl = "~/Content/img/muser.png";
-        private static readonly string SenderMail = System.Configuration.ConfigurationManager.AppSettings["senderMail"];
-        private static readonly string Password = System.Configuration.ConfigurationManager.AppSettings["mailPass"];
+        //private const string DefaultUserImgUrl = "~/Content/img/muser.png";
+        //private static readonly string SenderMail = System.Configuration.ConfigurationManager.AppSettings["senderMail"];
+        //private static readonly string Password = System.Configuration.ConfigurationManager.AppSettings["mailPass"];
         
         public CitizenRegistrationController()
         {
@@ -178,45 +178,45 @@ namespace ssembassy_ankara.Controllers
             return View("ContactInfo");
         }
 
-        public static bool SendMail(string toEmail, string subject, string body)
-        {
-            try
-            {
-                var client = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    EnableSsl = true,
-                    Timeout = 100000,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(SenderMail, Password)
-                };
+        //public static bool SendMail(string toEmail, string subject, string body)
+        //{
+        //    try
+        //    {
+        //        var client = new SmtpClient("smtp.gmail.com", 587)
+        //        {
+        //            EnableSsl = true,
+        //            Timeout = 100000,
+        //            DeliveryMethod = SmtpDeliveryMethod.Network,
+        //            UseDefaultCredentials = false,
+        //            Credentials = new NetworkCredential(SenderMail, Password)
+        //        };
 
-                // create mail message and send
-                var mailMessage = new MailMessage(SenderMail, toEmail, subject, body)
-                {
-                    IsBodyHtml = true,
-                    BodyEncoding = Encoding.UTF8
-                };
+        //        // create mail message and send
+        //        var mailMessage = new MailMessage(SenderMail, toEmail, subject, body)
+        //        {
+        //            IsBodyHtml = true,
+        //            BodyEncoding = Encoding.UTF8
+        //        };
 
-                client.Send(mailMessage);
+        //        client.Send(mailMessage);
 
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+        //        return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //}
 
         // GET: List all registered nationals
+
         [Authorize(Roles = "Admin,Content Manager")]
         public ActionResult Registered(int? page, string searchTerm)
         {
             const int pageSize = 12;
-            var pageIndex = 1;
             ViewBag.SearchResult = "";
 
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var users = _db.CitizenRegistration.Include(p => p.PurposeOfVisit).OrderByDescending(x => x.Id).Where(x => x.FullName.Contains(searchTerm) || searchTerm == null).ToList();
             ViewBag.CitizenCount = users.Count;
             if (ViewBag.CitizenCount < 1)
@@ -280,7 +280,31 @@ namespace ssembassy_ankara.Controllers
             {
                 return HttpNotFound();
             }
+            return View(model);
+        }
 
+        // View as pdf
+        public ActionResult PrintInformation(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.CitizenRegistration.Find(id);
+            if (model == null)
+                return HttpNotFound();
+            const string footer = "--footer-right \"Date: [date] [time]\" " + "--footer-center \"Page: [page] of [toPage]\" --footer-line --footer-font-size \"9\" --footer-spacing 5 --footer-font-name \"calibri light\"";
+            var options = new DriverOptions
+            {
+                CustomSwitches = footer
+            };
+            return new ViewAsPdf("UserInfoToPdf", model)
+            {
+                RotativaOptions = options
+            };
+        }
+
+        [HttpGet]
+        public ActionResult UserInfoToPdf(CitizenRegistration model)
+        {
             return View(model);
         }
     }
