@@ -100,31 +100,34 @@
         <div class="col-xs-12">
             <table class="table table-responsive">
                 <thead>
-                    <tr>
-                        <th colspan="4">NEXT OF KIN DETAILS</th>
-                    </tr>
+                <tr>
+                    <th colspan="4">NEXT OF KIN DETAILS</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>FULL NAME</td>
-                        <td>@Model.NextOfKinInTurkey</td>
-                        <td>CONTACT</td>
-                        <td>@Model.NextOfKinContact</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">RELATIONSHIP WITH NEXT OF KIN</td>
-                        <td colspan="2">@Model.RelationshipWithNextOfKin</td>
-                    </tr>
+                <tr>
+                    <td>FULL NAME</td>
+                    <td>@Model.NextOfKinInTurkey</td>
+                    <td>CONTACT</td>
+                    <td>@Model.NextOfKinContact</td>
+                </tr>
+                <tr>
+                    <td colspan="2">RELATIONSHIP WITH NEXT OF KIN</td>
+                    <td colspan="2">@Model.RelationshipWithNextOfKin</td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
     @Html.Partial("_Footer")
 </div>
-    <div class="page">
-        @Html.Partial("_Header")
-        <img src="@Url.Content("" + Model.PassportImage + "")" class="img-responsive"/>
-        @Html.Partial("_Footer")
-    </div>
+    @if (Model.PassportImage != null)
+    {
+        <div class="page">
+            @Html.Partial("_Header")
+            <img src="@Url.Content("" + Model.PassportImage + "")" class="img-responsive" />
+            @Html.Partial("_Footer")
+        </div>
+    }
 </body>
 </html>

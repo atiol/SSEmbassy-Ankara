@@ -93,7 +93,6 @@ namespace ssembassy_ankara.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-
                     return returnUrl != null ? RedirectToLocal(returnUrl) : RedirectToAction("Index", "CPanel");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
