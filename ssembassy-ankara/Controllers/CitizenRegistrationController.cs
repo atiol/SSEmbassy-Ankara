@@ -291,7 +291,7 @@ namespace ssembassy_ankara.Controllers
             var model = _db.CitizenRegistration.Find(id);
             if (model == null)
                 return HttpNotFound();
-            const string footer = "--footer-right \"Date: [date] [time]\" " + "--footer-center \"Page: [page] of [toPage]\" --footer-line --footer-font-size \"9\" --footer-spacing 5 --footer-font-name \"calibri light\"";
+            const string footer = "--footer-left \"Nationals Registration Form (Form 6A)\" --footer-right \"Page: [page] | [toPage]\" --footer-line --footer-font-size \"9\" --footer-spacing 1 --footer-font-name \"calibri light\" --print-media-type";
             var options = new DriverOptions
             {
                 CustomSwitches = footer
@@ -303,8 +303,13 @@ namespace ssembassy_ankara.Controllers
         }
 
         [HttpGet]
-        public ActionResult UserInfoToPdf(CitizenRegistration model)
+        public ActionResult UserInfoToPdf(int? id)
         {
+            if(id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.CitizenRegistration.Find(id);
+            if (model == null)
+                return HttpNotFound();
             return View(model);
         }
     }

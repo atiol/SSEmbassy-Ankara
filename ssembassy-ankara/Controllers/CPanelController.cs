@@ -13,7 +13,7 @@ using PagedList;
 namespace ssembassy_ankara.Controllers
 {
     [Authorize]
-    [RequireHttps]
+    //[RequireHttps]
     public class CPanelController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -108,8 +108,7 @@ namespace ssembassy_ankara.Controllers
         public ActionResult Notices(int? page)
         {
             int pageSize = 10;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
 
             var notices = _db.ImportantNotice.ToList();
             var noticesList = notices.ToPagedList(pageIndex, pageSize);
