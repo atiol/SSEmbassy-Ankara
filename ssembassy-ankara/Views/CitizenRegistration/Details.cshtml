@@ -70,7 +70,7 @@
         <div class="col-md-9">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li><a href="#bio" data-toggle="tab"><b>ABOUT @Model.FullName.ToUpper()</b></a></li>
+                    <li class="active"><a href="#bio" data-toggle="tab"><b>ABOUT @Model.FullName.ToUpper()</b></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="bio">
@@ -98,23 +98,6 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <h4>Uploaded Documents</h4>
-                                <div class="divider"></div>
-                            </div>
-                            <div class="col-xs-12">
-                                <p>Passport Image</p>
-                                @if (!string.IsNullOrEmpty(Model.PassportImage))
-                                {
-                                    <img src="@Url.Content("" + Model.PassportImage + "")" class="img-responsive"/>
-                                }
-                                else
-                                {
-                                    <p class="text-muted">Not uploaded</p>
-                                }
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
                                 <h4>Next of Kin Information</h4>
                                 <div class="divider"></div>
                             </div>
@@ -130,6 +113,23 @@
                                         <b>Contact of Next of Kin</b><a class="pull-right">@Model.NextOfKinContact</a>
                                     </li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Uploaded Documents</h4>
+                                <div class="divider"></div>
+                            </div>
+                            <div class="col-xs-12">
+                                <p>Passport Image</p>
+                                @if (!string.IsNullOrEmpty(Model.PassportImage))
+                                {
+                                    <img src="@Url.Content("" + Model.PassportImage + "")" class="img-responsive"/>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">Not uploaded</p>
+                                }
                             </div>
                         </div>
                     </div>
