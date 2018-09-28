@@ -103,4 +103,7 @@
     .table>thead:first-child>tr:first-child>th {
         border: 1px solid #444444 !important;
     }
+    .table>thead>tr>th {
+        background-color: #ccc !important;
+    }
 }

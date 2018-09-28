@@ -43,8 +43,8 @@
                             <b>Registered On</b> <a class="pull-right">@Model.ApplicationDate.ToString("dd/MM/yyyy")</a>
                         </li>
                     </ul>
-                    <a href="@Url.Action("UserInfoToPdf", "CitizenRegistration", new {id = Model.Id})" class="btn btn-block btn-default"><b><span class="glyphicon glyphicon-print"></span> Print</b></a>
-                    @*<a href="@Url.Action("PrintInformation", "CitizenRegistration", new {id = Model.Id})" class="btn btn-block btn-default" target="_blank"><b><span class="glyphicon glyphicon-print"></span> Print User Info</b></a>*@
+                    @*<a href="@Url.Action("UserInfoToPdf", "CitizenRegistration", new {id = Model.Id})" class="btn btn-block btn-default"><b><span class="glyphicon glyphicon-print"></span> Print</b></a>*@
+                    <a href="@Url.Action("PrintInformation", "CitizenRegistration", new {id = Model.Id})" class="btn btn-block btn-default" target="_blank"><b><span class="glyphicon glyphicon-print"></span> Print</b></a>
                     @if (HttpContext.Current.User.IsInRole("Admin"))
                     {
                         <a href="@Url.Action("Delete", "CitizenRegistration", new {id = Model.Id})" class="btn btn-block btn-danger" onclick="return confirm('Are you sure you want to delete this citizen information?')"><b>Delete</b></a>

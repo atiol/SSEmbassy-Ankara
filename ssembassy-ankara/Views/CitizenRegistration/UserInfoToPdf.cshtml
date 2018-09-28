@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    ViewBag.Title = Model.FullName + "_" + Model.PassportNumber;
 }
 
 <!DOCTYPE html>
@@ -11,14 +12,14 @@
     <!-- bootstrap -->
     @Styles.Render("~/css/dashboard")
     <link href="~/Content/dashboard/print.css" rel="stylesheet" type="text/css" />
-    <title>Print User Information</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
 <div class="page">
     <div class="row">
         <div class="col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
             <div class="card-panel">
-                @Html.Partial("_Header")
+                @Html.Partial("_NationalsHeader")
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="db-divider"></div>
@@ -78,7 +79,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>PASSPORT NO:</td>
+                                    <td>PASSPORT NO</td>
                                     <td>@Model.PassportNumber</td>
                                     <td>EXPIRY DATE</td>
                                     <td>@Model.ExpiryDate.ToString("dd/MM/yyyy")</td>

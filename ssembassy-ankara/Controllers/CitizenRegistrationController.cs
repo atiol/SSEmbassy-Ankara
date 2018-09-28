@@ -303,13 +303,8 @@ namespace ssembassy_ankara.Controllers
         }
 
         [HttpGet]
-        public ActionResult UserInfoToPdf(int? id)
+        public ActionResult UserInfoToPdf(CitizenRegistration model)
         {
-            if(id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var model = _db.CitizenRegistration.Find(id);
-            if (model == null)
-                return HttpNotFound();
             return View(model);
         }
     }
