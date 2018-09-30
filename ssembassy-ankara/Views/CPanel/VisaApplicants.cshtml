@@ -36,6 +36,7 @@
                                 <td>@applicant.Nationality</td>
                                 <td>
                                     @Html.ActionLink("Details", "VisaApplicantDetails", new {id = applicant.Id}, new {@class="btn btn-success"})
+                                    @Html.ActionLink("Preview", "ApplicantVisaInfoPdf", "OnlineVisaApplication", new { id = applicant.Id }, new { @class = "btn btn-warning" })
                                 </td>
                             </tr>
                         }

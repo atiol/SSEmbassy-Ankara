@@ -340,10 +340,12 @@
     <Content Include="Content\img\articles\blank.jpg" />
     <Content Include="Content\img\articles\no-image.jpg" />
     <Content Include="Content\img\atiol.jpg" />
+    <Content Include="Content\img\eagle.png" />
     <Content Include="Content\img\emblem.png" />
     <Content Include="Content\img\emblem2.svg" />
     <Content Include="Content\img\francis.jpg" />
     <Content Include="Content\img\guandong.jpg" />
+    <Content Include="Content\img\imm-logo.jpg" />
     <Content Include="Content\img\map.PNG" />
     <Content Include="Content\img\peace.jpg" />
     <Content Include="Content\img\portakal-logo.png" />
@@ -664,9 +666,11 @@
     <Content Include="Views\CPanel\VisaApplicantDetails.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\CitizenRegistration\UserInfoToPdf.cshtml" />
-    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_NationalsFooter.cshtml" />
     <Content Include="Views\Shared\_NationalsHeader.cshtml" />
     <Content Include="Views\Shared\_VisaHeader.cshtml" />
+    <Content Include="Views\OnlineVisaApplication\ApplicantVisaInfoPdf.cshtml" />
+    <Content Include="Views\Shared\_VisaFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

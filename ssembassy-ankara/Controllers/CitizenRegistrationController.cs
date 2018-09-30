@@ -302,6 +302,25 @@ namespace ssembassy_ankara.Controllers
             };
         }
 
+        public ActionResult DownloadPdf(int? id)
+        {
+            if(id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.CitizenRegistration.Find(id);
+            if(model == null)
+                return HttpNotFound();
+            const string footer = "--footer-left \"Nationals Registration Form (Form 6A)\" --footer-right \"Page: [page] | [toPage]\" --footer-line --footer-font-size \"9\" --footer-spacing 1 --footer-font-name \"calibri light\" --print-media-type";
+            var options = new DriverOptions
+            {
+                CustomSwitches = footer
+            };
+            return new ViewAsPdf("UserInfoToPdf", model)
+            {
+                RotativaOptions = options,
+                FileName = model.FullName + ".pdf"
+            };
+        }
+
         [HttpGet]
         public ActionResult UserInfoToPdf(CitizenRegistration model)
         {

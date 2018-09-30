@@ -4,6 +4,9 @@
 .header h3 {
     font-weight: bold;
 }
+.header img {
+    width: 70%;
+}
 .sub-text {
     font-weight: bold;
     font-size: 16px;
@@ -22,6 +25,11 @@
 }
 .citizen-image > img {
     border: 2px solid #444444;
+}
+@media screen {
+    .page .card-panel{
+        height: 842px;
+    }
 }
 @media print {
     body {

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
+using Rotativa.MVC;
 using ssembassy_ankara.Models;
 using ssembassy_ankara.Services;
+using Rotativa.Core;
 
 namespace ssembassy_ankara.Controllers
 {
@@ -655,5 +658,31 @@ namespace ssembassy_ankara.Controllers
         {
             return View();
         }
+
+        public ActionResult PrintApplicantInfo(int? id)
+        {
+            if(id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.OnlineVisaApplication.Find(id);
+            if (model == null)
+                return HttpNotFound();
+            const string footer = "--footer-left \"Visa Registration Form (Form 5A)\" --footer-right \"Page [page]\" --footer-line --footer-font-size \"9\" --footer-spacing 1 --footer-font-name \"calibri light\" --print-media-type";
+            var options = new DriverOptions
+            {
+                CustomSwitches = footer
+            };
+
+            return new ViewAsPdf("ApplicantVisaInfoPdf", model);
+            {
+                
+            }
+            ;
+        }
+
+        public ActionResult ApplicantVisaInfoPdf(OnlineVisaApplication model)
+        {
+            return View(model);
+        }
+        
     }
 }
