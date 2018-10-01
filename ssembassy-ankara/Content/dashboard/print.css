@@ -5,7 +5,7 @@
     font-weight: bold;
 }
 .header img {
-    width: 70%;
+    width: 65%;
 }
 .sub-text {
     font-weight: bold;
@@ -28,7 +28,8 @@
 }
 @media screen {
     .page .card-panel{
-        height: 842px;
+        height: auto;
+        padding: 1cm;
     }
 }
 @media print {
@@ -44,7 +45,7 @@
         float: none;
     }
     @page {
-        margin: 2cm;
+        margin: 1cm;
     }
     h1 {
         font-size: 24pt;
