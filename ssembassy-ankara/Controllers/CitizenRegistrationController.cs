@@ -317,5 +317,19 @@ namespace ssembassy_ankara.Controllers
                 RotativaOptions = options
             };
         }
+
+        public ActionResult DownloadList()
+        {
+            const string footer = "--footer-left \"Nationals Registration Form (Form 6A)\" --footer-right \"Page: [page] | [toPage]\" --footer-line --footer-font-size \"9\" --footer-spacing 1 --footer-font-name \"calibri light\" --print-media-type";
+            var options = new DriverOptions
+            {
+                CustomSwitches = footer
+            };
+            return new ViewAsPdf("PrintCitizenList", _db.CitizenRegistration.ToList())
+            {
+                FileName = "CitizenList.pdf",
+                RotativaOptions = options
+            };
+        }
     }
 }

@@ -15,8 +15,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">@Html.ActionLink("All Registered Citizens", "Registered")</h3>
                 <div class="box-tools pull-right">
-                    @Html.ActionLink("Preview List", "PrintCitizenList", null, new {@class = "btn btn-flat btn-primary"})
-                    @Html.ActionLink("Print As List", "PrintList", null, new { @class = "btn btn-flat btn-default" })
+                    @Html.ActionLink("Preview List", "PrintCitizenList", null, new { @class = "btn btn-flat btn-primary" })
+                    @Html.ActionLink("Download List", "DownloadList", null, new {@class = "btn btn-flat btn-success"})
+                    @Html.ActionLink("Print As List", "PrintList", null, new {@class = "btn btn-flat btn-default"})
                     @using (Html.BeginForm("Registered", "CitizenRegistration", FormMethod.Get, new {@class = "form-inline"}))
                     {
                         <div class="input-group input-group-sm" style="width: 150px;">
