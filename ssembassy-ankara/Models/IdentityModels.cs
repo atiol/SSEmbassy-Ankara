@@ -64,17 +64,9 @@ namespace ssembassy_ankara.Models
         public DbSet<TurkeyRelations> TurkeyRelations { get; set; }
         public DbSet<EmbassyMission> EmbassyMission { get; set; }
         public DbSet<EducationAndCulture> EducationAndCulture { get; set; }
-        //public DbSet<PersonalDetails> PersonalDetails { get; set; }
-        //public DbSet<PassportDetails> PassportDetails { get; set; }
-        //public DbSet<ProfessionalDetails> ProfessionalDetails { get; set; }
-        //public DbSet<ApplicantContactDetails> ContactDetails { get; set; }
-        //public DbSet<SpouseDetails> SpouseDetails { get; set; }
-        //public DbSet<NextOfKinDetails> NextOfKinDetails { get; set; }
-        //public DbSet<HaveYouEver> HaveYouEver { get; set; }
-        //public DbSet<ReferencesInSouthSudan> ReferenceDetails { get; set; }
-        //public DbSet<Declaration> Declaration { get; set; }
+        public DbSet<VisaApproval> VisaApproval { get; set; }
 
-    public static ApplicationDbContext Create()
+        public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }

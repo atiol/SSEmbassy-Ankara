@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using Rotativa.MVC;
@@ -679,9 +680,29 @@ namespace ssembassy_ankara.Controllers
             };
         }
 
+        public ActionResult DownloadApplicantInfo(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var model = _db.OnlineVisaApplication.Find(id);
+            if (model == null)
+                return HttpNotFound();
+            const string footer = "--footer-left \"Visa Registration Form (Form 5A)\" --footer-right \"Page [page]\" --footer-line --footer-font-size \"9\" --footer-spacing 1 --footer-font-name \"calibri light\" --print-media-type";
+            var options = new DriverOptions
+            {
+                CustomSwitches = footer
+            };
+            var fileName = model.GivenNames + ".pdf";
+            return new ViewAsPdf("ApplicantVisaInfoPdf", model)
+            {
+                FileName = fileName,
+                RotativaOptions = options
+            };
+        }
+
         public ActionResult ApplicantVisaInfoPdf(OnlineVisaApplication model)
         {
-            //const string defaultDate = "01/01/001";
+            // handle null or empty values
             model.ReferenceAddress = string.IsNullOrEmpty(model.ReferenceAddress) ? "None" : model.ReferenceAddress;
             model.ReferenceName = string.IsNullOrEmpty(model.ReferenceName) ? "None" : model.ReferenceName;
             model.ReferenceNationality =
@@ -697,6 +718,38 @@ namespace ssembassy_ankara.Controllers
             model.ReferencePhone = string.IsNullOrEmpty(model.ReferencePhone) ? "None" : model.ReferencePhone;
             
             return View(model);
+        }
+
+        public ActionResult GrantVisa(int? id)
+        {
+            // Get applicant session
+            return PartialView("");
+        }
+
+        [HttpPost]
+        public ActionResult GrantVisa(VisaApproval model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var visaId = new RandomStringGenerator().RandomString(5);
+                    
+                    // Set visa id to active applicant and register officer details
+
+                    _db.VisaApproval.Add(model);
+                    _db.SaveChanges();
+                    
+                    // Close the session and return to list
+                    return RedirectToAction("VisaApplicants", "CPanel");
+                }
+
+                return PartialView("");
+            }
+            catch (Exception)
+            {
+                return PartialView("", model);
+            }
         }
     }
 }

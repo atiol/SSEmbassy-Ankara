@@ -23,6 +23,7 @@
                         <th>@Html.DisplayNameFor(model => model[0].Surname)</th>
                         <th>@Html.DisplayNameFor(model => model[0].GivenNames)</th>
                         <th>@Html.DisplayNameFor(model => model[0].Nationality)</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -34,9 +35,19 @@
                                 <td>@applicant.Surname</td>
                                 <td>@applicant.GivenNames</td>
                                 <td>@applicant.Nationality</td>
+                                @if (string.IsNullOrEmpty(applicant.VisaNumber))
+                                {
+                                    <td>Pending Revision</td>
+                                }
+                                else
+                                {
+                                    <td>Approved</td>
+                                }
                                 <td>
                                     @Html.ActionLink("Details", "VisaApplicantDetails", new {id = applicant.Id}, new {@class="btn btn-success"})
-                                    @Html.ActionLink("print", "PrintApplicantInfo", "OnlineVisaApplication", new { id = applicant.Id }, new { @class = "btn btn-warning", target = "_blank" })
+                                    @Html.ActionLink("Grant/Reject", "VisaApplicantDetails", new { id = applicant.Id }, new { @class = "btn btn-succeess" })
+                                    @Html.ActionLink("Print", "PrintApplicantInfo", "OnlineVisaApplication", new { id = applicant.Id }, new { @class = "btn btn-default", target = "_blank" })
+                                    @Html.ActionLink("Download", "DownloadApplicantInfo", "OnlineVisaApplication", new { id = applicant.Id }, new { @class = "btn btn-primary", target = "_blank" })
                                 </td>
                             </tr>
                         }

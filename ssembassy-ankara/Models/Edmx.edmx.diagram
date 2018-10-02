@@ -18,8 +18,8 @@
         <EntityTypeShape EntityType="DbModels.ImportantNotice" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.MaritalStatus" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.messages" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModels.ModeOfTransport" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModels.OnlineVisaApplication" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.ModeOfTransport" Width="1.5" PointX="4" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModels.OnlineVisaApplication" Width="1.5" PointX="6.25" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.PassportType" Width="1.5" PointX="3.75" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.positions" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModels.PurposeOfVisit" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
@@ -37,6 +37,8 @@
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_VisaTypeRequested" ManuallyRouted="false" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_RGender1" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_TransportMode" />
+        <EntityTypeShape EntityType="DbModels.VisaApproval" Width="1.5" PointX="8.5" PointY="14.5" />
+        <AssociationConnector Association="DbModels.FK_VisaApproval_OnlineVisaApplication" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

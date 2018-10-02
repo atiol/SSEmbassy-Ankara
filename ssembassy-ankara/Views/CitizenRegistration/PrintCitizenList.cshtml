@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ssembassy_ankara.Models.CitizenRegistration>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>All Citizens</title>
+    @Styles.Render("~/css/dashboard")
+    <link href="~/Content/dashboard/print.css" rel="stylesheet" type="text/css" />
+    <style>
+        .header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid black;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="pull-right">@Html.ActionLink("Print As List", "PrintList", new { @class = "btn btn-flat btn-default" })</div>
+            <div class="myList card-panel">
+                @Html.Partial("_NationalsHeader")
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name Surname</th>
+                        <th>Registered On</th>
+                        <th>Phone</th>
+                        <th>Purpose of Visit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var citizen in Model)
+                    {
+                        <tr>
+                            <td>@citizen.Id</td>
+                            <td>@citizen.FullName</td>
+                            <td>@citizen.ApplicationDate</td>
+                            <td>@citizen.TurkeyPhone</td>
+                            <td>@citizen.PurposeOfVisit.Purpose</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrapjs")
+</body>
+</html>

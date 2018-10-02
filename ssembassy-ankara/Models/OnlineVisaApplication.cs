@@ -14,6 +14,12 @@ namespace ssembassy_ankara.Models
     
     public partial class OnlineVisaApplication
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OnlineVisaApplication()
+        {
+            this.VisaApproval = new HashSet<VisaApproval>();
+        }
+    
         public int Id { get; set; }
         public string ApplicationPlace { get; set; }
         public System.DateTime ApplicationDate { get; set; }
@@ -90,5 +96,7 @@ namespace ssembassy_ankara.Models
         public virtual VisaTypeRequested VisaTypeRequested { get; set; }
         public virtual Sex Sex2 { get; set; }
         public virtual ModeOfTransport ModeOfTransport { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VisaApproval> VisaApproval { get; set; }
     }
 }

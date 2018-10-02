@@ -229,6 +229,8 @@ namespace ssembassy_ankara.Models
 
         public string Nationality { get; set; }
 
+        public string VisaNumber { get; set; }
+
         public int Id { get; set; }
     }
 
@@ -254,10 +256,7 @@ namespace ssembassy_ankara.Models
         public DateTime DateOfApproval { get; set; }
 
         public string Comments { get; set; }
-    }
 
-    public class VisaFees
-    {
         [Required]
         [Display(Name = "Amount")]
         public double Amount { get; set; }
@@ -276,7 +275,7 @@ namespace ssembassy_ankara.Models
 
         [Required]
         [Display(Name = "Title")]
-        public string OfficerTitle { get; set; }
+        public string DesignatedOfficerTitle { get; set; }
 
         [Required]
         [Display(Name = "Visa Number")]

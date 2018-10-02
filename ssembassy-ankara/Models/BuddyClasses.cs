@@ -144,4 +144,16 @@ namespace ssembassy_ankara.Models
         [ForeignKey("ModeOfTransport")]
         public int TransportModeId { get; set; }
     }
+
+    [MetadataType(typeof(VisaApprovalAttribs))]
+    public partial class VisaApproval
+    {
+
+    }
+
+    public class VisaApprovalAttribs
+    {
+        [Key]
+        public int OfficerId { get; set; }
+    }
 }

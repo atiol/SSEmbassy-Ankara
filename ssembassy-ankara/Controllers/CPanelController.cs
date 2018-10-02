@@ -438,6 +438,7 @@ namespace ssembassy_ankara.Controllers
                     Surname = applicant.Surname,
                     GivenNames = applicant.GivenNames,
                     Nationality = applicant.Nationality,
+                    VisaNumber = applicant.VisaNumber,
                     AppliedOn = applicant.ApplicationDate
                 });
             }

@@ -48,5 +48,6 @@ namespace ssembassy_ankara.Models
         public virtual DbSet<TurkeyRelations> TurkeyRelations { get; set; }
         public virtual DbSet<VisaInfo> VisaInfo { get; set; }
         public virtual DbSet<VisaTypeRequested> VisaTypeRequested { get; set; }
+        public virtual DbSet<VisaApproval> VisaApproval { get; set; }
     }
 }

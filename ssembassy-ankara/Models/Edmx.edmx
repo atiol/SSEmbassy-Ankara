@@ -264,6 +264,24 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="VisaApproval">
+          <Key>
+            <PropertyRef Name="OfficerId" />
+          </Key>
+          <Property Name="OfficerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantId" Type="int" Nullable="false" />
+          <Property Name="OfficerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntryType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PeriodOfStay" Type="int" Nullable="false" />
+          <Property Name="DateOfApproval" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="256" />
+          <Property Name="VisaFee" Type="float" Nullable="false" />
+          <Property Name="DateOfReceipt" Type="datetime" Nullable="false" />
+          <Property Name="ReceiptNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DesignatedOfficerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DesignatedOfficerTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="VisaInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -388,6 +406,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VisaApproval_OnlineVisaApplication">
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="1" />
+          <End Role="VisaApproval" Type="Self.VisaApproval" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnlineVisaApplication">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisaApproval">
+              <PropertyRef Name="ApplicantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DbModelsStoreContainer">
           <EntitySet Name="article" EntityType="Self.article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="article_category" EntityType="Self.article_category" Schema="dbo" store:Type="Tables" />
@@ -410,6 +440,7 @@
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SSHistory" EntityType="Self.SSHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TurkeyRelations" EntityType="Self.TurkeyRelations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisaApproval" EntityType="Self.VisaApproval" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisaInfo" EntityType="Self.VisaInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisaTypeRequested" EntityType="Self.VisaTypeRequested" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_article_category_id" Association="Self.FK_article_category_id">
@@ -447,6 +478,10 @@
           <AssociationSet Name="FK_OnlineVisaApplication_VisaTypeRequested" Association="Self.FK_OnlineVisaApplication_VisaTypeRequested">
             <End Role="VisaTypeRequested" EntitySet="VisaTypeRequested" />
             <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisaApproval_OnlineVisaApplication" Association="Self.FK_VisaApproval_OnlineVisaApplication">
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+            <End Role="VisaApproval" EntitySet="VisaApproval" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -679,6 +714,7 @@
           <NavigationProperty Name="Sex2" Relationship="DbModels.FK_OnlineVisaApplication_RGender1" FromRole="OnlineVisaApplication" ToRole="Sex" />
           <Property Name="VisaNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ModeOfTransport" Relationship="DbModels.FK_OnlineVisaApplication_TransportMode" FromRole="OnlineVisaApplication" ToRole="ModeOfTransport" />
+          <NavigationProperty Name="VisaApproval" Relationship="DbModels.FK_VisaApproval_OnlineVisaApplication" FromRole="OnlineVisaApplication" ToRole="VisaApproval" />
         </EntityType>
         <EntityType Name="PassportType">
           <Key>
@@ -890,6 +926,11 @@
             <End Role="ModeOfTransport" EntitySet="ModeOfTransport" />
             <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
           </AssociationSet>
+          <EntitySet Name="VisaApproval" EntityType="DbModels.VisaApproval" />
+          <AssociationSet Name="FK_VisaApproval_OnlineVisaApplication" Association="DbModels.FK_VisaApproval_OnlineVisaApplication">
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+            <End Role="VisaApproval" EntitySet="VisaApproval" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_OnlineVisaApplication_RGender1">
           <End Type="DbModels.Sex" Role="Sex" Multiplicity="0..1" />
@@ -912,6 +953,37 @@
             </Principal>
             <Dependent Role="OnlineVisaApplication">
               <PropertyRef Name="TransportModeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VisaApproval">
+          <Key>
+            <PropertyRef Name="OfficerId" />
+          </Key>
+          <Property Name="OfficerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" />
+          <Property Name="OfficerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntryType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PeriodOfStay" Type="Int32" Nullable="false" />
+          <Property Name="DateOfApproval" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="VisaFee" Type="Double" Nullable="false" />
+          <Property Name="DateOfReceipt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReceiptNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DesignatedOfficerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DesignatedOfficerTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OnlineVisaApplication" Relationship="DbModels.FK_VisaApproval_OnlineVisaApplication" FromRole="VisaApproval" ToRole="OnlineVisaApplication" />
+        </EntityType>
+        <Association Name="FK_VisaApproval_OnlineVisaApplication">
+          <End Type="DbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="1" />
+          <End Type="DbModels.VisaApproval" Role="VisaApproval" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnlineVisaApplication">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisaApproval">
+              <PropertyRef Name="ApplicantId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1216,6 +1288,25 @@
               <MappingFragment StoreEntitySet="VisaTypeRequested">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="VisaType" ColumnName="VisaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisaApproval">
+            <EntityTypeMapping TypeName="DbModels.VisaApproval">
+              <MappingFragment StoreEntitySet="VisaApproval">
+                <ScalarProperty Name="DesignatedOfficerTitle" ColumnName="DesignatedOfficerTitle" />
+                <ScalarProperty Name="DesignatedOfficerName" ColumnName="DesignatedOfficerName" />
+                <ScalarProperty Name="ReceiptNo" ColumnName="ReceiptNo" />
+                <ScalarProperty Name="DateOfReceipt" ColumnName="DateOfReceipt" />
+                <ScalarProperty Name="VisaFee" ColumnName="VisaFee" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="DateOfApproval" ColumnName="DateOfApproval" />
+                <ScalarProperty Name="PeriodOfStay" ColumnName="PeriodOfStay" />
+                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="OfficerName" ColumnName="OfficerName" />
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="OfficerId" ColumnName="OfficerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

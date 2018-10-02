@@ -178,38 +178,6 @@ namespace ssembassy_ankara.Controllers
             return View("ContactInfo");
         }
 
-        //public static bool SendMail(string toEmail, string subject, string body)
-        //{
-        //    try
-        //    {
-        //        var client = new SmtpClient("smtp.gmail.com", 587)
-        //        {
-        //            EnableSsl = true,
-        //            Timeout = 100000,
-        //            DeliveryMethod = SmtpDeliveryMethod.Network,
-        //            UseDefaultCredentials = false,
-        //            Credentials = new NetworkCredential(SenderMail, Password)
-        //        };
-
-        //        // create mail message and send
-        //        var mailMessage = new MailMessage(SenderMail, toEmail, subject, body)
-        //        {
-        //            IsBodyHtml = true,
-        //            BodyEncoding = Encoding.UTF8
-        //        };
-
-        //        client.Send(mailMessage);
-
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        // GET: List all registered nationals
-
         [Authorize(Roles = "Admin,Content Manager")]
         public ActionResult Registered(int? page, string searchTerm)
         {
@@ -325,6 +293,29 @@ namespace ssembassy_ankara.Controllers
         public ActionResult UserInfoToPdf(CitizenRegistration model)
         {
             return View(model);
+        }
+
+        public ActionResult PrintCitizenList(IEnumerable<CitizenRegistration> citizenList)
+        {
+            return View(citizenList);
+        }
+
+        public ActionResult CitizenList()
+        {
+            return View("PrintCitizenList", _db.CitizenRegistration.ToList());
+        }
+
+        public ActionResult PrintList()
+        {
+            const string footer = "--footer-left \"Nationals Registration Form (Form 6A)\" --footer-right \"Page: [page] | [toPage]\" --footer-line --footer-font-size \"9\" --footer-spacing 1 --footer-font-name \"calibri light\" --print-media-type";
+            var options = new DriverOptions
+            {
+                CustomSwitches = footer
+            };
+            return new ViewAsPdf("PrintCitizenList", _db.CitizenRegistration.ToList())
+            {
+                RotativaOptions = options
+            };
         }
     }
 }
