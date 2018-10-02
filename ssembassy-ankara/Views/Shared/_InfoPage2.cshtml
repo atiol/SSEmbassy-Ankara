@@ -1,0 +1,85 @@
+﻿<table class="table table-responsive table-condensed table-bordered">
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+            <th colspan="6">3. Passport Details</th>
+        </tr>
+        <tr>
+            <td colspan="2">Passport Type</td>
+            <td>@Model.PassportType.Type</td>
+            <td>Passport Number</td>
+            <td>@Model.PassportNumber</td>
+        </tr>
+        <tr>
+            <td>Date of Issue</td>
+            <td>@Model.PassportDateOfIssue.ToString("dd/MM/yyyy")</td>
+            <td>Country of Issue</td>
+            <td>@Model.PassportCountryOfIssue</td>
+            <td>Date of Expiry</td>
+            <td>@Model.PassportExpiryDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <th colspan="6">4. Professional / Occupation Details</th>
+        </tr>
+        <tr>
+            <td colspan="2">Present Occupation</td>
+            <td>@Model.PresentOccupation</td>
+            <td>Title</td>
+            <td>@Model.OccupationTitle</td>
+        </tr>
+        <tr>
+            <td>Employer name</td>
+            <td>@Model.EmployerName</td>
+            <td colspan="2">Employer Address</td>
+            <td>@Model.EmployerAddress</td>
+        </tr>
+        <tr>
+            <td>Phone No</td>
+            <td>@Model.EmployerPhone</td>
+            <td>Email</td>
+            <td>@Model.EmployerPhone</td>
+        </tr>
+        <tr>
+            <th colspan="6">5. Applicant's Contact Details</th>
+        </tr>
+        <tr>
+            <td>Present Address</td>
+            <td colspan="2">@Model.ApplicantPresentAddress</td>
+            <td>Permanent Country of origin</td>
+            <td colspan="2">@Model.ApplicantPermanentCountryAddress</td>
+        </tr>
+        <tr>
+            <td>Phone No</td>
+            <td>@Model.ApplicantPhone</td>
+            <td>Mobile No</td>
+            <td>@Model.ApplicantMobile</td>
+            <td>Email Address</td>
+            <td>@Model.ApplicantEmail</td>
+        </tr>
+        <tr>
+            <th colspan="6">Family Details</th>
+        </tr>
+        <tr>
+            <td colspan="6"><strong>Spouse Details</strong></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td>@Model.SpouseSurname</td>
+            <td>Given Names</td>
+            <td>@Model.SpouseGivenNames</td>
+        </tr>
+        <tr>
+            <td>Permanent Address</td>
+            <td>@Model.SpousePermanentAddress</td>
+            <td>Phone No</td>
+            <td>@Model.SpousePhone</td>
+        </tr>
+        <tr>
+            <td>Mobile No</td>
+            <td>@Model.SpouseMobile</td>
+            <td>Email Address</td>
+            <td>@Model.SpouseEmail</td>
+        </tr>
+    </tbody>
+</table>

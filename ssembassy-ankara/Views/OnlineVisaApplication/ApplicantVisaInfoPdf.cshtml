@@ -6,41 +6,13 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <!-- bootstrap -->
     @Styles.Render("~/css/dashboard")
-    <link href="~/Content/dashboard/print.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/dashboard/visa_print.css" rel="stylesheet" type="text/css" />
     <title>@ViewBag.Title</title>
-    <style>
-        .header {
-            
-        }
-        .v-note {
-            border: 1px solid black;
-            padding: 5px;
-            margin-bottom: 20px;
-        }
-        .page {
-            background-color: #666;
-        }
-        .page .card-panel {
-            margin-top: 30px;
-        }
-        .h-div {
-            border: 0.8px solid #333;
-            height: 1px;
-        }
-        .h-two {
-            text-align: center;
-            text-transform: capitalize;
-        }
-        .strong {
-            font-weight: 600;
-        }
-    </style>
 </head>
 <body>
 <!-- General Info and Personal Info -->
@@ -49,236 +21,22 @@
         <div class="col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
             <div class="card-panel">
                 @Html.Partial("_VisaHeader")
-                <div class="row">
-                    <div class="col-xs-12">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Place of Application</td><td>@Model.ApplicationPlace</td>
-                                <td>Date</td><td>@Model.ApplicationDate.ToString("dd/MM/yyyy")</td>
-                            </tr>
-                            @if (!Model.PreviouslyApplied)
-                            {
-                                <tr>
-                                    <td>Have you Previously Applied for South Sudan Visa</td>
-                                    <td>
-                                        No
-                                    </td>
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td>Have you Previously Applied for South Sudan Visa</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>Previous Visa No</td><td>@Model.PreviousVisaNo</td>
-                                    <td>Date of Issue</td><td>@Model.PrevIssueDate</td>
-                                </tr>
-                                <tr>
-                                    <td>Place of Issue</td><td>@Model.PrevIssuePlace</td>
-                                </tr>
-                                <tr>
-                                    <td>Date of arrival in South Sudan</td>
-                                    <td>@Model.PrevArrivalDate</td>
-                                </tr>
-                                <tr>
-                                    <td>Point of Entry</td>
-                                    <td>@Model.PrevEntryPoint</td>
-                                </tr>
-                                <tr>
-                                    <td>Point of Exit</td>
-                                    <td>@Model.PrevExitPoint</td>
-                                </tr>
-                            }
-                            <tr>
-                                <th colspan="2">1. Visa Information</th>
-                            </tr>
-                            <tr>
-                                <td>Visa Type Requested</td><td>@Model.VisaTypeRequested</td>
-                                <td>Purpose of Visit</td><td>@Model.PurposeOfVisit</td>
-                            </tr>
-                            <tr>
-                                <td>Duration of intended stay</td>
-                                <td>@Model.DurationOfStay</td>
-                                <td>Date of intended arrival in South Sudan</td>
-                                <td>@Model.IntendedArrivalDate</td>
-                            </tr>
-                            <tr>
-                                <td>Mode of transport</td>
-                                <td>@Model.TransportModeId</td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">2. Personal Details</th>
-                            </tr>
-                            <tr>
-                                <td>Surname</td><td>@Model.Surname</td>
-                                <td>Given Names</td><td>@Model.GivenNames</td>
-                            </tr>
-                            <tr>
-                                <td>Date of Birth</td><td>@Model.BirthDate.ToString("dd/MM/yyyy")</td>
-                                <td>Place of Birth</td><td>@Model.BirthPlace</td>
-                                <td>Country of Birth</td><td>@Model.CountryOfBirth</td>
-                            </tr>
-                            <tr>
-                                <td>Sex</td><td>@Model.Sex</td>
-                                <td>Maritial Status</td><td>@Model.MaritalStatus</td>
-                                <td>Nationality</td><td>@Model.Nationality</td>
-                            </tr>
-                            <tr>
-                                <th colspan="3">3. Passport Details</th>
-                            </tr>
-                            <tr>
-                                <td>Passport Type</td><td>@Model.PassportType</td>
-                                <td>Passport Number</td><td>@Model.PassportNumber</td>
-                            </tr>
-                            <tr>
-                                <td>Date of Issue</td><td>@Model.PassportDateOfIssue.ToString("dd/MM/yyyy")</td>
-                                <td>Country of Issue</td><td>@Model.PassportCountryOfIssue</td>
-                                <td>Date of Expiry</td><td>@Model.PassportExpiryDate.ToString("dd/MM/yyyy")</td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">4. Professional / Occupation Details</th>
-                            </tr>
-                            <tr>
-                                <td>Present Occupation</td><td>@Model.PresentOccupation</td>
-                                <td>Title</td><td>@Model.OccupationTitle</td>
-                            </tr>
-                            <tr>
-                                <td>Employer name</td><td>@Model.EmployerName</td>
-                                <td>Employer Address</td><td>@Model.EmployerAddress</td>
-                            </tr>
-                            <tr>
-                                <td>Phone No</td><td>@Model.EmployerPhone</td>
-                                <td>Email</td><td>@Model.EmployerPhone</td>
-                            </tr>
-                            <tr>
-                                <th colspan="3">5. Applicant's Contact Details</th>
-                            </tr>
-                            <tr>
-                                <td>Present Address</td>
-                                <td>@Model.ApplicantPresentAddress</td>
-                                <td>Permanent Country of origin</td>
-                                <td>@Model.ApplicantPermanentCountryAddress</td>
-                            </tr>
-                            <tr>
-                                <td>Phone No</td><td>@Model.ApplicantPhone</td>
-                                <td>Mobile No</td><td>@Model.ApplicantMobile</td>
-                                <td>Email Address</td><td>@Model.ApplicantEmail</td>
-                            </tr>
-                            <tr>
-                                <th colspan="3">Family Details</th>
-                            </tr>
-                            <tr>
-                                <td colspan="3"><strong>Spouse Details</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Surname</td><td>@Model.SpouseSurname</td>
-                                <td>Given Names</td><td>@Model.SpouseGivenNames</td>
-                            </tr>
-                            <tr>
-                                <td>Permanent Address</td>
-                                <td>@Model.SpousePermanentAddress</td>
-                                <td>Phone No</td><td>@Model.SpousePhone</td>
-                            </tr>
-                            <tr>
-                                <td>Mobile No</td>
-                                <td>@Model.SpouseMobile</td>
-                                <td>Email Address</td>
-                                <td>@Model.SpouseEmail</td>
-                            </tr>
-                            <tr>
-                                <th colspan="3">Next of Kin Details</th>
-                            </tr>
-                                <tr>
-                                    <td>Surname</td>
-                                    <td>@Model.KinSurname</td>
-                                    <td>Given Names</td>
-                                    <td>@Model.KinGivenNames</td>
-                                </tr>
-                                <tr>
-                                    <td>Permanent Address</td>
-                                    <td>@Model.KinPermanentAddress</td>
-                                    <td>Phone No</td>
-                                    <td>@Model.KinPhone</td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile No</td>
-                                    <td>@Model.KinMobile</td>
-                                    <td>Email Address</td>
-                                    <td>@Model.KinEmail</td>
-                                </tr>
-                            <tr>
-                                <th colspan="3">8. Have you ever:</th>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="strong">
-                                    Been convicted of a crime or offence in any country?
-                                </td>
-                                @if (Model.BeenConvicted)
-                                {
-                                    <td>Yes</td>
-                                }
-                                else
-                                {
-                                    <td>No</td>
-                                }
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="strong">
-                                    Been deported or removed from South Sudan or any country for overstaying your visa or violating any
-                                    law or regulation?
-                                </td>
-                                @if (Model.BeenDeportedForViolationOfLaw)
-                                {
-                                    <td>Yes</td>
-                                }
-                                else
-                                {
-                                    <td>No</td>
-                                }
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Passport Details to Spouse Info -->
-<div class="page">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="card-panel">
                 
+                <!-- Passport Details to Spouse Info -->
+                @Html.Partial("_InfoPage1")
+
+                <!-- Passport Details to Spouse Info -->
+                @Html.Partial("_InfoPage2")
+                
+                <!-- Next of Kin to Have you ever... -->
+                @Html.Partial("_InfoPage3")
+                
+                <!-- References to Declaration -->
+                @Html.Partial("_InfoPage4")
             </div>
         </div>
     </div>
 </div>
-
-<!-- Next of Kin to Have you ever... -->
-<div class="page">
-    <div class="row">
-        <div class="col-xs-12">
-
-        </div>
-    </div>
-</div>
-
-<!-- References to Declaration -->
-<div class="page">
-    <div class="row">
-        <div class="col-xs-12">
-
-        </div>
-    </div>
-</div>
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrapjs")
 </body>

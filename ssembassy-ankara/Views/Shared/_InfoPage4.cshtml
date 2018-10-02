@@ -1,0 +1,47 @@
+﻿
+<table class="table table-responsive table-bordered table-condensed">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+        <th colspan="6">Guarantor or references in South Sudan</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>@Model.ReferenceName</td>
+        <td>Telephone No</td>
+        <td>@Model.ReferencePhone</td>
+        <td>Address</td>
+        <td>@Model.ReferenceAddress</td>
+    </tr>
+    <tr>
+        <td>Date of Birth</td>
+        <td>@Model.ReferenceBirthDate.ToString("dd/MM/yyyy")</td>
+        <td>Sex</td>
+        @if (Model.ReferenceGenderId == null)
+        {
+            <td>Unspecified</td>
+        }
+        else
+        {
+            <td>@Model.ReferenceGenderId.Gender</td>
+        }
+        <td>Relationship to Applicant</td>
+        <td>@Model.ReferenceRelationshipToApplicant</td>
+    </tr>
+    <tr>
+        <td>Profession / Occupation</td>
+        <td>@Model.ReferenceProfession</td>
+        <td>Nationality and Immigration Status</td>
+        <td>@Model.ReferenceNationality</td>
+    </tr>
+    <tr>
+        <th colspan="6">10. Declaration</th>
+    </tr>
+    <tr>
+        <td colspan="3">
+            I declare that the information provided in this form is true and accurate.
+        </td>
+    </tr>
+    </tbody>
+</table>

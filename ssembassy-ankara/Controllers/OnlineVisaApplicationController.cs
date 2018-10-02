@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using Rotativa.MVC;
 using ssembassy_ankara.Models;
 using ssembassy_ankara.Services;
@@ -59,7 +60,7 @@ namespace ssembassy_ankara.Controllers
                 statusList.Add( new SelectListItem
                 {
                     Text = status.Status,
-                    Value = status.Id.ToString()
+                    Value = status.Status
                 });
             }
 
@@ -672,17 +673,30 @@ namespace ssembassy_ankara.Controllers
                 CustomSwitches = footer
             };
 
-            return new ViewAsPdf("ApplicantVisaInfoPdf", model);
+            return new ViewAsPdf("ApplicantVisaInfoPdf", model)
             {
-                
-            }
-            ;
+                RotativaOptions = options
+            };
         }
 
         public ActionResult ApplicantVisaInfoPdf(OnlineVisaApplication model)
         {
+            //const string defaultDate = "01/01/001";
+            model.ReferenceAddress = string.IsNullOrEmpty(model.ReferenceAddress) ? "None" : model.ReferenceAddress;
+            model.ReferenceName = string.IsNullOrEmpty(model.ReferenceName) ? "None" : model.ReferenceName;
+            model.ReferenceNationality =
+                string.IsNullOrEmpty(model.ReferenceNationality) ? "None" : model.ReferenceNationality;
+
+            model.ReferenceProfession =
+                string.IsNullOrEmpty(model.ReferenceProfession) ? "None" : model.ReferenceProfession;
+
+            model.ReferenceRelationshipToApplicant = string.IsNullOrEmpty(model.ReferenceRelationshipToApplicant)
+                ? "None"
+                : model.ReferenceRelationshipToApplicant;
+
+            model.ReferencePhone = string.IsNullOrEmpty(model.ReferencePhone) ? "None" : model.ReferencePhone;
+            
             return View(model);
         }
-        
     }
 }

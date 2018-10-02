@@ -8,7 +8,7 @@
 }
 
 <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-md-10 col-md-offset-1">
         <div class="box box-success">
             <div class="box-header with-border">
                 <div class="box-title">
@@ -36,7 +36,7 @@
                                 <td>@applicant.Nationality</td>
                                 <td>
                                     @Html.ActionLink("Details", "VisaApplicantDetails", new {id = applicant.Id}, new {@class="btn btn-success"})
-                                    @Html.ActionLink("Preview", "ApplicantVisaInfoPdf", "OnlineVisaApplication", new { id = applicant.Id }, new { @class = "btn btn-warning" })
+                                    @Html.ActionLink("print", "PrintApplicantInfo", "OnlineVisaApplication", new { id = applicant.Id }, new { @class = "btn btn-warning", target = "_blank" })
                                 </td>
                             </tr>
                         }

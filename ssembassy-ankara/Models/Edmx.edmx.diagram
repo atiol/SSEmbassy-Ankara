@@ -36,6 +36,7 @@
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_RGender" ManuallyRouted="false" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_VisaTypeRequested" ManuallyRouted="false" />
         <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_RGender1" />
+        <AssociationConnector Association="DbModels.FK_OnlineVisaApplication_TransportMode" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

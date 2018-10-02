@@ -140,5 +140,8 @@ namespace ssembassy_ankara.Models
 
         [ForeignKey("PassportType")]
         public int PassportTypeId { get; set; }
+
+        [ForeignKey("ModeOfTransport")]
+        public int TransportModeId { get; set; }
     }
 }

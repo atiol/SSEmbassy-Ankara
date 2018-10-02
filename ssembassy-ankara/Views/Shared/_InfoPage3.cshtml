@@ -1,0 +1,118 @@
+﻿
+<table class="table table-responsive table-condensed table-bordered">
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+            <th colspan="6">Next of Kin Details</th>
+        </tr>
+        <tr>
+            <td colspan="1">Surname</td>
+            <td colspan="1">@Model.KinSurname</td>
+            <td colspan="1">Given Names</td>
+            <td colspan="2">@Model.KinGivenNames</td>
+        </tr>
+        <tr>
+            <td>Permanent Address</td>
+            <td>@Model.KinPermanentAddress</td>
+            <td>Phone No</td>
+            <td>@Model.KinPhone</td>
+        </tr>
+        <tr>
+            <td>Mobile No</td>
+            <td>@Model.KinMobile</td>
+            <td>Email Address</td>
+            <td>@Model.KinEmail</td>
+        </tr>
+        <tr>
+            <th colspan="6">8. Have you ever:</th>
+        </tr>
+        <tr>
+            <td colspan="3" class="strong">
+                a) Been convicted of a crime or offence in any country?
+            </td>
+            @if (Model.BeenConvicted)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+        </tr>
+        <tr>
+            <td colspan="3" class="strong">
+                b) Been deported or removed from South Sudan or any country for overstaying your visa or violating any
+                law or regulation?
+            </td>
+            @if (Model.BeenDeportedForViolationOfLaw)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+        </tr>
+        <tr>
+            <td colspan="3" class="strong">
+                c) Been convicted and sentenced for a drug offence in any country in violation
+                of law concerning narcotics, marijuana, opium, stimulants or psychotropic
+                substances?
+            </td>
+            @if (Model.DrugOffence)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+        </tr>
+        <tr>
+            <td colspan="3" class="strong">
+                d) Committed trafficking in persons or incited or aided another to commit such an offence?
+            </td>
+            @if (Model.CommittedTrafficking)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+        </tr>
+        <tr>
+            <td colspan="3" class="strong">
+                e) Are you suffering from tuberculosis, any other infectious or contagious disease
+            </td>
+            @if (Model.InfectiousOrContagiousDisease)
+            {
+                <td>Yes</td>
+            }
+            else
+            {
+                <td>No</td>
+            }
+        </tr>
+        @if (Model.InfectiousOrContagiousDisease)
+            {
+            <tr>
+                <td>
+                    If you answer yes to any of the questions above, provide explanation.
+                </td>
+            </tr>
+                <tr>
+                    <td>@Model.ExplanationIfYes</td>
+                </tr>
+        }
+        <tr>
+            <td colspan="2">Address of Place of Stay/Hotel</td>
+            <td colspan="4">@Model.PlaceOfStayAddress</td>
+        </tr>
+        <tr>
+            <td colspan="2">Funds available for my stay</td>
+            <td colspan="4">@Model.FundsAvailableForStay</td>
+        </tr>
+    </tbody>
+</table>

@@ -316,6 +316,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSSHelper\RSSHelper.cs" />
     <Compile Include="Services\EmailNotifier.cs" />
+    <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RecaptchaValidationService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -328,6 +329,7 @@
     <Content Include="Content\dashboard\main.css" />
     <Content Include="Content\dashboard\print.css" />
     <Content Include="Content\dashboard\skin-blue.css" />
+    <Content Include="Content\dashboard\visa_print.css" />
     <Content Include="Content\datatables\dataTables.bootstrap.css" />
     <Content Include="Content\datepicker\datepicker3.css" />
     <Content Include="Content\default\bxslider\images\bx_loader.gif" />
@@ -671,6 +673,10 @@
     <Content Include="Views\Shared\_VisaHeader.cshtml" />
     <Content Include="Views\OnlineVisaApplication\ApplicantVisaInfoPdf.cshtml" />
     <Content Include="Views\Shared\_VisaFooter.cshtml" />
+    <Content Include="Views\Shared\_InfoPage1.cshtml" />
+    <Content Include="Views\Shared\_InfoPage2.cshtml" />
+    <Content Include="Views\Shared\_InfoPage3.cshtml" />
+    <Content Include="Views\Shared\_InfoPage4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

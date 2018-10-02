@@ -1,0 +1,100 @@
+﻿
+<table class="table table-responsive table-bordered">
+    <thead>
+        <tr>
+            <th colspan="6">Preliminary Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Place of Application</td>
+            <td>@Model.ApplicationPlace</td>
+            <td>Date</td>
+            <td>@Model.ApplicationDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+        @if (!Model.PreviouslyApplied)
+            {
+            <tr>
+                <td>Have you Previously Applied for South Sudan Visa?</td>
+                <td>
+                    No
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>Have you Previously Applied for South Sudan Visa</td>
+                <td>Yes</td>
+            </tr>
+                <tr>
+                    <td>Previous Visa No</td>
+                    <td>@Model.PreviousVisaNo</td>
+                    <td>Date of Issue</td>
+                    <td>@Model.PrevIssueDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <td>Place of Issue</td>
+                    <td>@Model.PrevIssuePlace</td>
+                </tr>
+                <tr>
+                    <td>Date of arrival in South Sudan</td>
+                    <td>@Model.PrevArrivalDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <td>Point of Entry</td>
+                    <td>@Model.PrevEntryPoint</td>
+                </tr>
+                <tr>
+                    <td>Point of Exit</td>
+                    <td>@Model.PrevExitPoint</td>
+                </tr>
+        }
+        <tr>
+            <th colspan="6">1. Visa Information</th>
+        </tr>
+        <tr>
+            <td>Visa Type Requested</td>
+            <td>@Model.VisaTypeRequested.VisaType</td>
+            <td>Purpose of Visit</td>
+            <td>@Model.PurposeOfVisit.Purpose</td>
+        </tr>
+        <tr>
+            <td>Duration of intended stay</td>
+            <td>@Model.DurationOfStay</td>
+            <td>Mode of transport</td>
+            <td>@Model.ModeOfTransport.Transport</td>
+        </tr>
+        <tr>
+            <td>Date of intended arrival in South Sudan</td>
+            <td>@Model.IntendedArrivalDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <th colspan="6">2. Personal Details</th>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td>@Model.Surname</td>
+            <td colspan="1">Given Names</td>
+            <td  colspan="2">@Model.GivenNames</td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>@Model.BirthDate.ToString("dd/MM/yyyy")</td>
+            <td>Place of Birth</td>
+            <td>@Model.BirthPlace</td>
+        </tr>
+        <tr>
+            <td>Country of Birth</td>
+            <td>@Model.CountryOfBirth</td>
+            <td>Sex</td>
+            <td>@Model.Sex.Gender</td>
+        </tr>
+        <tr>
+            <td>Maritial Status</td>
+            <td>@Model.MaritalStatus</td>
+            <td>Nationality</td>
+            <td>@Model.Nationality</td>
+        </tr>
+    </tbody>
+</table>

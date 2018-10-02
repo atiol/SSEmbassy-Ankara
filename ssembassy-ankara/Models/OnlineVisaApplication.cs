@@ -82,11 +82,13 @@ namespace ssembassy_ankara.Models
         public string ReferenceProfession { get; set; }
         public string ReferenceNationality { get; set; }
         public string BirthPlace { get; set; }
+        public string VisaNumber { get; set; }
     
         public virtual PassportType PassportType { get; set; }
         public virtual PurposeOfVisit PurposeOfVisit { get; set; }
         public virtual Sex Sex { get; set; }
         public virtual VisaTypeRequested VisaTypeRequested { get; set; }
         public virtual Sex Sex2 { get; set; }
+        public virtual ModeOfTransport ModeOfTransport { get; set; }
     }
 }

@@ -218,6 +218,7 @@
           <Property Name="ReferenceRelationshipToApplicant" Type="nvarchar" MaxLength="50" />
           <Property Name="ReferenceProfession" Type="nvarchar" MaxLength="100" />
           <Property Name="ReferenceNationality" Type="nvarchar" MaxLength="100" />
+          <Property Name="VisaNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PassportType">
           <Key>
@@ -363,6 +364,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OnlineVisaApplication_TransportMode">
+          <End Role="ModeOfTransport" Type="Self.ModeOfTransport" Multiplicity="1" />
+          <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeOfTransport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnlineVisaApplication">
+              <PropertyRef Name="TransportModeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OnlineVisaApplication_VisaTypeRequested">
           <End Role="VisaTypeRequested" Type="Self.VisaTypeRequested" Multiplicity="1" />
           <End Role="OnlineVisaApplication" Type="Self.OnlineVisaApplication" Multiplicity="*" />
@@ -425,6 +438,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_OnlineVisaApplication_Sex" Association="Self.FK_OnlineVisaApplication_Sex">
             <End Role="Sex" EntitySet="Sex" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_TransportMode" Association="Self.FK_OnlineVisaApplication_TransportMode">
+            <End Role="ModeOfTransport" EntitySet="ModeOfTransport" />
             <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
           </AssociationSet>
           <AssociationSet Name="FK_OnlineVisaApplication_VisaTypeRequested" Association="Self.FK_OnlineVisaApplication_VisaTypeRequested">
@@ -581,6 +598,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Transport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OnlineVisaApplication" Relationship="DbModels.FK_OnlineVisaApplication_TransportMode" FromRole="ModeOfTransport" ToRole="OnlineVisaApplication" />
         </EntityType>
         <EntityType Name="OnlineVisaApplication">
           <Key>
@@ -659,6 +677,8 @@
           <NavigationProperty Name="VisaTypeRequested" Relationship="Self.FK_OnlineVisaApplication_VisaTypeRequested" FromRole="OnlineVisaApplication" ToRole="VisaTypeRequested" />
           <Property Name="BirthPlace" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sex2" Relationship="DbModels.FK_OnlineVisaApplication_RGender1" FromRole="OnlineVisaApplication" ToRole="Sex" />
+          <Property Name="VisaNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ModeOfTransport" Relationship="DbModels.FK_OnlineVisaApplication_TransportMode" FromRole="OnlineVisaApplication" ToRole="ModeOfTransport" />
         </EntityType>
         <EntityType Name="PassportType">
           <Key>
@@ -866,6 +886,10 @@
             <End Role="Sex" EntitySet="Sex" />
             <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
           </AssociationSet>
+          <AssociationSet Name="FK_OnlineVisaApplication_TransportMode" Association="DbModels.FK_OnlineVisaApplication_TransportMode">
+            <End Role="ModeOfTransport" EntitySet="ModeOfTransport" />
+            <End Role="OnlineVisaApplication" EntitySet="OnlineVisaApplication" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_OnlineVisaApplication_RGender1">
           <End Type="DbModels.Sex" Role="Sex" Multiplicity="0..1" />
@@ -876,6 +900,18 @@
             </Principal>
             <Dependent Role="OnlineVisaApplication">
               <PropertyRef Name="ReferenceGenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineVisaApplication_TransportMode">
+          <End Type="DbModels.ModeOfTransport" Role="ModeOfTransport" Multiplicity="1" />
+          <End Type="DbModels.OnlineVisaApplication" Role="OnlineVisaApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeOfTransport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnlineVisaApplication">
+              <PropertyRef Name="TransportModeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1043,6 +1079,7 @@
           <EntitySetMapping Name="OnlineVisaApplication">
             <EntityTypeMapping TypeName="DbModels.OnlineVisaApplication">
               <MappingFragment StoreEntitySet="OnlineVisaApplication">
+                <ScalarProperty Name="VisaNumber" ColumnName="VisaNumber" />
                 <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ApplicationPlace" ColumnName="ApplicationPlace" />
