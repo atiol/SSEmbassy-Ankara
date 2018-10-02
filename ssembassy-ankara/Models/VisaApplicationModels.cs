@@ -231,4 +231,55 @@ namespace ssembassy_ankara.Models
 
         public int Id { get; set; }
     }
+
+    public class ApprovingAuthority
+    {
+        [Required]
+        [Display(Name = "Officer Name")]
+        public string OfficerName { get; set; }
+
+        [Required]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "Entry Type")]
+        public string EntryType { get; set; }
+
+        [Required]
+        [Display(Name = "Period of Stay")]
+        public int PeriodOfStay { get; set; }
+        
+        [Display(Name = "Date of Approval")]
+        public DateTime DateOfApproval { get; set; }
+
+        public string Comments { get; set; }
+    }
+
+    public class VisaFees
+    {
+        [Required]
+        [Display(Name = "Amount")]
+        public double Amount { get; set; }
+
+        [Required]
+        [Display(Name = "Date of Receipt")]
+        public DateTime DateOfReceipt { get; set; }
+
+        [Required]
+        [Display(Name = "Receipt No")]
+        public string ReceiptNo { get; set; }
+
+        [Required]
+        [Display(Name = "Designated Officer's Name")]
+        public string DesignatedOfficerName { get; set; }
+
+        [Required]
+        [Display(Name = "Title")]
+        public string OfficerTitle { get; set; }
+
+        [Required]
+        [Display(Name = "Visa Number")]
+        public string VisaNumber { get; set; }
+    }
 }
