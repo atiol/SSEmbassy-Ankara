@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -19,14 +20,15 @@ namespace ssembassy_ankara.Controllers
         // Get: Ambassador Info
         public PartialViewResult AmbassadorInfoPartial()
         {
-            var model = _context.Users.FirstOrDefault(u => u.Position == "Ambassador");
+            var model = _context.Users.Include("positions").
+                FirstOrDefault(p => p.Positions.position.Equals("ambassador", StringComparison.InvariantCultureIgnoreCase));
             if (model != null)
             {
                 return PartialView("_AmbassadorInfoPartial", new StaffBasicInfoViewModel
                 {
                     Id = model.Id,
                     FullName = model.FullName,
-                    Position = model.Position,
+                    Position = model.Positions.position,
                     ImgUrl = model.ImgUrl,
                     Message = model.Message
                 });

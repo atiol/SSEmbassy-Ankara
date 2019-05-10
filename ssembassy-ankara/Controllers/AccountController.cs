@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using ssembassy_ankara.Models;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Net.Mime;
 using System.Web.Security;
 using System.IO;
@@ -159,7 +160,7 @@ namespace ssembassy_ankara.Controllers
         public List<SelectListItem> GetPositions()
         {
             return _context.Positions.OrderBy(p => p.position).ToList()
-                .Select(pp => new SelectListItem { Value = pp.position.ToString(), Text = pp.position })
+                .Select(pp => new SelectListItem { Value = pp.id.ToString(), Text = pp.position })
                 .ToList();
         }
 
@@ -188,10 +189,10 @@ namespace ssembassy_ankara.Controllers
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
-                user.Position = model.Position;
                 user.FullName = model.FullName;
                 user.Biography = model.Biography;
                 user.Message = model.Message;
+                user.PositionId = model.PositionId;
 
                 if (model.ImageFile.IsImage())
                 {
@@ -336,7 +337,7 @@ namespace ssembassy_ankara.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var staff = UserManager.FindById(id);
+            var staff = _context.Users.Include("positions").FirstOrDefault(x => x.Id.Equals(id));
             if (staff == null)
             {
                 return HttpNotFound();

@@ -65,7 +65,7 @@ namespace ssembassy_ankara.Controllers
                         Id = staff.Id,
                         FullName = staff.FullName,
                         ImgUrl = string.IsNullOrEmpty(staff.ImgUrl) ? _defaultStaffImageUrl: staff.ImgUrl,
-                        Position = staff.Position
+                        Position = staff.Positions.position
                     };
                     staffViewList.Add(staffViewModel);
                 }

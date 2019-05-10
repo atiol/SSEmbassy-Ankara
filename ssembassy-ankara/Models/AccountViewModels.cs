@@ -109,7 +109,7 @@ namespace ssembassy_ankara.Models
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        public string Position { get; set; }
+        public int PositionId { get; set; }
 
         [DataType(DataType.PhoneNumber, ErrorMessage = "Phone Number should be in (555) 555 55 55 format")]
         public string PhoneNumber { get; set; }

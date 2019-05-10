@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -25,14 +26,16 @@ namespace ssembassy_ankara.Models
         [Required]
         public string FullName { get; set; }
 
-        [Required]
-        public string Position { get; set; }
+        public int PositionId { get; set; }
 
         [AllowHtml]
         public string Biography { get; set; }
 
         [AllowHtml]
         public string Message { get; set; }
+
+        [ForeignKey("PositionId")]
+        public positions Positions { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

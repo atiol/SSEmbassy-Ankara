@@ -103,7 +103,7 @@
                                     <img src="@Url.Content("~/Content/img/muser.png")" alt="User Image">
                                  }
                                  <a class="users-list-name" href="@Url.Action("StaffProfile", "Account", new {id = staff.Id})">@staff.FullName</a>
-                                 <span class="users-list-date">@staff.Position</span>
+                                 <span class="users-list-date">@staff.Positions.position</span>
                              </li>
                          }
                     }

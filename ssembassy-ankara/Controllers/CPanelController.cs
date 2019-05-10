@@ -29,7 +29,7 @@ namespace ssembassy_ankara.Controllers
         public ActionResult Index()
         {
             var staffs = GetAllStaff();
-            ViewBag.Staff = staffs.OrderByDescending(x => x.Position).ToList();
+            ViewBag.Staff = staffs.OrderBy(x => x.Positions.weight).ToList();
             ViewBag.StaffCount = staffs.Count;
 
             var allArticles = GetArticles();
@@ -48,7 +48,7 @@ namespace ssembassy_ankara.Controllers
         // Get: All staff
         public List<ApplicationUser> GetAllStaff()
         {
-            return _db.Users.ToList();
+            return _db.Users.Include("positions").ToList();
         }
 
         // Get: Articles in descending order
@@ -87,17 +87,20 @@ namespace ssembassy_ankara.Controllers
 
         public LoggedInUser GetLoggedInUser()
         {
-            var userId = User.Identity.GetUserId();
-            if (string.IsNullOrEmpty(userId))
+            var userId = HttpContext.User.Identity.GetUserId();
+            if (string.IsNullOrWhiteSpace(userId))
                 return null;
 
-            var loggedInUser = _db.Users.First(x => x.Id == userId);
+            var loggedInUser = _db.Users.Include("positions").FirstOrDefault(x => x.Id.Equals(userId));
+
+            if (loggedInUser == null)
+                return null;
 
             var userViewModal = new LoggedInUser
             {
                 Id = loggedInUser.Id,
                 FullName = loggedInUser.FullName,
-                Position = loggedInUser.Position,
+                Position = loggedInUser.Positions.position,
                 ImageUrl = loggedInUser.ImgUrl
             };
 
